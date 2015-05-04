@@ -1,9 +1,6 @@
-package scenes
+package escenas
 {
-	import core.assets.Assets;
-	
 	import starling.display.DisplayObject;
-	import starling.display.Image;
 	import starling.display.Quad;
 	import starling.display.Sprite;
 	import starling.events.Event;
@@ -11,7 +8,7 @@ package scenes
 	import starling.events.TouchEvent;
 	import starling.events.TouchPhase;
 	
-	public class Game extends Sprite
+	public class Game extends Sprite implements IEscenaPricipal
 	{
 		private var btnIzq:Quad;
 		private var btnDer:Quad;
@@ -40,7 +37,7 @@ package scenes
 		{
 			//var fdo:Image = new Image(Assets.getTexture("fondo"));
 			//addChild(fdo);
-			
+			/*
 			sp = new Sprite();
 			var img:Image = new Image(Assets.getTexture("carro"));
 			sp.x = 350;
@@ -74,6 +71,7 @@ package scenes
 			addEventListener(Event.ENTER_FRAME, onEnterFrame);
 			
 			/**build terrain*/
+			/*
 			for(var i:uint; i<mapArray.length; i++){
 				var sep1:Image = new Image(Assets.getTexture("sepArriba"));;
 				capa1.addChild(sep1);
@@ -101,7 +99,7 @@ package scenes
 				capa2.addChild(piso);
 			}
 			ordenarElementos(capa1);
-			ordenarElementos(capa4);
+			ordenarElementos(capa4);*/
 		}
 		public function ordenarElementos(map:Sprite):void
 		{
@@ -202,5 +200,18 @@ package scenes
 			 sp.x += velX;
 			 sp.y += velY;
 		}
+		
+		public function destruir():void
+		{
+			// TODO Auto Generated method stub
+			
+		}
+		
+		public function resume():void
+		{
+			// TODO Auto Generated method stub
+			
+		}
+		
 	}
 }

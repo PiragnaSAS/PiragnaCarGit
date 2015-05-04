@@ -1,15 +1,16 @@
 package
 {
 	import flash.desktop.NativeApplication;
+	import flash.display.Bitmap;
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
 	import flash.events.Event;
 	import flash.geom.Rectangle;
+	import flash.media.SoundMixer;
 	
-	import core.Constants;
-	
-	import scenes.Game;
+	import core.General;
+	import core.Juego;
 	
 	import starling.core.Starling;
 	
@@ -25,66 +26,63 @@ package
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = StageAlign.TOP_LEFT;
 			
-			Starling.multitouchEnabled = true;  // useful on mobile devices
-			Starling.handleLostContext = false; // not necessary on iOS. Saves a lot of memory!
+			General.pantallaAncho = stage.fullScreenWidth;
+			General.pantallaAlto = stage.fullScreenHeight;
+			General.calcularAspectRatioPantalla();
 			
-			var screenWidth:int  = stage.fullScreenWidth;
-			var screenHeight:int = stage.fullScreenHeight;
-			var viewPort:Rectangle = new Rectangle();
+			General.viewPortBaseAncho = 480;
+			General.viewPortBaseAlto = 320;
+			//General.viewPortBaseLimiteAncho = 512+30;
+			//General.viewPortBaseLimiteAlto = 384+30;
+			General.calcularAspectRatioBase();
 			
-			if (screenHeight / screenWidth < Constants.ASPECT_RATIO)
-			{
-				viewPort.height = screenHeight;
-				viewPort.width  = int(viewPort.height / Constants.ASPECT_RATIO);
-				viewPort.x = int((screenWidth - viewPort.width) / 2);
-			}
-			else
-			{
-				viewPort.width = screenWidth; 
-				viewPort.height = int(viewPort.width * Constants.ASPECT_RATIO);
-				viewPort.y = int((screenHeight - viewPort.height) / 2);
-			}
+			General.calcularViewPort(1);
+			General.calcularViewPortJuego();
 			
-			var startupImage:Sprite = createStartupImage(viewPort, screenWidth > 320);
-			addChild(startupImage);
+			var imagenDeArranque:Sprite = crearImagenDeArranque(General.viewPort, General.pantallaAncho > General.viewPortBaseAncho);
+			addChild(imagenDeArranque);
 			
-			starling = new Starling(Game, stage, viewPort);
+			starling = new Starling(Juego, stage, General.viewPort);
 			
 			starling.stage3D.addEventListener(Event.CONTEXT3D_CREATE, function(e:Event):void
 			{
-				// Starling is ready! We remove the startup image and start the game.
-				removeChild(startupImage);
-				startupImage = null;
+				removeChild(imagenDeArranque);
+				imagenDeArranque = null;
 				starling.start();
 				
-				//
 				starling.simulateMultitouch = true;
 				//starling.showStats = true;
 			});
 			
 			NativeApplication.nativeApplication.addEventListener(Event.ACTIVATE, 
-				function (e:Event):void { starling.start(); });
+				function (e:Event):void { 
+					starling.start();
+					SoundMixer.soundTransform.volume=1;
+				});
 			
 			NativeApplication.nativeApplication.addEventListener(Event.DEACTIVATE, 
-				function (e:Event):void { starling.stop(); });
+				function (e:Event):void {
+					starling.stop();
+					SoundMixer.soundTransform.volume=0;
+				});
 		}
 		
-		private function createStartupImage(viewPort:Rectangle, isHD:Boolean):Sprite
+		private function crearImagenDeArranque(viewPort:Rectangle, isHD:Boolean):Sprite
 		{
 			var sprite:Sprite = new Sprite();
+			/*
+			var fondo:Bitmap = isHD ?
+				new AssetEmbeds_2x.Fondo1() : new RecursosEncrustados_1x.Fondo1();
 			
-			/*var background:Bitmap = isHD ?
-				new AssetEmbeds_2x.FondoInicio() : new AssetEmbeds_1x.FondoInicio();
-			
-			background.smoothing = true;
-			sprite.addChild(background);
+			fondo.smoothing = true;
+			sprite.addChild(fondo);
 			
 			var cargando:Bitmap = isHD ?
-				new AssetEmbeds_2x.Cargando() : new AssetEmbeds_1x.Cargando();
+				new RecursosEncrustados_2x.Cargando() : new RecursosEncrustados_1x.Cargando();
 			
 			cargando.smoothing = true;
-			cargando.x = Constants.STAGE_WIDTH*2-cargando.width-64;
-			cargando.y = Constants.STAGE_HEIGHT*2-cargando.height-64;
+			cargando.x = fondo.width - cargando.width-64;
+			cargando.y = fondo.height - cargando.height-64;
 			sprite.addChild(cargando);
 			
 			sprite.x = viewPort.x;
