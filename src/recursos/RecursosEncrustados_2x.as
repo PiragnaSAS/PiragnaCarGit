@@ -4,6 +4,8 @@ package recursos
 
 	public final class RecursosEncrustados_2x
 	{
+		[Embed(source="../../assets/images/Carreteras/Escenario01_RoadToPiragna_render003.png")]
+		public static const SepArriba:Class;
 		/*[Embed(source="../../recursos/texturas/2x/fondo 1.png")]
 		public static const Fondo1:Class;
 		

@@ -1,7 +1,6 @@
 package
 {
 	import flash.desktop.NativeApplication;
-	import flash.display.Bitmap;
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
@@ -9,8 +8,9 @@ package
 	import flash.geom.Rectangle;
 	import flash.media.SoundMixer;
 	
+	import base.scenes.RoadFighter;
+	
 	import core.General;
-	import core.Juego;
 	
 	import starling.core.Starling;
 	
@@ -42,7 +42,7 @@ package
 			var imagenDeArranque:Sprite = crearImagenDeArranque(General.viewPort, General.pantallaAncho > General.viewPortBaseAncho);
 			addChild(imagenDeArranque);
 			
-			starling = new Starling(Juego, stage, General.viewPort);
+			starling = new Starling(RoadFighter, stage, General.viewPort);
 			
 			starling.stage3D.addEventListener(Event.CONTEXT3D_CREATE, function(e:Event):void
 			{

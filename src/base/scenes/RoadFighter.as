@@ -1,22 +1,32 @@
 package base.scenes
 {
-	import flash.display.Sprite;
-	
 	import base.ia.GestorIA;
 	import base.niveles.mapa.Mapa;
+	import base.niveles.mapa.Nivel1;
+	
+	import car.heroe.Heroe;
+	
+	import recursos.Recursos;
+	
+	import starling.display.Image;
+	import starling.display.Sprite;
 	import starling.events.Event;
 
 	public class RoadFighter extends Sprite
 	{
 		private var gestorIA:GestorIA;
 		private var nivel:Mapa;
+		private var hero:Heroe;
 		
-		private var gasolina:uint;
-		private var score:uint;
-		private var velocidad:uint;
+		private var speed:uint;
 		
 		public function RoadFighter()
 		{
+			this.nivel = new Nivel1();
+			this.gestorIA = new GestorIA(this.nivel);
+			this.hero = new Heroe();
+			
+			this.addChild(this.nivel);
 		}
 		
 		private function onEnterFrame(e:Event):void

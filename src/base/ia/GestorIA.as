@@ -1,8 +1,8 @@
 package base.ia
 {
-	import flash.display.Sprite;
-	
 	import base.niveles.mapa.Mapa;
+	
+	import flash.display.Sprite;
 
 	public class GestorIA
 	{
@@ -29,9 +29,10 @@ package base.ia
 			{
 				for(var j:uint = 0; j< numChildren; j++)
 				{
-					if ((i != j)&&(capa.getChildAt(i).hitTestObject(capa.getChildAt(j))))
+					if ((i != j)&&((capa.getChildAt(i) as Sprite).hitTestObject(capa.getChildAt(j) as Sprite)))
 					{
 						//acá se debe manejar la colisión con base a nuestro contexto que es el mapa
+							
 					}
 				}	
 			}

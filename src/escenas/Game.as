@@ -26,6 +26,7 @@ package escenas
 		
 		public function Game()
 		{
+			trace("Game");
 			super();
 			for(var i:uint = 0; i<120; i++){
 				mapArray[i] = i%2;//Math.floor(Math.random()*0);
