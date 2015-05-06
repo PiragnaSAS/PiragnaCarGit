@@ -1,10 +1,10 @@
 package base.levels.map
 {
-	import layers.CapaCarrera;
-	import layers.CapaCarrosYBorde;
-	import layers.CapaObjetos;
-	import layers.CapaObjetosFrente;
-	import layers.CapaSuelo;
+	import layers.RaceLayer;
+	import layers.CarsAndBorderLayer;
+	import layers.ObjectsLayer;
+	import layers.FrontObjectsLayer;
+	import layers.GroundLayer;
 	
 	import starling.display.Sprite;
 
