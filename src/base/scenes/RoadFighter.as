@@ -1,10 +1,11 @@
 package base.scenes
 {
 	import base.ia.IAManager;
+	import base.levels.map.Level1;
 	import base.levels.map.Map;
+	
 	import car.hero.Hero;
-	import resources.Resources;
-	import starling.display.Image;
+	
 	import starling.display.Sprite;
 	import starling.events.Event;
 
@@ -17,7 +18,7 @@ package base.scenes
 		
 		public function RoadFighter()
 		{
-			//this.level = new Level1();
+			this.level = new Level1();
 			this.iAManager = new IAManager(this.level);
 			this.hero = new Hero();
 			this.addChild(this.level);

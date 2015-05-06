@@ -28,7 +28,7 @@ package
 			
 			General.screenWidth = stage.fullScreenWidth;
 			General.screenHeight = stage.fullScreenHeight;
-			General.calculateAspectRatioScreen()();
+			General.calculateAspectRatioScreen();
 			
 			General.viewPortBaseWidth = 480;
 			General.viewPortBaseHeight = 320;

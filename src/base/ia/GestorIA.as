@@ -1,12 +1,12 @@
 package base.ia
 {
-	import base.niveles.mapa.Mapa;
+	import base.niveles.mapa.Map;
 	
 	import flash.display.Sprite;
 
 	public class GestorIA
 	{
-		private var contexto:Mapa;
+		private var contexto:Map;
 		
 		public function GestorIA(contexto)
 		{
@@ -57,7 +57,7 @@ package base.ia
 			return obj1.hitTestObject(obj2);
 		}
 		
-		public function update():Mapa
+		public function update():Map
 		{
 			return this.contexto;
 		}
