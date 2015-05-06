@@ -7,7 +7,7 @@ package car.hero
 		private var score:uint = 0;
 		private var fuel:uint = 0;
 		
-		public function Hero(initialState:uint){
+		public function Hero(){
 		
 		}
 		

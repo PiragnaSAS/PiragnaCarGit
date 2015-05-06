@@ -15,8 +15,8 @@ package car.enemyCar
 			this.react(initialState);
 		}
 		
-		override public function react(...arg):void{
-			switch(arg)
+		override public function react(...args):void{
+			switch(args[0])
 			{
 				case Car.EST_MOVING:
 				{
@@ -41,9 +41,9 @@ package car.enemyCar
 			
 		}
 		/*
-		private function exploding(hero:Car):uint{
+		private function exploding(hero:Car):void{
 			this.actualBonusCarImage="exploding_bonus_car_image";
-			return(bonusFuel);
+
 		}*/
 		
 		public function getBonusFuel():uint{

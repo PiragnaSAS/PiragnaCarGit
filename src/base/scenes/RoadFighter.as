@@ -18,7 +18,7 @@ package base.scenes
 		
 		public function RoadFighter()
 		{
-			this.level = new Level1();
+			//this.level = new Level1();
 			this.iAManager = new IAManager(this.level);
 			this.hero = new Hero();
 			
