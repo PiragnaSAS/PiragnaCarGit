@@ -1,4 +1,4 @@
-package escenas
+package scene
 {
 	import starling.display.DisplayObject;
 	import starling.display.Quad;
@@ -8,10 +8,10 @@ package escenas
 	import starling.events.TouchEvent;
 	import starling.events.TouchPhase;
 	
-	public class Game extends Sprite implements IEscenaPricipal
+	public class Game extends Sprite implements IPrincipalScene
 	{
-		private var btnIzq:Quad;
-		private var btnDer:Quad;
+		private var leftBtn:Quad;
+		private var rightBtn:Quad;
 		private var left:Boolean;
 		private var right:Boolean;
 		private var sp:Sprite;
@@ -19,10 +19,10 @@ package escenas
 		private var mapArray:Array = [];
 		
 		//capas
-		private var capa1:Sprite;
-		private var capa2:Sprite;
-		private var capa3:Sprite;
-		private var capa4:Sprite;
+		private var layer1:Sprite;
+		private var layer2:Sprite;
+		private var layer3:Sprite;
+		private var layer4:Sprite;
 		
 		public function Game()
 		{
@@ -45,29 +45,29 @@ package escenas
 			sp.y = 450;
 			sp.addChild(img);
 			
-			capa1 = new Sprite();
-			addChild(capa1);
-			capa2 = new Sprite();
-			addChild(capa2);
-			capa3 = new Sprite();
-			addChild(capa3);
-			capa4 = new Sprite();
-			addChild(capa4);
+			layer1 = new Sprite();
+			addChild(layer1);
+			layer2 = new Sprite();
+			addChild(layer2);
+			layer3 = new Sprite();
+			addChild(layer3);
+			layer4 = new Sprite();
+			addChild(layer4);
 			
 			
-			capa3.addChild(sp);
+			layer3.addChild(sp);
 			
 			//controles
-			btnIzq = new Quad(512, 768, 0xffffff);
-			btnIzq.alpha = .0;
-			btnDer = new Quad(512, 768, 0xffffff);
-			btnDer.x = 512;
-			btnDer.alpha = .0;
-			addChild(btnIzq);
-			addChild(btnDer);
+			leftBtn = new Quad(512, 768, 0xffffff);
+			leftBtn.alpha = .0;
+			rightBtn = new Quad(512, 768, 0xffffff);
+			rightBtn.x = 512;
+			rightBtn.alpha = .0;
+			addChild(leftBtn);
+			addChild(rightBtn);
 			
-			btnIzq.addEventListener(TouchEvent.TOUCH, touchHandler);
-			btnDer.addEventListener(TouchEvent.TOUCH, touchHandler);
+			leftBtn.addEventListener(TouchEvent.TOUCH, touchHandler);
+			rightBtn.addEventListener(TouchEvent.TOUCH, touchHandler);
 			
 			addEventListener(Event.ENTER_FRAME, onEnterFrame);
 			
@@ -75,34 +75,34 @@ package escenas
 			/*
 			for(var i:uint; i<mapArray.length; i++){
 				var sep1:Image = new Image(Assets.getTexture("sepArriba"));;
-				capa1.addChild(sep1);
+				layer1.addChild(sep1);
 				
-				var piso:Image;
+				var ground:Image;
 				
 				
 				var sep2:Image = new Image(Assets.getTexture("sepAbajo"));
-				capa4.addChild(sep2);
+				layer4.addChild(sep2);
 				
 				switch(mapArray[i]){
 					case 0:
-						piso = new Image(Assets.getTexture("pisoLineaDoble"));				
+						ground = new Image(Assets.getTexture("pisoLineaDoble"));				
 						break;
 					case 1:
-						piso = new Image(Assets.getTexture("pisoVacio"));
+						ground = new Image(Assets.getTexture("pisoVacio"));
 						break;					
 				}
 				sep1.x = 41*i;
-				piso.x = 36*i;
+				ground.x = 36*i;
 				sep2.x = 41*i;
 				sep1.y = 250-18.5*i;
-				piso.y = 250-16.25*i;
+				ground.y = 250-16.25*i;
 				sep2.y = 250-18.5*i;
-				capa2.addChild(piso);
+				layer2.addChild(ground);
 			}
-			ordenarElementos(capa1);
-			ordenarElementos(capa4);*/
+			ordenarElementos(layer1);
+			ordenarElementos(layer4);*/
 		}
-		public function ordenarElementos(map:Sprite):void
+		public function sortElements(map:Sprite):void
 		{
 			/*var N:uint = 1;
 			
@@ -141,15 +141,15 @@ package escenas
 			var touch:Touch = e.getTouch(target);
 			if(!touch)return;
 			if(touch.phase == TouchPhase.BEGAN){
-				if(target == btnIzq){
+				if(target == leftBtn){
 					left = true;
-				} else if(target == btnDer){
+				} else if(target == rightBtn){
 					right = true;
 				}
 			} else if(touch.phase == TouchPhase.ENDED){
-				if(target == btnIzq){
+				if(target == leftBtn){
 					left = false;
-				} else if(target == btnDer){
+				} else if(target == rightBtn){
 					right = false;
 				}
 			}
@@ -172,12 +172,12 @@ package escenas
 			velPx *= fr;
 			velPy += accPy;
 			velPy *= fr;
-			capa1.y+=velPy*.9035;
-			capa1.x-=velPx;
-			capa2.y+=velPy*.9035;
-			capa2.x-=velPx;
-			capa4.y+=velPy*.9035;
-			capa4.x-=velPx;
+			layer1.y+=velPy*.9035;
+			layer1.x-=velPx;
+			layer2.y+=velPy*.9035;
+			layer2.x-=velPx;
+			layer3.y+=velPy*.9035;
+			layer3.x-=velPx;
 			 if(left){
 				 accX = -accF;
 				 accY = -accF;

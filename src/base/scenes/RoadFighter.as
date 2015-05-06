@@ -1,57 +1,53 @@
 package base.scenes
 {
-	import base.ia.GestorIA;
-	import base.niveles.mapa.Mapa;
-	import base.niveles.mapa.Nivel1;
-	
-	import car.heroe.Heroe;
-	
-	import recursos.Recursos;
-	
+	import base.ia.IAManager;
+	import base.levels.map.Map;
+	import car.hero.Hero;
+	import resources.Resources;
 	import starling.display.Image;
 	import starling.display.Sprite;
 	import starling.events.Event;
 
 	public class RoadFighter extends Sprite
 	{
-		private var gestorIA:GestorIA;
-		private var nivel:Mapa;
-		private var hero:Heroe;
+		private var iAManager:IAManager;
+		private var level:Map;
+		private var hero:Hero;
 		
 		private var speed:uint;
 		
 		public function RoadFighter()
 		{
-			this.nivel = new Nivel1();
-			this.gestorIA = new GestorIA(this.nivel);
-			this.hero = new Heroe();
+			this.level = new Level1();
+			this.iAManager = new IAManager(this.level);
+			this.hero = new Hero();
 			
-			this.addChild(this.nivel);
+			this.addChild(this.level);
 		}
 		
 		private function onEnterFrame(e:Event):void
 		{
 			//hilo principal
 			
-			actualizarControles();
-			actualizar();
-			actualizarIA();
+			updateControls();
+			update();
+			updateIA();
 		}
 		
-		private function actualizarControles():void
+		private function updateControls():void
 		{
 			// TODO Auto Generated method stub
 			
 		}
 		
-		private function actualizar()
+		private function update()
 		{
 		
 		}
 		
-		private function actualizarIA()
+		private function updateIA()
 		{
-			this.nivel = this.gestorIA.update();
+			this.level = this.iAManager.update();
 		}
 	}
 }

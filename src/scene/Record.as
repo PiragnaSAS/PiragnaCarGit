@@ -1,4 +1,4 @@
-package escenas
+package scene
 {
 	import flash.text.TextField;
 	
@@ -8,13 +8,13 @@ package escenas
 	
 	import memoria.MemoriaYaku;
 	
-	import recursos.Recursos;
+	import resources.Resources;
 	
 	import starling.display.Image;
 	import starling.display.Sprite;
 	import starling.events.Event;
 	
-	public class Registro extends Sprite implements IEscena
+	public class Record extends Sprite implements IScene
 	{
 		private static const REGISTRO_NUEVO:uint = 0;
 		private static const AUTO_REGISTRO:uint = 1;
@@ -40,7 +40,7 @@ package escenas
 		private var campoError:*;
 		
 		
-		public function Registro()
+		public function Record()
 		{
 			super();
 			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
@@ -61,7 +61,7 @@ package escenas
 		
 		private function inicializar():void
 		{
-			fondo = new Image(Recursos.obtenerTextura("Fondo2"));
+			fondo = new Image(Resources.obtenerTextura("Fondo2"));
 			fondo.width = General.viewPortJuego.width;
 			fondo.height = General.viewPortJuego.height;
 			addChild(fondo);
