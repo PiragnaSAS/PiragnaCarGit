@@ -4,72 +4,73 @@ package core
 	import flash.utils.getQualifiedClassName;
 	import flash.utils.getTimer;
 	
-	import escenas.Game;
+	import scene.Game;
 
 	public final class General
 	{
-		public static const ESCENA_JUEGO:String = getQualifiedClassName(Game);
-		//public static const ESCENA_PRESENTACION:String = getQualifiedClassName(Presentacion);
-		//public static const ESCENA_INTRODUCCION:String = getQualifiedClassName(Introduccion);
-		//public static const ESCENA_JUEGO_SAPO:String = getQualifiedClassName(JuegoSapo);
-		//public static const ESCENA_REGISTRO:String = getQualifiedClassName(Registro);
-		//public static const ESCENA_ALBUM:String = getQualifiedClassName(Album);
+		public static const SCENE_GAME:String = getQualifiedClassName(scene.Game);
+		//public static const SCENE_PRESENTATION:String = getQualifiedClassName(Presentation);
+		//public static const SCENE_INTRODUCTION:String = getQualifiedClassName(Introduction);
+		//public static const SCENE_GANE_TOAD:String = getQualifiedClassName(ToadGame);
+		//public static const SCENE_RECORD:String = getQualifiedClassName(Record);
+		//public static const SCENE_ALBUM:String = getQualifiedClassName(Album);
 		
-		public static var pantallaAncho:uint;
-		public static var pantallaAlto:uint;
-		public static var pantallaAspectRatio:Number;
+		public static var screenWidth:uint;
+		public static var screenHeight:uint;
+		public static var screenAspectRatio:Number;
 		
-		public static var viewPortBaseAncho:int;
-		public static var viewPortBaseAlto:int;
+		public static var viewPortBaseWidth:int;
+		public static var viewPortBaseHeight:int;
 		public static var viewPortBaseAspectRatio:Number;
 		
-		public static var viewPortBaseLimiteAncho:int;
-		public static var viewPortBaseLimiteAlto:int;
+		public static var viewPortBaseLimitWidth:int;
+		public static var viewPortBaseLimiteHeight:int;
 		
 		public static var viewPort:Rectangle = new Rectangle();
-		public static var viewPortJuego:Rectangle = new Rectangle();
+		public static var viewPortGame:Rectangle = new Rectangle();
 		public static var viewPortAspectRatio:Number;
 		
-		trace(">>> captura de tiempoInicial");
-		public static const TIEMPO_INICIAL:uint = (new Date().getTime()) - getTimer();
-		public static function get fecha():uint { return TIEMPO_INICIAL + getTimer(); }
+		trace(">>> Initial time capture");
+		public static const INITIAL_TIME:uint = (new Date().getTime()) - getTimer();
+		public static function get fecha():uint { return INITIAL_TIME + getTimer(); }
 		
 		public function General() {}
 		
-		public static function calcularAspectRatioPantalla():void
+		public static function calculateAspectRatioScreen():void
 		{
-			pantallaAspectRatio = pantallaAlto/pantallaAncho;
-		}
-		
-		public static function calcularAspectRatioBase():void
-		{
-			viewPortBaseAspectRatio = viewPortBaseAncho/viewPortBaseAlto;
-		}
-		
-		public static function calcularViewPort(metodo:uint):void
-		{
-			var masAlto:Boolean = viewPortBaseAspectRatio < pantallaAspectRatio;
 			
-			switch(metodo)
+			screenAspectRatio = screenHeight/screenWidth;
+		}
+		
+		public static function calculateAspectRatioBase():void
+		{
+			viewPortBaseAspectRatio = viewPortBaseWidth/viewPortBaseHeight;
+		}
+		
+		public static function calculateViewPort(method:uint):void
+		{
+			var moreHigh:Boolean = viewPortBaseAspectRatio < screenAspectRatio;
+			
+			switch(method)
 			{
 				case 0:
-					if (masAlto)
+					if (moreHigh)
 					{
-						viewPort.width = pantallaAncho; 
-						viewPort.height = int(pantallaAncho * viewPortBaseAspectRatio);
-						viewPort.y = int((pantallaAlto - viewPort.height) / 2);
+						viewPort.width = screenHeight; 
+						viewPort.height = int(screenWidth * viewPortBaseAspectRatio);
+						viewPort.y = int((screenHeight - viewPort.height) / 2);
 					}
 					else
 					{
-						viewPort.width  = int(pantallaAlto / viewPortBaseAspectRatio);
-						viewPort.height = pantallaAlto;
-						viewPort.x = int((pantallaAncho - viewPort.width) / 2);
+						viewPort.width  = int(screenHeight / viewPortBaseAspectRatio);
+						viewPort.height = screenHeight;
+						viewPort.x = int((screenWidth - viewPort.width) / 2);
 					}
 					break;
 				
 				case 1:
-					viewPort.width = pantallaAncho;
-					viewPort.height = pantallaAlto;
+					viewPort.width = screenWidth;
+					viewPort.height = screenHeight;
 					viewPort.x = 0;
 					viewPort.y = 0;
 					break;
@@ -81,19 +82,19 @@ package core
 			viewPortAspectRatio = viewPort.height/viewPort.width;
 		}
 		
-		public static function calcularViewPortJuego():void
+		public static function calculateViewPortGame():void
 		{
 			var masAlto:Boolean = viewPortBaseAspectRatio < viewPortAspectRatio;
 			if (masAlto)
 			{
-				viewPortJuego.width = viewPortBaseAncho; 
-				viewPortJuego.height = int(viewPortBaseAncho * viewPortAspectRatio);
-				viewPortJuego.y = 0;
+				viewPortGame.width = viewPortBaseWidth; 
+				viewPortGame.height = int(viewPortBaseWidth * viewPortAspectRatio);
+				viewPortGame.y = 0;
 			}
 			else
 			{
-				viewPortJuego.width  = int(viewPortBaseAlto / viewPortAspectRatio);
-				viewPortJuego.height = viewPortBaseAlto;
+				viewPortGame.width  = int(viewPortBaseHeight / viewPortAspectRatio);
+				viewPortGame.height = viewPortBaseHeight;
 				viewPort.x = 0;
 			}
 		}

@@ -1,13 +1,13 @@
-package car.heroe
+package car.hero
 {
-	import car.Carro;
+	import car.Car;
 
-	public class Heroe extends Carro{
+	public class Hero extends Car{
 		
 		private var score:uint = 0;
 		private var fuel:uint = 0;
 		
-		public function Heroe(){
+		public function Hero(){
 		
 		}
 		

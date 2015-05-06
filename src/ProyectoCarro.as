@@ -26,28 +26,28 @@ package
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			stage.align = StageAlign.TOP_LEFT;
 			
-			General.pantallaAncho = stage.fullScreenWidth;
-			General.pantallaAlto = stage.fullScreenHeight;
-			General.calcularAspectRatioPantalla();
+			General.screenWidth = stage.fullScreenWidth;
+			General.screenHeight = stage.fullScreenHeight;
+			General.calculateAspectRatioScreen()();
 			
-			General.viewPortBaseAncho = 480;
-			General.viewPortBaseAlto = 320;
+			General.viewPortBaseWidth = 480;
+			General.viewPortBaseHeight = 320;
 			//General.viewPortBaseLimiteAncho = 512+30;
 			//General.viewPortBaseLimiteAlto = 384+30;
-			General.calcularAspectRatioBase();
+			General.calculateAspectRatioBase();
 			
-			General.calcularViewPort(1);
-			General.calcularViewPortJuego();
+			General.calculateViewPort(1);
+			General.calculateViewPortGame();
 			
-			var imagenDeArranque:Sprite = crearImagenDeArranque(General.viewPort, General.pantallaAncho > General.viewPortBaseAncho);
-			addChild(imagenDeArranque);
+			var initialImage:Sprite = createInitialImage(General.viewPort, General.screenWidth > General.viewPortBaseWidth);
+			addChild(initialImage);
 			
 			starling = new Starling(RoadFighter, stage, General.viewPort);
 			
 			starling.stage3D.addEventListener(Event.CONTEXT3D_CREATE, function(e:Event):void
 			{
-				removeChild(imagenDeArranque);
-				imagenDeArranque = null;
+				removeChild(initialImage);
+				initialImage = null;
 				starling.start();
 				
 				starling.simulateMultitouch = true;
@@ -67,7 +67,7 @@ package
 				});
 		}
 		
-		private function crearImagenDeArranque(viewPort:Rectangle, isHD:Boolean):Sprite
+		private function createInitialImage(viewPort:Rectangle, isHD:Boolean):Sprite
 		{
 			var sprite:Sprite = new Sprite();
 			/*

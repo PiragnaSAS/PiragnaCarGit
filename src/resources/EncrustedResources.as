@@ -1,6 +1,6 @@
-package recursos
+package resources
 {
-	public final class RecursosEncrustados
+	public final class EncrustedResources
 	{
 		/*[Embed(source="../../recursos/fuentes/Franklin Gothic Heavy.ttf", embedAsCFF="false", fontFamily='Franklin Gothic Heavy')]        
 		public static const FranklinGothicHeavy:Class; */

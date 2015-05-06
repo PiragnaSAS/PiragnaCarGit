@@ -1,8 +1,8 @@
-package recursos
+package resources
 {
 	import starling.errors.AbstractClassError;
 
-	public final class RecursosEncrustados_2x
+	public final class EncrustedResources_2x
 	{
 		[Embed(source="../../assets/images/Carreteras/Escenario01_RoadToPiragna_render003.png")]
 		public static const SepArriba:Class;
@@ -35,6 +35,6 @@ package recursos
 		[Embed(source="../../recursos/fuentes/2x/FranklinGothicHeavy.fnt", mimeType="application/octet-stream")]
 		public static const FranklinGothicHeavy_Xml:Class;
 		*/
-		public function RecursosEncrustados_2x(){ throw new AbstractClassError(); }
+		public function EncrustedResources_2x(){ throw new AbstractClassError(); }
 	}
 }
