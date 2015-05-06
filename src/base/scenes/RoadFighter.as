@@ -13,7 +13,6 @@ package base.scenes
 		private var iAManager:IAManager;
 		private var level:Map;
 		private var hero:Hero;
-		
 		private var speed:uint;
 		
 		public function RoadFighter()
@@ -21,7 +20,6 @@ package base.scenes
 			//this.level = new Level1();
 			this.iAManager = new IAManager(this.level);
 			this.hero = new Hero();
-			
 			this.addChild(this.level);
 		}
 		

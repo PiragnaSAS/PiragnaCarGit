@@ -6,13 +6,13 @@ package car.enemyCar
 
 	public class BonusCar extends Taxi
 	{
-		private var actualBonusCarImage:String;
-		
+
 		private var bonusFuel:uint=25;
 		
-		public function BonusCar(initialState:uint) 
+		public function BonusCar() 
 		{
-			this.react(initialState);
+			this.react(Car.EST_MOVING);
+			
 		}
 		
 		override public function react(...args):void{
@@ -23,12 +23,6 @@ package car.enemyCar
 					this.moving();
 					break;
 				}
-				/*case Car.EST_EXPLODING:	
-				{
-					this.exploding();
-					break;
-				}*/
-				
 				/*default:
 				{
 					break;
@@ -37,14 +31,9 @@ package car.enemyCar
 			}
 		
 		private function moving():void{
-			this.actualBonusCarImage="moving_bonus_car_image";
-			
+			this.setImage("moving_bonus_car_image");
+			this.setState(Car.EST_MOVING);
 		}
-		/*
-		private function exploding(hero:Car):void{
-			this.actualBonusCarImage="exploding_bonus_car_image";
-
-		}*/
 		
 		public function getBonusFuel():uint{
 			return bonusFuel;

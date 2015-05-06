@@ -3,12 +3,10 @@ package core
 	import flash.geom.Rectangle;
 	import flash.utils.getQualifiedClassName;
 	import flash.utils.getTimer;
-	
-	import scene.Game;
 
 	public final class General
 	{
-		public static const SCENE_GAME:String = getQualifiedClassName(scene.Game);
+		public static const SCENE_GAME:String = getQualifiedClassName(core.Game);
 		//public static const SCENE_PRESENTATION:String = getQualifiedClassName(Presentation);
 		//public static const SCENE_INTRODUCTION:String = getQualifiedClassName(Introduction);
 		//public static const SCENE_GANE_TOAD:String = getQualifiedClassName(ToadGame);
