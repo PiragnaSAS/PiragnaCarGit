@@ -20,6 +20,7 @@ package resources
 		private static var sTextureAtlas:Dictionary = new Dictionary();
 		private static var sXML:Dictionary = new Dictionary();
 		private static var sBitmapFontsLoaded:Boolean;
+		public static var factorDeEscalaDelContenido:Number;
 		
 		public function Resources(){}
 		
