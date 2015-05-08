@@ -26,7 +26,7 @@ package base.levels.map
 		
 		public function Level1()
 		{
-			super();
+			super("scene01.png");
 			for(var i:uint = 0; i<120; i++){
 				myArray[i] = i%2;//Math.floor(Math.random()*0);
 			}

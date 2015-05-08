@@ -80,22 +80,31 @@ package base.levels.map
 		
 		private function onLoaderComplete(e:Event):void 
 		{		
-			var jsonCounter:uint=0;
+			
 			json = JSON.parse(e.target.data);				
 			mapWidth = json.attribute("width");
 			mapHeight = json.attribute("height");
 			tileWidth = json.attribute("tilewidth");
 			tileHeight = json.attribute("tileheight");
 			
+			tilset();
 			
+			trace(json+"---");
+			
+			
+		}
+		
+		private function tilset():void
+		{
+			var jsonCounter:uint=0;
 			for each (var tileset:JSON in json.tileset) {
-				var imageWidth:uint = json.tileset.image.attribute("width")[jsonCounter];
-				var imageHeight:uint = json.tileset.image.attribute("height")[jsonCounter];
+				var imageWidth:uint = json.tileset.attribute("imagewidth")[jsonCounter];
+				var imageHeight:uint = json.tileset.attribute("imageheight")[jsonCounter];
 				var firstGid:uint = json.tileset.attribute("firstgid")[jsonCounter];
 				var tilesetName:String = json.tileset.attribute("name")[jsonCounter];
 				var tilesetTileWidth:uint = json.tileset.attribute("tilewidth")[jsonCounter];
 				var tilesetTileHeight:uint = json.tileset.attribute("tileheight")[jsonCounter];
-				var tilesetImagePath:String = json.tileset.image.attribute("source")[jsonCounter];
+				var tilesetImagePath:String = json.tileset.attribute("image")[jsonCounter];
 				
 				
 				tileSets.push(new TileSet(firstGid, tilesetName, tilesetTileWidth, tilesetTileHeight, tilesetImagePath, imageWidth, imageHeight));
@@ -109,15 +118,15 @@ package base.levels.map
 				loader.contentLoaderInfo.addEventListener(Event.COMPLETE, tilesLoadComplete);
 				loader.contentLoaderInfo.addEventListener(ProgressEvent.PROGRESS, progressHandler);
 				loader.setTileSet(tileSets[i]);
-				loader.load(new URLRequest("../assets/" + tileSets[i].source));
+				loader.load(new URLRequest(tileSets[i].source));
 				eventLoaders.push(loader);
 			}
 			screenBitmap = new Bitmap(new BitmapData(mapWidth * tileWidth, mapHeight * tileHeight, false, 0x22ffff));
 			screenBitmapTopLayer = new Bitmap(new BitmapData(mapWidth*tileWidth,mapHeight*tileHeight,true,0));
-			trace(json+"---");
-			
 			
 		}
+		
+	
 		private function progressHandler(event:ProgressEvent):void {
 			trace("progressHandler: bytesLoaded=" + event.bytesLoaded + " bytesTotal=" + event.bytesTotal);
 		}
@@ -139,8 +148,17 @@ package base.levels.map
 				var tiles:Array = new Array();
 				var tileLength:uint = 0;
 				// assign the gid to each location in the layer
-				for each (var tile:JSON in layer.data.tile) {
-					var gid:Number = tile.attribute("gid");
+				var data:String = layer["data"];
+				var dataarray:Array = data.split(",");
+				
+				for (var i:int=0; i<layer[""];i++){
+					
+				}
+
+							
+			/*
+				for each (var tile:JSON in layer["data"]) {
+					var gid:Number = tile["gid"];
 					// if gid > 0
 					if (gid > 0) {
 						tiles[tileLength] = gid;
@@ -226,7 +244,8 @@ package base.levels.map
 			
 			
 			// load top layer
-			addChild(screenBitmapTopLayer);
+			addChild(screenBitmapTopLayer);*/
+			}
 		}
 	}
 }
