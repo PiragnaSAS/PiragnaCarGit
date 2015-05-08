@@ -45,12 +45,12 @@ package base.levels.map
 		
 		public function Map(scene:String)
 		{			
-			eventLoaders= new Array();
-/*			var p1:Point =new Point();	
-			var mt:Matrix = new Matrix();
-			var p2:Point = mt.transformPoint(p1);
-*/			loadScene(scene);
-			addAllLayers();
+//			eventLoaders= new Array();
+///*			var p1:Point =new Point();	
+//			var mt:Matrix = new Matrix();
+//			var p2:Point = mt.transformPoint(p1);
+//*/			loadScene(scene);
+//			addAllLayers();
 						
 		}
 		

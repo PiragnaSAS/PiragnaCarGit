@@ -5,7 +5,17 @@ package resources
 	public final class EncrustedResources_2x
 	{
 		[Embed(source="../../assets/images/Carreteras/Escenario01_RoadToPiragna_render003.png")]
+		public static const Ground:Class;
+		
+		[Embed(source="../../assets/images/Carreteras/Escenario02_RoadToPiragna_render003.png")]
+		public static const PlaneGround:Class;
+		
+		[Embed(source="../../assets/images/Carreteras/Escenario01_RoadToPiragna_render004.png")]
 		public static const SepArriba:Class;
+		
+		[Embed(source="../../assets/images/carros/Carros01_RoadToPiragna_Model001.png")]
+		public static const CHero:Class;
+		
 		/*[Embed(source="../../recursos/texturas/2x/fondo 1.png")]
 		public static const Fondo1:Class;
 		
