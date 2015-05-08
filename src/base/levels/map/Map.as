@@ -7,17 +7,26 @@ package base.levels.map
 	import flash.events.ProgressEvent;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
-	import layers.CarsAndBorderLayer;
+	
 	import layers.FrontObjectsLayer;
 	import layers.GroundLayer;
-	import layers.ObjectsLayer;
 	import layers.RaceLayer;
+	import layers.CarsLayer;
+	import layers.BackObjectsLayer;
 	
 	import starling.display.Sprite;
 
 	public class Map extends Sprite
 	{
 		private var json:Object;
+		
+		
+		private var screenBitmap:Bitmap; // for drawing the map
+		private var screenBitmapTopLayer:Bitmap; // data of an image, for drawing the map that the character will move under
+		
+		private var eventLoaders:Array;
+		
+		//--->aqui
 		private var mapWidth:uint;
 		private var mapHeight:uint;
 		private var tileWidth:uint;
@@ -25,42 +34,37 @@ package base.levels.map
 		private var tileSets:Array;
 		private var totalTileSets:uint;
 		
-		private var screenBitmap:Bitmap; // for drawing the map
-		private var screenBitmapTopLayer:Bitmap; // data of an image, for drawing the map that the character will move under
-		
-		private var eventLoaders:Array;
-		
 		private var groundLayer:GroundLayer;
-		private var objectsLayer:ObjectsLayer;
+		private var backobjectsLayer:BackObjectsLayer;
 		private var raceLayer:RaceLayer;
 		private var frontObjectsLayer:FrontObjectsLayer;
-		private var carsAndBorderLayer:CarsAndBorderLayer;
+		private var carsLayer:CarsLayer;
+		//<--aca
 		private var tileSetsLoaded:uint=0;
 		
 		
 		
 		public function Map(scene:String)
-		{
+		{			
 			eventLoaders= new Array();
-			cargarScene(scene);
-			groundLayer = new GroundLayer();
-			objectsLayer = new ObjectsLayer();
-			raceLayer = new RaceLayer();
-			frontObjectsLayer = new FrontObjectsLayer();
-			carsAndBorderLayer = new CarsAndBorderLayer();
-			
 /*			var p1:Point =new Point();	
 			var mt:Matrix = new Matrix();
 			var p2:Point = mt.transformPoint(p1);
-*/			
-			addChild(groundLayer);
-			addChild(objectsLayer);
-			addChild(raceLayer);
-			addChild(frontObjectsLayer);
-			addChild(carsAndBorderLayer);			
+*/			loadScene(scene);
+			addAllLayers();
+						
 		}
 		
-		private function cargarScene(scene:String):void
+		private function addAllLayers():void
+		{
+			addChild(groundLayer);
+			addChild(backobjectsLayer);
+			addChild(raceLayer);
+			addChild(frontObjectsLayer);
+			addChild(carsLayer);
+		}
+		
+		private function loadScene(scene:String):void
 		{
 			var loader:URLLoader = new URLLoader();
 			var request:URLRequest = new URLRequest();
@@ -140,81 +144,40 @@ package base.levels.map
 		
 		private function addTileBitmapData():void {
 			// load each layer
-			for each (var layer:JSON in json.layer) {
-				var tiles:Array = new Array();
-				var tileLength:uint = 0;
-				// assign the gid to each location in the layer
-				var data:String = layer["data"];
-				var dataarray:Array = data.split(",");
-				
-				for (var i:int=0; i<layer[""];i++){
-					
-				}
-
-							
-			/*
-				for each (var tile:JSON in layer["data"]) {
-					var gid:Number = tile["gid"];
-					// if gid > 0
-					if (gid > 0) {
-						tiles[tileLength] = gid;
-					}
-					tileLength++;
-				}
-				
-				var useBitmap:BitmapData;
-				
-				var layerName:String = layer.attribute("name")[0];
-				
+			for each (var layer:JSON in json.layer) 
+			{				
+				var layerName:String =layer["name"];			
 				// decide where we're going to put the layer
-				var layerMap:int = 0;
+				
 				switch(layerName) {
-					case "Top":
-						layerMap = 1;
+					case "GroundLayer":												
+						groundLayer = new GroundLayer(layer);	
+						groundLayer.loadLayer(mapWidth, mapHeight, tileSets, tileWidth,screenBitmap);
 						break;
+					case "RaceLayer":
+						raceLayer = new RaceLayer(layer);
+						raceLayer.loadLayer(mapWidth, mapHeight, tileSets, tileWidth,screenBitmap);
+						break;
+					case "FrontObjectsLayer":
+						frontObjectsLayer = new FrontObjectsLayer(layer);
+						frontObjectsLayer.loadLayer(mapWidth, mapHeight, tileSets, tileWidth,screenBitmap);
+						break;
+					case "BackObjectsLayer":
+						backobjectsLayer = new BackObjectsLayer(layer);
+						backobjectsLayer.loadLayer(mapWidth, mapHeight, tileSets, tileWidth,screenBitmap);
+						break;
+					case "CarsLayer":
+						carsLayer = new CarsLayer(layer);
+						carsLayer.loadLayer(mapWidth, mapHeight, tileSets, tileWidth,screenBitmap);
+						break;
+					
 					default:
-						//trace("using base layer");
+						
 				}
 				
-				// store the gid into a 2d array
-				var tileCoordinates:Array = new Array();
-				for (var tileX:int = 0; tileX < mapWidth; tileX++) {
-					tileCoordinates[tileX] = new Array();
-					for (var tileY:int = 0; tileY < mapHeight; tileY++) {
-						tileCoordinates[tileX][tileY] = tiles[(tileX+(tileY*mapWidth))];
-					}
-				}
 				
-				for (var spriteForX:int = 0; spriteForX < mapWidth; spriteForX++) {
-					for (var spriteForY:int = 0; spriteForY < mapHeight; spriteForY++) {
-						var tileGid:int = int(tileCoordinates[spriteForX][spriteForY]);
-						var currentTileset:TileSet;
-						// only use tiles from this tileset (we get the source image from here)
-						for each( var tileset1:TileSet in tileSets) {
-							if (tileGid >= tileset1.firstgid-1 && tileGid <= tileset1.lastgid) {
-								// we found the right tileset for this gid!
-								currentTileset = tileset1;
-								break;
-							}
-						}
-						var destY:int = spriteForY * tileWidth;
-						var destX:int = spriteForX * tileWidth;
-						// basic math to find out where the tile is coming from on the source image
-						tileGid -= currentTileset.firstgid -1 ;
-						var sourceY:int = Math.ceil(tileGid/currentTileset.tileAmountWidth)-1;
-						var sourceX:int = tileGid - (currentTileset.tileAmountWidth * sourceY) - 1;
-						// copy the tile from the tileset onto our bitmap
-						if(layerMap == 0) {
-							screenBitmap.bitmapData.copyPixels(currentTileset.bitmapData, new Rectangle(sourceX * currentTileset.tileWidth, sourceY * currentTileset.tileWidth, currentTileset.tileWidth, currentTileset.tileHeight), new Point(destX, destY), null, null, true);
-						}
-						else if (layerMap == 1) {
-							screenBitmapTopLayer.bitmapData.copyPixels(currentTileset.bitmapData, new Rectangle(sourceX * currentTileset.tileWidth, sourceY * currentTileset.tileWidth, currentTileset.tileWidth, currentTileset.tileHeight), new Point(destX, destY), null, null, true);
-						}
-					}
-				}
-			}
 			
-			for each (var objectgroup:XML in xml.objectgroup) {
+			/*for each (var objectgroup:JSON in JSON.objectgroup) {
 				var objectGroup:String = objectgroup.attribute("name");
 				switch(objectGroup) {
 					case "Collision":

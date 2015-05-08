@@ -2,9 +2,9 @@ package layers
 {
 	public class FrontObjectsLayer extends Layer
 	{
-		public function FrontObjectsLayer()
+		public function FrontObjectsLayer(layer:JSON)
 		{
-			super();
+			super(layer);
 		}
 	}
 }

@@ -2,9 +2,9 @@ package layers
 {
 	public class GroundLayer extends Layer
 	{
-		public function GroundLayer()
+		public function GroundLayer(layer:JSON)
 		{
-			super();
+			super(layer);
 		}
 	}
 }
