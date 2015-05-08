@@ -36,29 +36,32 @@ package base.levels.map
 			this.bitmapData=bitmapData;
 			
 		}
-		public function setFirstgid():void{
-			
+		public function setFirstgid(newFirsgid:uint):void{
+			this.firstgid=newFirsgid;
 		}
-		public function setName():void{
-			
+		public function setName(newName:String):void{
+			this.name=newName;
 		}
-		public function setTileWidth():void{
-			
+		public function setTileWidth(newTileWidth:uint):void{
+			this.tileWidth=newTileWidth;
 		}
-		public function setSource():void{
-			
+		public function setSource(newSource:String):void{
+			this.source=newSource;
 		}
-		public function setTileHeight():void{
-			
+		public function setTileHeight(newTileHeigth:uint):void{
+			this.tileHeight=newTileHeigth;
 		}
-		public function setImageWidth():void{
-			
+		public function setImageHeigth(newImageHeigth:uint):void{
+			this.imageHeight=newImageHeigth;
 		}
-		public function setTileAmountWidth():void{
-			
+		public function setImageWidth(newImageWidth:uint):void{
+			this.imageWidth=newImageWidth;
 		}
-		public function setLastgid():void{
-			
+		public function setTileAmountWidth(newTileAmountWidth:uint):void{
+			this.tileAmountWidth=newTileAmountWidth;
+		}
+		public function setLastGid(newLastGid:uint):void{
+			this.lastgid=newLastGid;
 		}
 		public function getBitmapData():BitmapData
 		{

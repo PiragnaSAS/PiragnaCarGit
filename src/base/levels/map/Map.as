@@ -8,11 +8,11 @@ package base.levels.map
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
 	
+	import layers.BackObjectsLayer;
+	import layers.CarsLayer;
 	import layers.FrontObjectsLayer;
 	import layers.GroundLayer;
 	import layers.RaceLayer;
-	import layers.CarsLayer;
-	import layers.BackObjectsLayer;
 	
 	import starling.display.Sprite;
 
@@ -41,7 +41,6 @@ package base.levels.map
 		private var carsLayer:CarsLayer;
 		//<--aca
 		private var tileSetsLoaded:uint=0;
-		
 		
 		
 		public function Map(scene:String)
@@ -206,5 +205,85 @@ package base.levels.map
 			addChild(screenBitmapTopLayer);*/
 			}
 		}
+	
+		public function getMapWidth():uint
+		{
+			return mapWidth;
+		}
+		
+		public function setMapWidth(newMapWidth:uint):void  
+		{
+			this.mapWidth=newMapWidth;
+		}
+		
+		public function getMapHeigth():uint
+		{
+			return mapHeight;
+		}
+		
+		public function setMapHeith(newMapHeith:uint):void
+		{
+			this.mapHeight=newMapHeith;
+		}
+		
+		public function getTileWidth():uint{
+			return tileWidth;
+		}
+		
+		public function setTileWidth(newTileWidth:uint):void{
+			this.tileWidth=newTileWidth;
+		}
+		public function getTileHeith():uint{
+			return tileHeight;
+		}
+		
+		public function setTileHeith(newTileHeith:uint){
+			this.tileHeight=newTileHeith;
+		}
+		public function getTileSets():Array{
+			return tileSets;
+		}
+		public function setTileSets(newTileSets:Array):void{
+			this.tileSets=newTileSets;
+		}
+		public function getTotalTileSets():uint{
+			return totalTileSets;
+		}
+		public function setTotalTileSets(newTotalTileSets:uint):void{
+			this.totalTileSets=newTotalTileSets;
+		}
+		public function getGroundLayer():GroundLayer{
+			return groundLayer;
+		}
+		public function setGroundLayer(newGroundLayer:GroundLayer):void{
+			this.groundLayer=newGroundLayer;
+		}
+		public function getBackObjectsLayer():BackObjectsLayer{
+			return backobjectsLayer;
+		}
+		public function setBackObjectsLayer(newBackObjectsLayer:BackObjectsLayer):void{
+			this.backobjectsLayer=newBackObjectsLayer;
+		}
+		public function getRaceLayer():RaceLayer{
+			return raceLayer;
+		}
+		public function setRaceLayer(newRaceLayer:RaceLayer):void{
+			this.raceLayer=newRaceLayer;
+		}
+		public function getFrontObjectsLayer():FrontObjectsLayer{
+			return frontObjectsLayer;
+		}
+		public function setFrontObjectsLayer(newFrontObjectsLayer:FrontObjectsLayer):void{
+			this.frontObjectsLayer=newFrontObjectsLayer;
+		}
+		public function getCarsLayer():CarsLayer{
+			return carsLayer;
+		}
+		public function setCarsLayer(newCarsLayer:CarsLayer):void{
+			this.carsLayer=newCarsLayer;
+		}
+		
+	
+	
 	}
 }
