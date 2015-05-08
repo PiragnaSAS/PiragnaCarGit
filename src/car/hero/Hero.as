@@ -1,15 +1,22 @@
 package car.hero
 {
 	import car.Car;
+	
+	import resources.Resources;
+	
+	import starling.display.Image;
 
 	public class Hero extends Car{
 		
 		private var score:uint = 0;
 		private var fuel:uint = 100;
 		
-		public function Hero(){
-			
-			this.react(Car.EST_MOVING);
+		public function Hero(x:Number, y:Number)
+		{
+			this.setCarImage( new Image(Resources.getTexture("CHero")));
+			this.x = x;
+			this.y =y;
+			this.addChild(this.getCarImage());
 		}
 		
 		override public function react(...args):void{

@@ -47,6 +47,7 @@ package base.levels.map
 		
 		public function Map(scene:String)
 		{			
+<<<<<<< HEAD
 			
 
 			eventLoaders= new Array();
@@ -55,6 +56,14 @@ package base.levels.map
 			var p2:Point = mt.transformPoint(p1);
 */			loadScene(scene);	
 			
+=======
+//			eventLoaders= new Array();
+///*			var p1:Point =new Point();	
+//			var mt:Matrix = new Matrix();
+//			var p2:Point = mt.transformPoint(p1);
+//*/			loadScene(scene);
+//			addAllLayers();
+>>>>>>> 652f98777f6483fd8c134faf283d789a94879edf
 						
 		}
 		

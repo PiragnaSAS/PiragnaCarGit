@@ -18,8 +18,8 @@ package base.levels.map
 		
 		private var iniSepUpX:int = iniLandX 
 		private var iniSepUpY:int = iniLandY
-		private var distanceSepUpX:Number= 36;
-		private var distanceSepUpY:Number = 16;
+		private var distanceSepUpX:Number= 40;
+		private var distanceSepUpY:Number = 17.3;
 		
 		private var iniSepDownX:Number = iniLandX+ 120;
 		private var iniSepDownY:Number = iniLandY + 156;
