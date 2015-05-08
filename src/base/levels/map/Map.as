@@ -2,15 +2,11 @@ package base.levels.map
 {
 	import flash.display.Bitmap;
 	import flash.display.BitmapData;
-	import flash.display.Shape;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
 	import flash.events.ProgressEvent;
-	import flash.geom.Point;
-	import flash.geom.Rectangle;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
-	
 	import layers.CarsAndBorderLayer;
 	import layers.FrontObjectsLayer;
 	import layers.GroundLayer;

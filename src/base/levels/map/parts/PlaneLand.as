@@ -1,7 +1,9 @@
 
 package base.levels.map.parts
 {
-	import recursos.Recursos;
+
+	
+	import resources.Resources;
 	
 	import starling.display.Image;
 	import starling.display.Sprite;
@@ -12,7 +14,7 @@ package base.levels.map.parts
 		public function PlaneLand(x:Number, y:Number)
 		{
 			super();
-			this.image =  new Image(Recursos.obtenerTextura("PlaneGround"));
+			this.image =  new Image(Resources.getTexture("GroundLayer"));
 			this.x = x;
 			this.y =y;
 			this.addChild(this.image);

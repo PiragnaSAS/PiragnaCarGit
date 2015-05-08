@@ -1,35 +1,35 @@
 package base.ia
 {
-	import base.niveles.mapa.Map;
+	import base.levels.map.Map;
 	
 	import flash.display.Sprite;
 
-	public class GestorIA
+	public class AIManager
 	{
-		private var contexto:Map;
+		private var context:Map;
 		
-		public function GestorIA(contexto)
+		public function AIManager(contex)
 		{
-			this.contexto = contexto;
+			this.context = contex;
 		}
 		
-		private function verificarColisiones(capa:Sprite, heroe:Sprite):void
+		private function checkCollision(layer:Sprite, hero:Sprite):void
 		{
 			//por el momento se va a comprobar la colisión entre los demás carros
 			//y liego la colisión entre los demás carros con el heroe
-			verificarColisionesCapa(capa);
-			verificarColisionCarrosHeroe(capa, heroe);
+			checkCollisionLayer(layer);
+			checkCollisionHeroCar(layer,hero);
 			
 		}
 		
-		private function verificarColisionesCapa(capa:Sprite):void
+		private function checkCollisionLayer(layer:Sprite):void
 		{
-			var numChildren:int = capa.numChildren;
+			var numChildren:int = layer.numChildren;
 			for(var i:uint = 0; i< numChildren; i++)
 			{
 				for(var j:uint = 0; j< numChildren; j++)
 				{
-					if ((i != j)&&((capa.getChildAt(i) as Sprite).hitTestObject(capa.getChildAt(j) as Sprite)))
+					if ((i != j)&&((layer.getChildAt(i) as Sprite).hitTestObject(layer.getChildAt(j) as Sprite)))
 					{
 						//acá se debe manejar la colisión con base a nuestro contexto que es el mapa
 							
@@ -38,12 +38,12 @@ package base.ia
 			}
 		}
 		
-		private function verificarColisionCarrosHeroe(capa:Sprite, heroe:Sprite):void
+		private function checkCollisionHeroCar(layer:Sprite, hero:Sprite):void
 		{
-			var numChildren:int = capa.numChildren;
+			var numChildren:int = layer.numChildren;
 			for(var i:uint = 0; i< numChildren; i++)
 			{
-				if ((capa.getChildAt(i).hitTestObject(heroe)))
+				if ((layer.getChildAt(i).hitTestObject(hero)))
 				{
 					//acá se debe manejar la colisión con base a nuestro contexto que es el mapa
 				}
@@ -51,7 +51,7 @@ package base.ia
 		}
 		
 		//implementado pero no usado, se debe cambiar la lógica de las colisiones de acuerdo a la perspectiva
-		private function colisionan(obj1:Sprite, obj2:Sprite):Boolean
+		private function collide(obj1:Sprite, obj2:Sprite):Boolean
 		{
 			//este método va a cambiar deacuerdo a la perspectiva, por ahora se utilizará este
 			return obj1.hitTestObject(obj2);
@@ -59,7 +59,7 @@ package base.ia
 		
 		public function update():Map
 		{
-			return this.contexto;
+			return this.context;
 		}
 		
 		

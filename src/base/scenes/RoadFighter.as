@@ -1,6 +1,6 @@
 package base.scenes
 {
-	import base.ia.IAManager;
+	import base.ia.AIManager;
 	import base.levels.map.Level1;
 	import base.levels.map.Map;
 	
@@ -11,7 +11,7 @@ package base.scenes
 
 	public class RoadFighter extends Sprite
 	{
-		private var iAManager:IAManager;
+		private var iAManager:AIManager;
 		private var level:Map;
 		private var hero:Hero;
 		private var speed:uint;
@@ -19,7 +19,7 @@ package base.scenes
 		public function RoadFighter()
 		{
 			this.level = new Level1();
-			this.iAManager = new IAManager(this.level);
+			this.iAManager = new AIManager(this.level);
 			this.hero = new Hero();
 			this.addChild(this.level);
 		}
