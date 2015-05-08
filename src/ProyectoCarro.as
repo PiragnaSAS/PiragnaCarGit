@@ -17,10 +17,12 @@ package
 	[SWF(frameRate="60", backgroundColor="#000000")]
 	public class ProyectoCarro extends Sprite
 	{
+		trace("holi");
 		private var starling:Starling;
 		
 		public function ProyectoCarro()
 		{
+			trace("awui");
 			super();
 			
 			stage.scaleMode = StageScaleMode.NO_SCALE;
@@ -41,6 +43,8 @@ package
 			
 			var initialImage:Sprite = createInitialImage(General.viewPort, General.screenWidth > General.viewPortBaseWidth);
 			addChild(initialImage);
+			
+			trace ("utyu",RoadFighter);
 			
 			starling = new Starling(RoadFighter, stage, General.viewPort);
 			

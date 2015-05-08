@@ -3,8 +3,6 @@ package base.levels.map
 	
 	
 	
-	import mx.core.mx_internal;
-	
 	import layers.BackObjectsLayer;
 	import layers.CarsLayer;
 	import layers.FrontObjectsLayer;
@@ -16,14 +14,12 @@ package base.levels.map
 	public class GestorMap extends Sprite
 	{
 		private var map:Map;
-		public function GestorMap()
+		public function GestorMap(map:Map)
 		{
 			super();
+			this.map=map;
 		}
-		public function createMap(scene:String="../assets/images/Scene/scene01.json"):Map{
-			map = new Map(scene);
-			return map;
-		}
+		
 		
 		public function getMapWidth():uint
 		{
@@ -57,7 +53,7 @@ package base.levels.map
 			return map.getTileHeith();
 		}
 		
-		public function setTileHeith(newTileHeith:uint){
+		public function setTileHeith(newTileHeith:uint):void{
 			map.setTileHeith(newTileHeith);
 		}
 		public function getTileSets():Array{

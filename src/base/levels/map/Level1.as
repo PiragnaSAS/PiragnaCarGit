@@ -24,9 +24,11 @@ package base.levels.map
 		private var iniSepDownX:Number = iniLandX+ 120;
 		private var iniSepDownY:Number = iniLandY + 156;
 		
-		public function Level1()
+		public function Level1(mapAdress:String)
 		{
-			super("scene01.png");
+			
+
+			super(mapAdress);
 			for(var i:uint = 0; i<120; i++){
 				myArray[i] = i%2;//Math.floor(Math.random()*0);
 			}

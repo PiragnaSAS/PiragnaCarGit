@@ -8,9 +8,9 @@ package base.ia
 	{
 		private var context:Map;
 		
-		public function AIManager(contex)
+		public function AIManager(context:Map)
 		{
-			this.context = contex;
+			this.context = context;
 		}
 		
 		private function checkCollision(layer:Sprite, hero:Sprite):void

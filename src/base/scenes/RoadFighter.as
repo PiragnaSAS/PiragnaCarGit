@@ -1,6 +1,7 @@
 package base.scenes
 {
 	import base.ia.AIManager;
+	import base.levels.map.GestorMap;
 	import base.levels.map.Level1;
 	import base.levels.map.Map;
 	
@@ -12,18 +13,23 @@ package base.scenes
 	public class RoadFighter extends Sprite
 	{
 		private var iAManager:AIManager;
+		private var gestorMap:GestorMap;
 		private var level:Map;
 		private var hero:Hero;
 		private var speed:uint;
 		
 		public function RoadFighter()
 		{
-			this.level = new Level1();
+			this.level = new Level1("lvl1example.json");
 			this.iAManager = new AIManager(this.level);
 			this.hero = new Hero();
 			this.addChild(this.level);
 		}
 		
+		public function cargarLevel():void{
+			
+			
+		}
 		private function onEnterFrame(e:Event):void
 		{
 			//hilo principal
@@ -39,12 +45,12 @@ package base.scenes
 			
 		}
 		
-		private function update()
+		private function update():void
 		{
 		
 		}
 		
-		private function updateIA()
+		private function updateIA():void
 		{
 			this.level = this.iAManager.update();
 		}

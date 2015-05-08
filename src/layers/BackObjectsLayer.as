@@ -2,7 +2,7 @@ package layers
 {
 	public class BackObjectsLayer extends Layer
 	{
-		public function BackObjectsLayer(layer:JSON)
+		public function BackObjectsLayer(layer:Object)
 		{
 			super(layer);
 		}
