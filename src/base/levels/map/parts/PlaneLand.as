@@ -14,7 +14,7 @@ package base.levels.map.parts
 		public function PlaneLand(x:Number, y:Number)
 		{
 			super();
-<<<<<<< HEAD
+//<<<<<<< HEAD
 			/*
 			this.image =  new Image(Resources.getTexture("GroundLayer"));
 =======

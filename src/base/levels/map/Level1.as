@@ -27,7 +27,7 @@ package base.levels.map
 		public function Level1(mapAdress:String)
 		{
 			
-
+		trace("Sisi");
 			super(mapAdress);
 			for(var i:uint = 0; i<120; i++){
 				myArray[i] = i%2;//Math.floor(Math.random()*0);

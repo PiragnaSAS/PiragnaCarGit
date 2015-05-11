@@ -1,13 +1,6 @@
 package layers
 {
-	import flash.display.Bitmap;
-	import flash.display.BitmapData;
-	import flash.geom.Point;
-	import flash.geom.Rectangle;
 	
-	import base.levels.map.TileSet;
-	
-	import starling.display.DisplayObject;
 	import starling.display.Sprite;
 
 	public class Layer extends Sprite

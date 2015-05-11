@@ -41,13 +41,14 @@ package base.levels.map
 		private var frontObjectsLayer:FrontObjectsLayer;
 		private var carsLayer:CarsLayer;
 		private var collitionLayer:CollitionLayer;
+		private var polyline:String;
 		//<--aca
 		private var tileSetsLoaded:uint=0;
 		
 		
 		public function Map(scene:String)
 		{			
-<<<<<<< HEAD
+//<<<<<<< HEAD
 			
 
 			eventLoaders= new Array();
@@ -56,14 +57,14 @@ package base.levels.map
 			var p2:Point = mt.transformPoint(p1);
 */			loadScene(scene);	
 			
-=======
+//=======
 //			eventLoaders= new Array();
 ///*			var p1:Point =new Point();	
 //			var mt:Matrix = new Matrix();
 //			var p2:Point = mt.transformPoint(p1);
 //*/			loadScene(scene);
 //			addAllLayers();
->>>>>>> 652f98777f6483fd8c134faf283d789a94879edf
+//>>>>>>> 652f98777f6483fd8c134faf283d789a94879edf
 						
 		}
 		
@@ -71,6 +72,7 @@ package base.levels.map
 		
 		private function loadScene(scene:String):void
 		{
+			trace("seraquellega");
 			trace(scene);
 
 			var loader:URLLoader = new URLLoader();
@@ -100,6 +102,7 @@ package base.levels.map
 			tileHeight = json["tileheight"];
 			
 			
+		
 			
 			trace("---");
 			createLayers();
@@ -114,7 +117,7 @@ package base.levels.map
 			
 			for each (var layer:Object in json["layers"]) 
 			{	
-				
+				trace("holaquehace");
 				
 				var layerName:String =layer["name"];
 				
@@ -138,7 +141,8 @@ package base.levels.map
 						carsLayer = new CarsLayer(layer);						
 						break;
 					case "CollitionLayer":
-						collitionLayer= new CollitionLayer(layer);
+						
+						collitionLayer= new CollitionLayer(layer,json);
 						break;
 					default:
 						
