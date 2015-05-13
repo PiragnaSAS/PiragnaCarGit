@@ -230,9 +230,9 @@ package base.levels.map
 	
 	
 		public function update():void
-		{
-			// TODO Auto Generated method stub
-			
+		{		
+			this.x = this.x - this.getSpeed();
+			this.y = this.y + (this.getSpeed() *0.44449);
 		}
 	}
 }

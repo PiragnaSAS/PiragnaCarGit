@@ -28,7 +28,8 @@ package base.levels.map
 		{
 			
 			super(mapAdress);
-			for(var i:uint = 0; i<120; i++){
+			this.setSpeed(30);
+			for(var i:uint = 0; i<250; i++){
 				myArray[i] = i%2;//Math.floor(Math.random()*0);
 			}
 			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
@@ -75,6 +76,7 @@ package base.levels.map
 		
 		private function update()
 		{
+
 		}
 	}
 }
