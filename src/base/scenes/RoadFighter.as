@@ -1,4 +1,4 @@
-package base.scenes
+﻿package base.scenes
 {
 	import flash.geom.Matrix;
 	import flash.geom.Point;
@@ -17,6 +17,8 @@ package base.scenes
 	import starling.utils.HAlign;
 	import starling.utils.VAlign;
 
+	import inputHandler.InputHandler;
+	
 	public class RoadFighter extends Sprite
 	{
 		private var iAManager:AIManager;
@@ -40,7 +42,8 @@ package base.scenes
 			this.addChild(hero2);
 			this.addChild(hero);
 			
-			
+			this.levers=new InputHandler();
+
 			var rectangle:Rectangle = new Rectangle(hero.x, hero.y,126.5,20.1);
 			var rectangle2:Rectangle = new Rectangle(hero2.x, hero2.y,126.5, 20.1);
 			var ff:Quad = new Quad(126.5, 20.1);
