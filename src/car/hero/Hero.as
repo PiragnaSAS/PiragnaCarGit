@@ -15,7 +15,7 @@ package car.hero
 		{
 			this.setCarImage( new Image(Resources.getTexture("CHero")));
 			this.x = x;
-			this.y =y;
+			this.y = y;
 			this.addChild(this.getCarImage());
 		}
 		

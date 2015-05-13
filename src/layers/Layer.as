@@ -18,19 +18,19 @@ package layers
 		
 		public function Layer(layer:Object)
 		{
-			this.layer=layer;
-			//dataS=layer["data"] as String;
-			data = layer["data"];			
-			height=layer["height"];
-			name=layer["name"];
-			opacity=layer["opacity"];
-			type=layer["type"];
-			visible=layer["visible"];
-			width=layer["width"];
-			x=layer["x"];
-			y=layer["y"];
-			loadAssetsByLayer();
-			
+//			this.layer=layer;
+//			//dataS=layer["data"] as String;
+//			data = layer["data"];			
+//			height=layer["height"];
+//			name=layer["name"];
+//			opacity=layer["opacity"];
+//			type=layer["type"];
+//			visible=layer["visible"];
+//			width=layer["width"];
+//			x=layer["x"];
+//			y=layer["y"];
+//			loadAssetsByLayer();
+//			
 		}
 		
 		public function loadAssetsByLayer():void{

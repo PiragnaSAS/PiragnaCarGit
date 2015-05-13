@@ -13,10 +13,10 @@ package base.levels.map.parts
 		
 		public function UpSeparator(x:Number, y:Number)
 		{
-			/*this.image =  new Image(Resources.getTexture("SepArriba"));
+			this.image =  new Image(Resources.getTexture("SepArriba"));
 			this.x = x;
 			this.y =y;
-			this.addChild(this.image);*/
+			this.addChild(this.image);
 		}
 	}
 }
