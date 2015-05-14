@@ -37,6 +37,7 @@ package layers
 			var index:int=0;
 			for (var i:int=0; i<this.width; i++){
 				for(var j:int=0 ;j<this.height; j++){
+					trace(name);
 					trace (data[index]);
 					index++;
 				}

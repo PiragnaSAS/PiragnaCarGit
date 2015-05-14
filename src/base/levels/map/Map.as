@@ -78,13 +78,10 @@ package base.levels.map
 			var loader:URLLoader = new URLLoader();
 			var request:URLRequest = new URLRequest();
 			request.url = scene;
-			
+			trace(request.url);
 			loader.addEventListener(IOErrorEvent.IO_ERROR, onIOError);
 			loader.addEventListener(Event.COMPLETE, onLoaderComplete);
 			loader.load(request);
-			
-
-			
 		}
 		private function onIOError(e:IOErrorEvent):void{
 			trace("error: "+e.errorID);
@@ -92,9 +89,7 @@ package base.levels.map
 		
 		private function onLoaderComplete(e:Event):void 
 		{		
-			
-			
-			
+					
 			json = JSON.parse(e.target.data);				
 			mapWidth = json["width"];
 			mapHeight = json["height"];
@@ -141,7 +136,6 @@ package base.levels.map
 						carsLayer = new CarsLayer(layer);						
 						break;
 					case "CollitionLayer":
-						
 						collitionLayer= new CollitionLayer(layer,json);
 						break;
 					default:
