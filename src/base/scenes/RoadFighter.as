@@ -1,4 +1,4 @@
-﻿package base.scenes
+package base.scenes
 {
 	import flash.geom.Matrix;
 	import flash.geom.Point;
@@ -11,12 +11,14 @@
 	
 	import car.hero.Hero;
 	
+	import events.LeverEvent;
+	
+	import inputHandler.InputHandler;
+	
 	import starling.display.Quad;
 	import starling.display.Sprite;
 	import starling.events.Event;
 
-	import inputHandler.InputHandler;
-	
 	public class RoadFighter extends Sprite
 	{
 		private var iAManager:AIManager;
@@ -25,6 +27,7 @@
 		private var hero:Hero;
 		private var speed:uint;
 		private var hero2:Hero;
+		private var levers:InputHandler;
 		
 		public function RoadFighter()
 		{
@@ -32,12 +35,15 @@
 			this.iAManager = new AIManager(this.level);
 			this.hero = new Hero(458,458);
 			this.hero2 = new Hero(439,439);
+			this.levers=new InputHandler();
+			this.addChild(levers);
 			this.addChild(this.level);
 			this.addChild(hero2);
 			this.addChild(hero);
 			
-			this.levers=new InputHandler();
-
+			this.levers.addEventListener(LeverEvent.ROTATE, onRotate);
+			this.levers.addEventListener(LeverEvent.ACCELERATE, onAcelerate);
+			
 			var rectangle:Rectangle = new Rectangle(hero.x, hero.y,126.5,20.1);
 			var rectangle2:Rectangle = new Rectangle(hero2.x, hero2.y,126.5, 20.1);
 			var ff:Quad = new Quad(126.5, 20.1);
@@ -60,6 +66,18 @@
 			}
 			
 						
+			
+		}
+		
+		private function onRotate(e:LeverEvent):void
+		{
+			trace("rigth",e.data.rotationValue);
+			
+		}
+		
+		private function onAcelerate(e:LeverEvent):void
+		{
+			trace("+-+-+",e.data.rotationValue);
 			
 		}
 		

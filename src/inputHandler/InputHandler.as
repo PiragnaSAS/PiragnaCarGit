@@ -58,18 +58,17 @@ package inputHandler
 					}else{
 						leverTwo.visible = true;
 						leverTwo.setCoordinatePosition(coordinate);
-						trace("hola soy un fantasma")
 					}					
 				}
 				if(touch.phase == TouchPhase.MOVED){
-					if(coordinate.y < midQuadY){	
+					if(leverOne.visible==true){	
 						leverOne.setMovingPoint(touch.getLocation(this));	
 					}else{						
 						leverTwo.setMovingPointAcelerator(touch.getLocation(this));	
 					}
 				}
 				if(touch.phase == TouchPhase.ENDED){	
-					if(coordinate.y < midQuadY){
+					if(leverOne.visible==true){
 						leverOne.visible=false;
 					}else{
 						leverTwo.visible=false;
@@ -115,34 +114,28 @@ package inputHandler
 						}
 				}
 				
-				if(touchA.phase == TouchPhase.MOVED){		
-					if(coordinateA.y < midQuadA){	
-						leverOne.setMovingPoint(touchA.getLocation(this));							
-				   	}
-				}
-				
-				if(touchB.phase == TouchPhase.MOVED){
-					if(coordinateB.y > midQuadB){	
-						leverTwo.setMovingPointAcelerator(touchB.getLocation(this));
-					}					
-				}
-				
-				if(touchA.phase == TouchPhase.ENDED) {
-					if(coordinateA.y < midQuadA){
-						leverOne.visible=false;
+				if(touchA.phase == TouchPhase.MOVED){
+					if(leverOne.visible==true){
+						leverOne.setMovingPoint(touchA.getLocation(this));  	
 					}
 				}
 				
+				if(touchB.phase == TouchPhase.MOVED){
+					if(leverTwo.visible==true){
+						leverTwo.setMovingPointAcelerator(touchB.getLocation(this));					
+				}
+				}
+				if(touchA.phase == TouchPhase.ENDED) {
+						leverOne.visible=false;
+				}
+				
 				if(touchB.phase == TouchPhase.ENDED){
-					if(coordinateB.y > midQuadB){
 						leverTwo.visible=false;
-					}					
 				}
 		
 			}
 			
 		}
-		
 	}
-	
+		
 }

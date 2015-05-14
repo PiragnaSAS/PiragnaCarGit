@@ -58,7 +58,7 @@ package inputHandler.lever
 					this.leverImage.x = movementPoint.x;
 					this.leverImage.y = movementPoint.y;
 					
-					if(movementPoint.y<movementPoint.y-(coordinatePoint.y-movementPoint.y)*Math.sin((5*Math.PI)/4)*Math.sqrt(2*Math.pow(coordinatePoint.x-movementPoint.x,2))){
+					if((coordinatePoint.y-movementPoint.y)*Math.abs(coordinatePoint.x-movementPoint.x)>0){
 						dispatchEvent(new LeverEvent(LeverEvent.ROTATE,true,{rotationValue:-dist/radius}));
 					}else{
 						dispatchEvent(new LeverEvent(LeverEvent.ROTATE,true,{rotationValue:dist/radius}));
@@ -67,10 +67,10 @@ package inputHandler.lever
 					var theta:Number = Math.atan2(movementPoint.y-coordinatePoint.y,movementPoint.x - coordinatePoint.x);
 					this.leverImage.x = coordinatePoint.x + Math.cos(theta)*radius;
 					this.leverImage.y = coordinatePoint.y + Math.sin(theta)*radius;
-					if(movementPoint.y<movementPoint.y-(coordinatePoint.y-movementPoint.y)*Math.sin((5*Math.PI)/4)*Math.sqrt(2*Math.pow(coordinatePoint.x-movementPoint.x,2))){
+					if((coordinatePoint.y-movementPoint.y)*Math.abs(coordinatePoint.x-movementPoint.x)>0){
 						dispatchEvent(new LeverEvent(LeverEvent.ROTATE,true,{rotationValue:-dist/radius}));
 					}else{
-						dispatchEvent(new LeverEvent(LeverEvent.ROTATE,true,{rotationValue:-dist/radius}));
+						dispatchEvent(new LeverEvent(LeverEvent.ROTATE,true,{rotationValue:dist/radius}));
 					}
 			}
 			
@@ -84,21 +84,21 @@ package inputHandler.lever
 				if((movementPoint.y > coordinatePoint.y) && (movementPoint.x < coordinatePoint.x)){
 					this.leverImage.x = coordinatePoint.x;
 					this.leverImage.y = coordinatePoint.y;
-					dispatchEvent(new LeverEvent(LeverEvent.ACCELERATE,true,{rotationValue:-dist/radius}));
+					dispatchEvent(new LeverEvent(LeverEvent.ACCELERATE,true,{rotationValue:dist/radius}));
 				}else{
 					this.leverImage.x = coordinatePoint.x + Math.cos(-Math.PI/4)*distance;
 					this.leverImage.y = coordinatePoint.y + Math.sin(-Math.PI/4)*distance;
-					dispatchEvent(new LeverEvent(LeverEvent.ACCELERATE,true,{rotationValue:-dist/radius}));
+					dispatchEvent(new LeverEvent(LeverEvent.ACCELERATE,true,{rotationValue:dist/radius}));
 				}
 			}else{
 				if((movementPoint.y > coordinatePoint.y) && (movementPoint.x < coordinatePoint.x)){
 					this.leverImage.x = coordinatePoint.x;
 					this.leverImage.y = coordinatePoint.y;
-					dispatchEvent(new LeverEvent(LeverEvent.ACCELERATE,true,{rotationValue:-dist/radius}));
+					dispatchEvent(new LeverEvent(LeverEvent.ACCELERATE,true,{rotationValue:dist/radius}));
 				}else{
 					this.leverImage.x = coordinatePoint.x + Math.cos(-Math.PI/4)*radius*3;
 					this.leverImage.y = coordinatePoint.y + Math.sin(-Math.PI/4)*radius*3;
-					dispatchEvent(new LeverEvent(LeverEvent.ACCELERATE,true,{rotationValue:-dist/radius}));
+					dispatchEvent(new LeverEvent(LeverEvent.ACCELERATE,true,{rotationValue:dist/radius}));
 				}
 			}
 			
