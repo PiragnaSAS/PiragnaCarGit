@@ -2,6 +2,8 @@ package inputHandler.lever
 {
 	import flash.geom.Point;
 	
+	import events.LeverEvent;
+	
 	import resources.Resources;
 	
 	import starling.display.Image;
@@ -51,43 +53,62 @@ package inputHandler.lever
 		}
 		
 		public function setMovingPoint(movementPoint:Point):void{	
-			
-			if(Math.sqrt(Math.pow((movementPoint.x - this.coordinatePoint.x),2) + Math.pow((movementPoint.y - coordinatePoint.y),2)) < radius){
+			var dist:Number =Math.sqrt(Math.pow((movementPoint.x - this.coordinatePoint.x),2) + Math.pow((movementPoint.y - coordinatePoint.y),2)) 
+			if(dist < radius){
 					this.leverImage.x = movementPoint.x;
 					this.leverImage.y = movementPoint.y;
+					
 					if(movementPoint.y<movementPoint.y-(coordinatePoint.y-movementPoint.y)*Math.sin((5*Math.PI)/4)*Math.sqrt(2*Math.pow(coordinatePoint.x-movementPoint.x,2))){
-						dispatchEventWith("Turn Left",false);
+						dispatchEvent(new LeverEvent(LeverEvent.ROTATE,true,{rotationValue:-dist/radius}));
 					}else{
-						dispatchEventWith("Turn Right",false);
+						dispatchEvent(new LeverEvent(LeverEvent.ROTATE,true,{rotationValue:dist/radius}));
 					}
 			}else{
 					var theta:Number = Math.atan2(movementPoint.y-coordinatePoint.y,movementPoint.x - coordinatePoint.x);
 					this.leverImage.x = coordinatePoint.x + Math.cos(theta)*radius;
 					this.leverImage.y = coordinatePoint.y + Math.sin(theta)*radius;
 					if(movementPoint.y<movementPoint.y-(coordinatePoint.y-movementPoint.y)*Math.sin((5*Math.PI)/4)*Math.sqrt(2*Math.pow(coordinatePoint.x-movementPoint.x,2))){
-						
+						dispatchEvent(new LeverEvent(LeverEvent.ROTATE,true,{rotationValue:-dist/radius}));
 					}else{
-						dispatchEventWith("Turn Right",false);
+						dispatchEvent(new LeverEvent(LeverEvent.ROTATE,true,{rotationValue:-dist/radius}));
 					}
 			}
 			
 		}
 		
 		public function setMovingPointAcelerator(movementPoint:Point):void{	
-					if(movementPoint.x>coordinatePoint.x){
-						if(Math.sqrt(Math.pow((movementPoint.x - this.coordinatePoint.x),2) + Math.pow((movementPoint.y - coordinatePoint.y),2)) < radius*2){
-							this.leverImage.x = movementPoint.x;
-							this.leverImage.y = movementPoint.y +((coordinatePoint.y-movementPoint.y))+Math.sin((5*Math.PI)/4)*Math.sqrt(2*Math.pow(coordinatePoint.x-movementPoint.x,2));
-							dispatchEventWith("Speed",false);
-						}
-					}else{
-						this.leverImage.x = coordinatePoint.x;
-						this.leverImage.y = coordinatePoint.y;
-						dispatchEventWith("Accelerate",false);
-					}
-		}
+			
+			var distance:Number = Math.sqrt(Math.pow((movementPoint.x - this.coordinatePoint.x),2) + Math.pow((movementPoint.y - coordinatePoint.y),2));
+			var dist:Number = Math.sqrt(Math.pow((leverImage.x - this.coordinatePoint.x),2) + Math.pow((leverImage.y - coordinatePoint.y),2));
+			if(distance < radius*3){
+				if((movementPoint.y > coordinatePoint.y) && (movementPoint.x < coordinatePoint.x)){
+					this.leverImage.x = coordinatePoint.x;
+					this.leverImage.y = coordinatePoint.y;
+					dispatchEvent(new LeverEvent(LeverEvent.ACCELERATE,true,{rotationValue:-dist/radius}));
+				}else{
+					this.leverImage.x = coordinatePoint.x + Math.cos(-Math.PI/4)*distance;
+					this.leverImage.y = coordinatePoint.y + Math.sin(-Math.PI/4)*distance;
+					dispatchEvent(new LeverEvent(LeverEvent.ACCELERATE,true,{rotationValue:-dist/radius}));
+				}
+			}else{
+				if((movementPoint.y > coordinatePoint.y) && (movementPoint.x < coordinatePoint.x)){
+					this.leverImage.x = coordinatePoint.x;
+					this.leverImage.y = coordinatePoint.y;
+					dispatchEvent(new LeverEvent(LeverEvent.ACCELERATE,true,{rotationValue:-dist/radius}));
+				}else{
+					this.leverImage.x = coordinatePoint.x + Math.cos(-Math.PI/4)*radius*3;
+					this.leverImage.y = coordinatePoint.y + Math.sin(-Math.PI/4)*radius*3;
+					dispatchEvent(new LeverEvent(LeverEvent.ACCELERATE,true,{rotationValue:-dist/radius}));
+				}
+			}
+			
+			}
+		
+	
+	}
+	
 	}
 			
-}
+
 	
 	

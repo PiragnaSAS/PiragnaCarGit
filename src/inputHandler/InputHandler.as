@@ -32,9 +32,10 @@ package inputHandler
 			inputQuad = new Quad(General.screenWidth, General.screenHeight, 0xffffff);
 			inputQuad.alpha = 0;
 			inputQuad.addEventListener(TouchEvent.TOUCH, onTouch);
+			trace(General.screenAspectRatio);
 			
-			leverOne=new Lever(Resources.getTexture("ControlLever2"), 40);
-			leverTwo=new Lever(Resources.getTexture("ControlLever1"), 40);		
+			leverOne=new Lever(Resources.getTexture("ControlLever2"), General.screenWidth/25);
+			leverTwo=new Lever(Resources.getTexture("ControlLever1"), General.screenWidth/25);		
 			
 			addChild(inputQuad);
 			addChild(leverOne);
@@ -43,7 +44,9 @@ package inputHandler
 		
 		private function onTouch(e:TouchEvent):void{
 			var touches:Vector.<Touch> = e.getTouches(this);			
+			
 			if(!touches)return;
+			
 			if(touches.length == 1){
 				var touch:Touch = touches[0];
 				var coordinate:Point = touch.getLocation(this);
@@ -55,6 +58,7 @@ package inputHandler
 					}else{
 						leverTwo.visible = true;
 						leverTwo.setCoordinatePosition(coordinate);
+						trace("hola soy un fantasma")
 					}					
 				}
 				if(touch.phase == TouchPhase.MOVED){
@@ -71,19 +75,21 @@ package inputHandler
 						leverTwo.visible=false;
 					}
 				}
-			}else if(touches.length >= 2){
+			}else if(touches.length == 2){
 				var touchA:Touch;
 				var touchB:Touch;
 				var coordinateB:Point;
 				var coordinateA:Point;
 				var midQuadA:uint;
 				var midQuadB:uint;
+				
 				if(touches[0].getLocation(this).y > -touches[0].getLocation(this).x * General.screenAspectRatio + inputQuad.height){
 					touchB = touches[0];
 				}else{
 					touchB = touches[1];		
 					touchA = touches[0];
 				}
+				
 				if(touches[0].getLocation(this).y< -touches[0].getLocation(this).x * General.screenAspectRatio + inputQuad.height)
 					touchA = touches[0];
 				else{
@@ -94,38 +100,43 @@ package inputHandler
 				coordinateA = touchA.getLocation(this);
 				midQuadA = -coordinateA.x * General.screenAspectRatio + inputQuad.height;				
 				midQuadB = -coordinateB.x * General.screenAspectRatio + inputQuad.height;
+				
 				if(touchA.phase == TouchPhase.BEGAN){
 	 					if(coordinateA.y < midQuadA){			
 							leverOne.visible=true;
 							leverOne.setCoordinatePosition(coordinateA);						
 						}
 				}
+				
 				if(touchB.phase == TouchPhase.BEGAN){		
 						if(coordinateB.y > midQuadB){
 							leverTwo.visible=true;
 							leverTwo.setCoordinatePosition(coordinateB);	
 						}
 				}
+				
 				if(touchA.phase == TouchPhase.MOVED){		
 					if(coordinateA.y < midQuadA){	
 						leverOne.setMovingPoint(touchA.getLocation(this));							
 				   	}
 				}
+				
 				if(touchB.phase == TouchPhase.MOVED){
 					if(coordinateB.y > midQuadB){	
 						leverTwo.setMovingPointAcelerator(touchB.getLocation(this));
 					}					
 				}
+				
 				if(touchA.phase == TouchPhase.ENDED) {
 					if(coordinateA.y < midQuadA){
 						leverOne.visible=false;
 					}
 				}
+				
 				if(touchB.phase == TouchPhase.ENDED){
 					if(coordinateB.y > midQuadB){
 						leverTwo.visible=false;
-					}
-					
+					}					
 				}
 		
 			}

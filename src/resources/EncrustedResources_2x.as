@@ -13,6 +13,15 @@ package resources
 		[Embed(source="../../assets/images/Carreteras/Escenario01_RoadToPiragna_render004.png")]
 		public static const SepArriba:Class;
 		
+		[Embed(source="../../assets/images/Controls/shadedLight00.png")]
+		public static const ControlLever2:Class;
+		
+		[Embed(source="../../assets/images/Controls/shadedLight01.png")]
+		public static const ControlLever1:Class;
+		
+		[Embed(source="../../assets/images/Controls/shadedLight11.png")]
+		public static const ControlBase:Class;
+		
 		[Embed(source="../../assets/images/carros/Carros01_RoadToPiragna_Model001.png")]
 		public static const CHero:Class;
 		
