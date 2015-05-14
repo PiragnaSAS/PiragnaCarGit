@@ -1,10 +1,8 @@
 package base.levels.map
 {
 	import flash.display.Bitmap;
-	import flash.display.BitmapData;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
-	import flash.events.ProgressEvent;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
 	
@@ -43,38 +41,41 @@ package base.levels.map
 		private var collitionLayer:CollitionLayer;
 		private var polyline:String;
 		//<--aca
+		
+		private var  speed:Number;
+		
 		private var tileSetsLoaded:uint=0;
 		
 		
 		public function Map(scene:String)
-		{			
-//<<<<<<< HEAD
+		{		
+			this.groundLayer = new GroundLayer("esteobjetodebeserreemplazadoporunjson");
+			this.backobjectsLayer = new BackObjectsLayer("esteobjetodebeserreemplazadoporunjson");
+			this.raceLayer =  new RaceLayer("esteobjetodebeserreemplazadoporunjson");
+			this.carsLayer  = new CarsLayer("esteobjetodebeserreemplazadoporunjson");
+			this.frontObjectsLayer = new FrontObjectsLayer("esteobjetodebeserreemplazadoporunjson");			
 			
-
-			eventLoaders= new Array();
-/*			var p1:Point =new Point();	
-			var mt:Matrix = new Matrix();
-			var p2:Point = mt.transformPoint(p1);
-*/			loadScene(scene);	
-			
-//=======
-//			eventLoaders= new Array();
-///*			var p1:Point =new Point();	
-//			var mt:Matrix = new Matrix();
-//			var p2:Point = mt.transformPoint(p1);
-//*/			loadScene(scene);
-//			addAllLayers();
-//>>>>>>> 652f98777f6483fd8c134faf283d789a94879edf
-						
+			this.addChild(this.groundLayer);
+			this.addChild(this.backobjectsLayer);
+			this.addChild(this.raceLayer);
+			this.addChild(this.carsLayer);
+			this.addChild(this.frontObjectsLayer);
 		}
 		
 		
 		
+		public function getSpeed():Number
+		{
+			return this.speed;
+		}
+
+		public function setSpeed(value:Number):void
+		{
+			this.speed = value;
+		}
+
 		private function loadScene(scene:String):void
 		{
-			trace("seraquellega");
-			trace(scene);
-
 			var loader:URLLoader = new URLLoader();
 			var request:URLRequest = new URLRequest();
 			request.url = scene;
@@ -225,5 +226,10 @@ package base.levels.map
 		
 	
 	
+		public function update():void
+		{		
+			this.x = this.x - this.getSpeed();
+			this.y = this.y + (this.getSpeed() *0.44449);
+		}
 	}
 }

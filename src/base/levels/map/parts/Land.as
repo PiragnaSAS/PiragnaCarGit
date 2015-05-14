@@ -12,10 +12,10 @@ package base.levels.map.parts
 		
 		public function Land(x:Number, y:Number)
 		{
-			/*this.image =  new Image(Resources.getTexture("Ground"));
+			this.image =  new Image(Resources.getTexture("Ground"));
 			this.x = x;
 			this.y =y;
-			this.addChild(this.image);*/
+			this.addChild(this.image);
 		}
 	}
 }

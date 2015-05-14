@@ -18,8 +18,8 @@ package base.levels.map
 		
 		private var iniSepUpX:int = iniLandX 
 		private var iniSepUpY:int = iniLandY
-		private var distanceSepUpX:Number= 40;
-		private var distanceSepUpY:Number = 17.3;
+		private var distanceSepUpX:Number= 36;
+		private var distanceSepUpY:Number = 16;
 		
 		private var iniSepDownX:Number = iniLandX+ 120;
 		private var iniSepDownY:Number = iniLandY + 156;
@@ -27,9 +27,9 @@ package base.levels.map
 		public function Level1(mapAdress:String)
 		{
 			
-		trace("Sisi");
 			super(mapAdress);
-			for(var i:uint = 0; i<120; i++){
+			this.setSpeed(30);
+			for(var i:uint = 0; i<250; i++){
 				myArray[i] = i%2;//Math.floor(Math.random()*0);
 			}
 			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
@@ -38,7 +38,6 @@ package base.levels.map
 		private function onAddedToStage(e:Event):void
 		{
 			this.addLand(this.iniLandX,this.iniLandY);
-			
 			for(var i:uint = myArray.length; i>1; i--){
 				this.iniLandX += this.distanceLandX;
 				this.iniLandY -= this.distanceLandY;
@@ -50,29 +49,34 @@ package base.levels.map
 				
 			}
 			
-			this.addChildAt(new UpSeparator(this.iniSepUpX,this.iniSepUpY), myArray.length);
+			this.getBackObjectsLayer().addChildAt(new UpSeparator(this.iniSepUpX,this.iniSepUpY),0);
 			for(var j:uint = myArray.length; j> 0; j--){
 				this.iniSepUpX += this.distanceSepUpX;
 				this.iniSepUpY -= this.distanceSepUpY;
 				this.iniSepDownX += this.distanceSepUpX;
 				this.iniSepDownY -= this.distanceSepUpY;
-				this.addBorders(this.iniSepUpX,this.iniSepUpY,this.iniSepDownX,this.iniSepDownY, i);	
+				this.addBorders(this.iniSepUpX,this.iniSepUpY,this.iniSepDownX,this.iniSepDownY, 0);	
 			}
 		}
 		
 		private function addBorders(xUp:Number, yUp:Number, xDown:Number, yDown:Number, zIndex:uint):void
 		{
-			this.addChildAt(new UpSeparator(xUp, yUp), zIndex);
-			this.addChildAt(new UpSeparator(xDown, yDown), zIndex + 120);
-		}
+			this.getBackObjectsLayer().addChildAt(new UpSeparator(xUp, yUp), 0);
+			this.getFrontObjectsLayer().addChildAt(new UpSeparator(xDown, yDown), zIndex);
+		}	
 		
 		private function addLand(x:Number, y:Number):void
 		{
-			this.addChild(new Land(x,y));
+			this.getGroundLayer().addChild(new Land(x,y));
 		}
 		
 		private function addPlaneLand(x:Number, y:Number):void{
-			this.addChild(new PlaneLand(x,y));
+			this.getGroundLayer().addChild(new PlaneLand(x,y));
+		}
+		
+		private function update()
+		{
+
 		}
 	}
 }
