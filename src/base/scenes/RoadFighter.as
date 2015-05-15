@@ -31,7 +31,7 @@
 		
 		public function RoadFighter()
 		{
-			this.level = new Level1("lvl1example.json");
+			this.level = new Level1("Map_Level_01.json");
 			this.iAManager = new AIManager(this.level);
 			this.hero = new Hero(458,458);
 			this.hero.alignPivot(HAlign.LEFT, VAlign.BOTTOM);

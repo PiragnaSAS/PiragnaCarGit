@@ -11,9 +11,11 @@ package base.levels.map
 	import layers.CollitionLayer;
 	import layers.FrontObjectsLayer;
 	import layers.GroundLayer;
+	import layers.OverRaceLayer;
 	import layers.RaceLayer;
 	
 	import starling.display.Sprite;
+	
 
 	public class Map extends Sprite
 	{
@@ -39,6 +41,7 @@ package base.levels.map
 		private var frontObjectsLayer:FrontObjectsLayer;
 		private var carsLayer:CarsLayer;
 		private var collitionLayer:CollitionLayer;
+		private var overRaceLayer:OverRaceLayer;
 		private var polyline:String;
 		//<--aca
 		
@@ -48,18 +51,14 @@ package base.levels.map
 		
 		
 		public function Map(scene:String)
-		{		
-			this.groundLayer = new GroundLayer("esteobjetodebeserreemplazadoporunjson");
-			this.backobjectsLayer = new BackObjectsLayer("esteobjetodebeserreemplazadoporunjson");
-			this.raceLayer =  new RaceLayer("esteobjetodebeserreemplazadoporunjson");
-			this.carsLayer  = new CarsLayer("esteobjetodebeserreemplazadoporunjson");
-			this.frontObjectsLayer = new FrontObjectsLayer("esteobjetodebeserreemplazadoporunjson");			
+		{	
+			this.loadScene(scene);	
 			
-			this.addChild(this.groundLayer);
+			/*this.addChild(this.groundLayer);
 			this.addChild(this.backobjectsLayer);
 			this.addChild(this.raceLayer);
 			this.addChild(this.carsLayer);
-			this.addChild(this.frontObjectsLayer);
+			this.addChild(this.frontObjectsLayer);*/
 		}
 		
 		
@@ -90,7 +89,7 @@ package base.levels.map
 		
 		private function onLoaderComplete(e:Event):void 
 		{		
-					
+			trace("here is here");		
 			json = JSON.parse(e.target.data);				
 			mapWidth = json["width"];
 			mapHeight = json["height"];
@@ -108,8 +107,7 @@ package base.levels.map
 		
 			
 		private function createLayers():void {
-			// load each layer
-			
+			// load each layer			
 			
 			for each (var layer:Object in json["layers"]) 
 			{	
@@ -120,8 +118,7 @@ package base.levels.map
 				// decide where we're going to put the layer
 				
 				switch(layerName) {
-					case "GroundLayer":	
-						
+					case "GroundLayer":							
 						groundLayer = new GroundLayer(layer);						
 						break;
 					case "RaceLayer":
@@ -139,6 +136,8 @@ package base.levels.map
 					case "CollitionLayer":
 						collitionLayer= new CollitionLayer(layer,json);
 						break;
+					case "OverRaceLayer":
+						overRaceLayer=new OverRaceLayer(layer);
 					default:
 						
 				}		

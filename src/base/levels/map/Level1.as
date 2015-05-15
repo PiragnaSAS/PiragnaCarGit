@@ -74,7 +74,7 @@ package base.levels.map
 			this.getGroundLayer().addChild(new PlaneLand(x,y));
 		}
 		
-		private function update()
+		private function update():void
 		{
 
 		}
