@@ -27,9 +27,11 @@ package layers
 			height=newLayer["height"];
 			visible=newLayer["visible"];
 			width=newLayer["width"];
+			
 			leftPositions=new Array();
 			rigthPositions=new Array();
 			loadCollitionByLayer(jsonPoints);
+			
 			initialRigthPoint=new Point(jsonPoints["rX"],jsonPoints["rY"]);
 			initialLeftPoint=new Point(jsonPoints["lX"],jsonPoints["lY"]);
 			trace(initialRigthPoint);
@@ -38,11 +40,10 @@ package layers
 		
 		public function loadCollitionByLayer(jsonPoints:Object):void{
 			
-			for each(var leftpoints:Object in jsonPoints["leftPolyline"])
-			{
-				newLeftPoint=new Point(leftpoints["x"],leftpoints["y"]);
-				trace(newLeftPoint);
-				leftPositions.push(newLeftPoint);
+			
+			for each(var polylines:Object in jsonPoints["polylines"]){
+			
+		trace("linea");
 			}
 			
 			for each(var rigthpoints:Object in jsonPoints["rightPolyline"])

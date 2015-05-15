@@ -54,7 +54,7 @@ package base.levels.map
 			this.raceLayer =  new RaceLayer("esteobjetodebeserreemplazadoporunjson");
 			this.carsLayer  = new CarsLayer("esteobjetodebeserreemplazadoporunjson");
 			this.frontObjectsLayer = new FrontObjectsLayer("esteobjetodebeserreemplazadoporunjson");			
-			
+			loadScene(scene);
 			this.addChild(this.groundLayer);
 			this.addChild(this.backobjectsLayer);
 			this.addChild(this.raceLayer);
@@ -90,13 +90,12 @@ package base.levels.map
 		
 		private function onLoaderComplete(e:Event):void 
 		{		
-					
+					trace("probando");
 			json = JSON.parse(e.target.data);				
 			mapWidth = json["width"];
 			mapHeight = json["height"];
 			tileWidth = json["tilewidth"];
 			tileHeight = json["tileheight"];
-			
 			
 		
 			
