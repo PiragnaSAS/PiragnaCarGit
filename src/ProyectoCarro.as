@@ -46,6 +46,7 @@ package
 			
 			trace ("utyu",RoadFighter);
 			
+			Starling.multitouchEnabled = true;
 			starling = new Starling(RoadFighter, stage, General.viewPort);
 			
 			starling.stage3D.addEventListener(Event.CONTEXT3D_CREATE, function(e:Event):void
