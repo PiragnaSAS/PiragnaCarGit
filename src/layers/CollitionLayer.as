@@ -8,31 +8,48 @@ package layers
 	{
 	 private var _layer:Object;
 	 private var _name:String;
-	 private var _positions:Array;
+	 private var _initialRigthPoint:Point;
+	 private var _initialLeftPoint:Point;
+	 private var _rigthPositions:Array;
+	 private var _leftPositions:Array;
 	 protected var visible:Boolean;
 	 protected var width:Number;
 	 protected var height:Number;
-	
+	 private var newLeftPoint:Point;
+	 private var newRigthPoint:Point;
+	 
 	 private var newpoint:Point;
 		public function CollitionLayer(newLayer:Object,jsonPoints:Object)
 		{
-		
+			
 			this.layer=newLayer;
 			this.name=newLayer["name"];
 			height=newLayer["height"];
 			visible=newLayer["visible"];
 			width=newLayer["width"];
-			jsonPoints["polyline"].length;
-			positions=new Array();
+			leftPositions=new Array();
+			rigthPositions=new Array();
 			loadCollitionByLayer(jsonPoints);
+			initialRigthPoint=new Point(jsonPoints["rX"],jsonPoints["rY"]);
+			initialLeftPoint=new Point(jsonPoints["lX"],jsonPoints["lY"]);
+			trace(initialRigthPoint);
+			trace(initialLeftPoint);
 		}
 		
 		public function loadCollitionByLayer(jsonPoints:Object):void{
-			for each(var points:Object in jsonPoints["polyline"])
+			
+			for each(var leftpoints:Object in jsonPoints["leftPolyline"])
 			{
-				newpoint=new Point(points["x"],points["y"]);
-				trace(newpoint);
-				positions.push(newpoint);
+				newLeftPoint=new Point(leftpoints["x"],leftpoints["y"]);
+				trace(newLeftPoint);
+				leftPositions.push(newLeftPoint);
+			}
+			
+			for each(var rigthpoints:Object in jsonPoints["rightPolyline"])
+			{
+				newRigthPoint=new Point(rigthpoints["x"],rigthpoints["y"]);
+				trace(newRigthPoint);
+				rigthPositions.push(newLeftPoint);
 			}
 			
 			}
@@ -47,16 +64,46 @@ package layers
 		 _layer = value;
 	 }
 
+	
 
-
-	 public function get positions():Array
+	 public function get rigthPositions():Array
 	 {
-		 return _positions;
+		 return _rigthPositions;
 	 }
 
-	 public function set positions(value:Array):void
+	 public function set rigthPositions(value:Array):void
 	 {
-		 _positions = value;
+		 _rigthPositions = value;
+	 }
+
+	 public function get leftPositions():Array
+	 {
+		 return _leftPositions;
+	 }
+
+	 public function set leftPositions(value:Array):void
+	 {
+		 _leftPositions = value;
+	 }
+
+	 public function get initialRigthPoint():Point
+	 {
+		 return _initialRigthPoint;
+	 }
+
+	 public function set initialRigthPoint(value:Point):void
+	 {
+		 _initialRigthPoint = value;
+	 }
+
+	 public function get initialLeftPoint():Point
+	 {
+		 return _initialLeftPoint;
+	 }
+
+	 public function set initialLeftPoint(value:Point):void
+	 {
+		 _initialLeftPoint = value;
 	 }
 
 

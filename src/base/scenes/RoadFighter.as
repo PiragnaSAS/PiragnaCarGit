@@ -11,14 +11,23 @@ package base.scenes
 	
 	import car.hero.Hero;
 	
+<<<<<<< HEAD
 	import events.LeverEvent;
 	
+=======
+>>>>>>> 69e46f6c2752dc35c893ffb82eac24fefceadc60
 	import inputHandler.InputHandler;
 	
 	import starling.display.Quad;
 	import starling.display.Sprite;
 	import starling.events.Event;
+<<<<<<< HEAD
 
+=======
+	import starling.utils.HAlign;
+	import starling.utils.VAlign;
+	
+>>>>>>> 69e46f6c2752dc35c893ffb82eac24fefceadc60
 	public class RoadFighter extends Sprite
 	{
 		private var iAManager:AIManager;
@@ -27,18 +36,30 @@ package base.scenes
 		private var hero:Hero;
 		private var speed:uint;
 		private var hero2:Hero;
+<<<<<<< HEAD
 		private var levers:InputHandler;
 		private var xxxx:Number;
 		private var yyyy:Number;
+=======
+		private var lever:InputHandler;
+>>>>>>> 69e46f6c2752dc35c893ffb82eac24fefceadc60
 		
 		public function RoadFighter()
 		{
-			this.level = new Level1("lvl1example.json");
+			this.level = new Level1("Map_Level_0101.json");
 			this.iAManager = new AIManager(this.level);
 			this.hero = new Hero(458,458);
+<<<<<<< HEAD
 			this.hero2 = new Hero(439,439);
 			this.levers=new InputHandler();
 			this.addChild(levers);
+=======
+			this.hero.alignPivot(HAlign.LEFT, VAlign.BOTTOM);
+			
+			this.hero2 = new Hero(435,335);
+			this.hero2.alignPivot(HAlign.LEFT, VAlign.BOTTOM);
+			
+>>>>>>> 69e46f6c2752dc35c893ffb82eac24fefceadc60
 			this.addChild(this.level);
 			this.addChild(hero2);
 			this.addChild(hero);
@@ -46,18 +67,31 @@ package base.scenes
 			this.levers.addEventListener(LeverEvent.ROTATE, onRotate);
 			this.levers.addEventListener(LeverEvent.ACCELERATE, onAcelerate);
 			
+<<<<<<< HEAD
 			var rectangle:Rectangle = new Rectangle(hero.x, hero.y,126.5,20.1);
 			var rectangle2:Rectangle = new Rectangle(hero2.x, hero2.y,126.5, 20.1);
 			var ff:Quad = new Quad(126.5, 20.1);
 			ff.x = xxxx;
 			ff.y = hero.y;
+=======
+			this.lever=new InputHandler();
+
+			var rectangle:Rectangle = new Rectangle(hero.x, hero.y,126.5,20.1);
+			var rectangle2:Rectangle = new Rectangle(hero2.x, hero2.y,126.5, 20.1);
+			var ff:Quad = new Quad(60, 20.1);
+			ff.alignPivot(HAlign.LEFT, VAlign.BOTTOM);
 			
-			var ff2:Quad = new Quad(126.5, 20.1);
-			ff2.x = hero2.x;
-			ff2.y = hero2.y;
+			ff.x = hero.x +15;
+			ff.y = hero.y - 25;
+>>>>>>> 69e46f6c2752dc35c893ffb82eac24fefceadc60
 			
-//			this.addChild(ff);
-//			this.addChild(ff2);
+			var ff2:Quad = new Quad(60, 20.1 );
+			ff2.alignPivot(HAlign.LEFT, VAlign.BOTTOM);
+			ff2.x = hero2.x+15;
+			ff2.y = hero2.y - 25;
+			
+			this.addChildAt(ff,0 );
+			this.addChildAt(ff2, 0);
 			if(rectangle.intersects(rectangle2))
 			{
 				trace("si si colombia, si si caribe");
@@ -66,8 +100,7 @@ package base.scenes
 			{
 				trace("te hablo desde la prisión");
 			}
-			
-						
+			addEventListener(Event.ENTER_FRAME, onEnterFrame);	
 			
 		}
 		
@@ -103,13 +136,12 @@ package base.scenes
 		
 		private function update():void
 		{
-			var p:Point;
-			var mt:Matrix = new Matrix();//faltan parametros
-			var p_:Point = mt.transformPoint(p);
-			
+		//var p:Point;
+		//	var mt:Matrix = new Matrix();//faltan parametros
+			this.level.update();
+			//var p_:Point = mt.transformPoint(p);
 			//x = p_.x
 			//y = p_.y
-			
 			var r:Rectangle = new Rectangle();
 		
 		}

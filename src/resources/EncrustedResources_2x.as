@@ -1,4 +1,4 @@
-package resources
+﻿package resources
 {
 	import starling.errors.AbstractClassError;
 

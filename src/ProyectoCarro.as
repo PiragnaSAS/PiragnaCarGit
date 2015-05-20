@@ -56,7 +56,7 @@ package
 				starling.start();
 				
 				starling.simulateMultitouch = true;
-				//starling.showStats = true;
+				starling.showStats = true;
 			});
 			
 			NativeApplication.nativeApplication.addEventListener(Event.ACTIVATE, 

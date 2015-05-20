@@ -1,4 +1,4 @@
-package resources
+﻿package resources
 {
 	import starling.errors.AbstractClassError;
 
@@ -13,7 +13,7 @@ package resources
 		
 		[Embed(source="../../assets/images/Carreteras/Escenario01_RoadToPiragna_render004.png")]
 		public static const SepArriba:Class;
-		
+
 		[Embed(source="../../assets/images/Controls/shadedLight00.png")]
 		public static const ControlLever1:Class;
 		
@@ -25,6 +25,7 @@ package resources
 		
 		[Embed(source="../../assets/images/carros/Carros01_RoadToPiragna_Model001.png")]
 		public static const CHero:Class;
+
 		/*[Embed(source="../../recursos/texturas/1x/fondo 1.png")]
 		public static const Fondo1:Class;
 		
