@@ -28,6 +28,8 @@ package base.scenes
 		private var speed:uint;
 		private var hero2:Hero;
 		private var levers:InputHandler;
+		private var xxxx:Number;
+		private var yyyy:Number;
 		
 		public function RoadFighter()
 		{
@@ -40,14 +42,14 @@ package base.scenes
 			this.addChild(this.level);
 			this.addChild(hero2);
 			this.addChild(hero);
-			
+			this.xxxx=458;
 			this.levers.addEventListener(LeverEvent.ROTATE, onRotate);
 			this.levers.addEventListener(LeverEvent.ACCELERATE, onAcelerate);
 			
 			var rectangle:Rectangle = new Rectangle(hero.x, hero.y,126.5,20.1);
 			var rectangle2:Rectangle = new Rectangle(hero2.x, hero2.y,126.5, 20.1);
 			var ff:Quad = new Quad(126.5, 20.1);
-			ff.x = hero.x;
+			ff.x = xxxx;
 			ff.y = hero.y;
 			
 			var ff2:Quad = new Quad(126.5, 20.1);
@@ -71,8 +73,7 @@ package base.scenes
 		
 		private function onRotate(e:LeverEvent):void
 		{
-			trace("rigth",e.data.rotationValue);
-			
+			xxxx=e.data.rotationValue;			
 		}
 		
 		private function onAcelerate(e:LeverEvent):void

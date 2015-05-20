@@ -51,26 +51,22 @@ package inputHandler.lever
 		}
 		
 		public function setMovingPoint(movementPoint:Point):void{	
-			trace("asasas", movementPoint);
 			var x:int=movementPoint.subtract(coordinatePoint).x*Math.cos(-Math.PI/4)-movementPoint.subtract(coordinatePoint).y*Math.sin(-Math.PI/4);
 			var dist:Number =Math.sqrt(Math.pow((movementPoint.x - this.coordinatePoint.x),2) + Math.pow((movementPoint.y - coordinatePoint.y),2)) 
 			if(dist < radius){
 					this.leverImage.x = movementPoint.x;
 					this.leverImage.y = movementPoint.y;
-					if(x<0/*movementPoint.y<coordinatePoint.y + (coordinatePoint.x-movementPoint.x)*/){
-						
 						dispatchEvent(new LeverEvent(LeverEvent.ROTATE,true,{rotationValue:x}));
-					}else{
-						dispatchEvent(new LeverEvent(LeverEvent.ROTATE,true,{rotationValue:x}));
-					}
 			}else{
 					var theta:Number = Math.atan2(movementPoint.y-coordinatePoint.y,movementPoint.x - coordinatePoint.x);
 					this.leverImage.x = coordinatePoint.x + Math.cos(theta)*radius;
 					this.leverImage.y = coordinatePoint.y + Math.sin(theta)*radius;
-					if(x<0/*movementPoint.y<coordinatePoint.y + (coordinatePoint.x-movementPoint.x)*/){
-						dispatchEvent(new LeverEvent(LeverEvent.ROTATE,true,{rotationValue:x}));
-					}else{
-						dispatchEvent(new LeverEvent(LeverEvent.ROTATE,true,{rotationValue:x}));
+					if(Math.abs(x)>radius){
+						if(x<0){
+							dispatchEvent(new LeverEvent(LeverEvent.ROTATE,true,{rotationValue:-1}));
+						}else{
+							dispatchEvent(new LeverEvent(LeverEvent.ROTATE,true,{rotationValue:1}));	
+						}
 					}
 			}
 			
