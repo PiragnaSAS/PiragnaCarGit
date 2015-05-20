@@ -14,7 +14,13 @@ package resources
 		public static const SepArriba:Class;
 		
 		[Embed(source="../../assets/images/carros/Carro01_RoadToPiragna_Model001.png")]
-		public static const CHero:Class;
+		public static const CHero:Class;	
+		
+		[Embed(source="../../assets/tiled/TileQuad_RoadToPiragna_V43.png")]
+		public static const TileQuad_RoadToPiragna_V43:Class;
+				
+		[Embed(source="../../assets/tiled/transp.png")]
+		public static const transp:Class;
 		
 		/*[Embed(source="../../recursos/texturas/2x/fondo 1.png")]
 		public static const Fondo1:Class;

@@ -1,15 +1,7 @@
 package base.levels.map
 {
 	
-	
-	
-	import layers.BackObjectsLayer;
-	import layers.CarsLayer;
-	import layers.FrontObjectsLayer;
-	import layers.GroundLayer;
-	import layers.RaceLayer;
-	
-	import starling.display.Sprite;
+    import starling.display.Sprite;
 	
 	public class GestorMap extends Sprite
 	{
@@ -68,36 +60,5 @@ package base.levels.map
 		public function setTotalTileSets(newTotalTileSets:uint):void{
 			map.setTotalTileSets(newTotalTileSets);
 		}
-		public function getGroundLayer():GroundLayer{
-			return map.getGroundLayer();
-		}
-		public function setGroundLayer(newGroundLayer:GroundLayer):void{
-			map.setGroundLayer(newGroundLayer);
-		}
-		public function getBackObjectsLayer():BackObjectsLayer{
-			return map.getBackObjectsLayer();
-		}
-		public function setBackObjectsLayer(newBackObjectsLayer:BackObjectsLayer):void{
-			map.setBackObjectsLayer(newBackObjectsLayer);
-		}
-		public function getRaceLayer():RaceLayer{
-			return map.getRaceLayer();
-		}
-		public function setRaceLayer(newRaceLayer:RaceLayer):void{
-			map.setRaceLayer(newRaceLayer);
-		}
-		public function getFrontObjectsLayer():FrontObjectsLayer{
-			return map.getFrontObjectsLayer();
-		}
-		public function setFrontObjectsLayer(newFrontObjectsLayer:FrontObjectsLayer):void{
-			map.setFrontObjectsLayer(newFrontObjectsLayer);
-		}
-		public function getCarsLayer():CarsLayer{
-			return map.getCarsLayer();
-		}
-		public function setCarsLayer(newCarsLayer:CarsLayer):void{
-			map.setCarsLayer(newCarsLayer);
-		}
-		
 	}
 }
