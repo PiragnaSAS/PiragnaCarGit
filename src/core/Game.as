@@ -36,7 +36,7 @@ package core
 			stage.stageWidth  = General.viewPortGame.width;
 			stage.stageHeight = General.viewPortGame.height;
 			
-			Resources.factorDeEscalaDelContenido = Starling.current.contentScaleFactor;
+			Resources.scaleContentFactor = Starling.current.contentScaleFactor;
 			
 			//Recursos.prepararBitmapFonts("LuckiestGuy01");
 			//Recursos.prepararBitmapFonts("FranklinGothicHeavy");

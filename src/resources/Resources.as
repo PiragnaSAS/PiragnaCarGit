@@ -20,7 +20,6 @@ package resources
 		private static var sTextureAtlas:Dictionary = new Dictionary();
 		private static var sXML:Dictionary = new Dictionary();
 		private static var sBitmapFontsLoaded:Boolean;
-		public static var factorDeEscalaDelContenido:Number;
 		
 		public function Resources(){}
 		
@@ -108,6 +107,7 @@ package resources
 		
 		private static function createObject(name:String):Object
 		{
+			trace("Verificacion" ,name);
 			var textureClass:Class = _scaleContentFactor == 1 ? EncrustedResources_1x : EncrustedResources_2x;
 			return new textureClass[name];
 		}
@@ -128,8 +128,8 @@ package resources
 		}
 		
 		public static function get scaleContentFactor():Number { return _scaleContentFactor; }
-		public static function set scaleContentFactor(value:Number):void 
-		{
+		public static function set scaleContentFactor(value:Number):void{
+			trace("asa<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 			_scaleContentFactor = value < 1.5 ? 1 : 2;
 		}
 	}

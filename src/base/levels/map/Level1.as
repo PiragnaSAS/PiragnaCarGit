@@ -2,9 +2,14 @@ package base.levels.map
 {
 	import base.levels.map.parts.Land;
 	import base.levels.map.parts.PlaneLand;
-	import base.levels.map.parts.UpSeparator;
 	
 	import core.General;
+	
+	import layers.CarsLayer;
+	import layers.CollitionLayer;
+	import layers.FrontObjectsLayer;
+	import layers.GroundLayer;
+	import layers.RaceLayer;
 	
 	import starling.events.Event;
 
@@ -16,6 +21,12 @@ package base.levels.map
 		private var distanceLandX:Number= 36;
 		private var distanceLandY:Number = 16;
 		
+		private var groundLayer:GroundLayer;
+		private var raceLayer:RaceLayer;
+		private var frontObjectsLayer:FrontObjectsLayer;
+		private var carsLayer:CarsLayer;
+		private var collitionLayer:CollitionLayer;
+		
 		private var iniSepUpX:int = iniLandX 
 		private var iniSepUpY:int = iniLandY
 		private var distanceSepUpX:Number= 36;
@@ -25,46 +36,19 @@ package base.levels.map
 		private var iniSepDownY:Number = iniLandY + 156;
 		
 		public function Level1(mapAdress:String)
-		{
-			
+		{			
 			super(mapAdress);
-			this.setSpeed(30);
 			for(var i:uint = 0; i<250; i++){
 				myArray[i] = i%2;//Math.floor(Math.random()*0);
 			}
-			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+			//addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 		}
 		
 		private function onAddedToStage(e:Event):void
 		{
-			this.addLand(this.iniLandX,this.iniLandY);
-			for(var i:uint = myArray.length; i>1; i--){
-				this.iniLandX += this.distanceLandX;
-				this.iniLandY -= this.distanceLandY;
-				if(i%2){
-					this.addLand(this.iniLandX ,this.iniLandY);		
-				}else{
-					this.addPlaneLand(this.iniLandX, this.iniLandY);	
-				}
-				
-			}
-			
-			this.getBackObjectsLayer().addChildAt(new UpSeparator(this.iniSepUpX,this.iniSepUpY),0);
-			for(var j:uint = myArray.length; j> 0; j--){
-				this.iniSepUpX += this.distanceSepUpX;
-				this.iniSepUpY -= this.distanceSepUpY;
-				this.iniSepDownX += this.distanceSepUpX;
-				this.iniSepDownY -= this.distanceSepUpY;
-				this.addBorders(this.iniSepUpX,this.iniSepUpY,this.iniSepDownX,this.iniSepDownY, 0);	
-			}
+			this.addLand(this.iniLandX,this.iniLandY);			
 		}
-		
-		private function addBorders(xUp:Number, yUp:Number, xDown:Number, yDown:Number, zIndex:uint):void
-		{
-			this.getBackObjectsLayer().addChildAt(new UpSeparator(xUp, yUp), 0);
-			this.getFrontObjectsLayer().addChildAt(new UpSeparator(xDown, yDown), zIndex);
-		}	
-		
+				
 		private function addLand(x:Number, y:Number):void
 		{
 			this.getGroundLayer().addChild(new Land(x,y));
@@ -73,10 +57,88 @@ package base.levels.map
 		private function addPlaneLand(x:Number, y:Number):void{
 			this.getGroundLayer().addChild(new PlaneLand(x,y));
 		}
-		
-		private function update():void
-		{
-
+				
+		override public function createLayers():void{
+			
+			groundLayer = new GroundLayer(layer);	
+			groundLayer.loadAssetsByLayer();
+			groundLayer.setSpeed(4);
+			addChild(groundLayer);
+			
+			for each (var layer:Object in this.getJSON()["layers"]) 
+			{	
+				trace("holaquehace");
+				
+				var layerName:String=layer["name"];
+				
+				// decide where we're going to put the layer
+												
+				switch(layerName) {
+					case "RaceLayer":
+						raceLayer = new RaceLayer(layer);
+						raceLayer.loadAssetsByLayer();
+						raceLayer.setSpeed(10);
+						addChild(raceLayer);
+						break;
+					case "FrontObjectsLayer":
+						frontObjectsLayer = new FrontObjectsLayer(layer);
+						frontObjectsLayer.loadAssetsByLayer();
+						frontObjectsLayer.setSpeed(10);
+						addChild(frontObjectsLayer);
+						break;
+					case "CollitionLayer":
+						collitionLayer= new CollitionLayer(layer, this.getJSON());
+						break;						
+				}						
+			}			
 		}
+		
+		public function getGroundLayer():GroundLayer{
+			return groundLayer;
+		}
+		
+		public function setGroundLayer(newGroundLayer:GroundLayer):void{
+			this.groundLayer=newGroundLayer;
+		}
+		
+		public function getRaceLayer():RaceLayer{
+			return raceLayer;
+		}
+		
+		public function setRaceLayer(newRaceLayer:RaceLayer):void{
+			this.raceLayer=newRaceLayer;
+		}
+		
+		public function getFrontObjectsLayer():FrontObjectsLayer{
+			return frontObjectsLayer;
+		}
+		
+		public function setFrontObjectsLayer(newFrontObjectsLayer:FrontObjectsLayer):void{
+			this.frontObjectsLayer=newFrontObjectsLayer;
+		}
+		
+		public function getCarsLayer():CarsLayer{
+			return carsLayer;
+		}
+		
+		public function setCarsLayer(newCarsLayer:CarsLayer):void{
+			this.carsLayer=newCarsLayer;
+		}
+
+		override public function update():void{				
+			
+			if(groundLayer != null)
+				groundLayer.update();
+			
+			if(raceLayer != null)
+				raceLayer.update();	     		
+			
+			if(frontObjectsLayer != null)
+				frontObjectsLayer.update();
+						
+			if(carsLayer != null)
+				carsLayer.update();
+		}
+		
 	}
 }
