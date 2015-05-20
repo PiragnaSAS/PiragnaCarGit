@@ -54,10 +54,10 @@ package inputHandler
 				if(touch.phase == TouchPhase.BEGAN){
 					if(coordinate.y < midQuadY){
 						leverOne.visible=true;
-						leverOne.setCoordinatePosition(coordinate);
+						leverOne.setCoordinatePosition(new Point(100,100));
 					}else{
 						leverTwo.visible = true;
-						leverTwo.setCoordinatePosition(coordinate);
+						leverTwo.setCoordinatePosition(new Point(General.screenWidth-100,General.screenHeight-100));
 					}					
 				}
 				if(touch.phase == TouchPhase.MOVED){
@@ -103,14 +103,14 @@ package inputHandler
 				if(touchA.phase == TouchPhase.BEGAN){
 	 					if(coordinateA.y < midQuadA){			
 							leverOne.visible=true;
-							leverOne.setCoordinatePosition(coordinateA);						
+							leverOne.setCoordinatePosition(new Point(100,100));						
 						}
 				}
 				
 				if(touchB.phase == TouchPhase.BEGAN){		
 						if(coordinateB.y > midQuadB){
 							leverTwo.visible=true;
-							leverTwo.setCoordinatePosition(coordinateB);	
+							leverTwo.setCoordinatePosition(new Point(General.screenWidth-100,General.screenHeight-100));	
 						}
 				}
 				
