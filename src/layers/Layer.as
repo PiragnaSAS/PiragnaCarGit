@@ -1,4 +1,4 @@
-package layers
+﻿package layers
 {
 	
 	import flash.utils.Dictionary;
@@ -87,8 +87,13 @@ package layers
 			
 			if(getChildAt(0).x < -500 && getChildAt(0).y > 500){		
 					child = getChildAt(0);
+<<<<<<< HEAD
 					child.x = getChildAt(this.numChildren - 1).x + 101;
 					child.y = getChildAt(this.numChildren - 1).y - 58;
+=======
+					child.x = getChildAt(this.numChildren - 1).x + 202;
+					child.y = getChildAt(this.numChildren - 1).y - 116;
+>>>>>>> master
 					removeChildAt(0);
 					addChild(child);					
 				}			

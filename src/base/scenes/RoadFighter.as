@@ -9,8 +9,9 @@
 	
 	import car.hero.Hero;
 	
+
 	import core.General;
-	
+	import events.LeverEvent;
 	import inputHandler.InputHandler;
 	
 	import resources.Resources;
@@ -19,9 +20,11 @@
 	import starling.display.Quad;
 	import starling.display.Sprite;
 	import starling.events.Event;
+
 	import starling.utils.HAlign;
 	import starling.utils.VAlign;
 	
+
 	public class RoadFighter extends Sprite
 	{
 		private var iAManager:AIManager;
@@ -30,11 +33,15 @@
 		private var hero:Hero;
 		private var speed:uint;
 		private var hero2:Hero;
+
+		private var levers:InputHandler;
+		private var xxxx:Number;
+		private var yyyy:Number;
+
 		private var lever:InputHandler;
 		
 		public function RoadFighter()
 		{
-			
 			addEventListener(Event.ENTER_FRAME, onEnterFrame);
 			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);			
 		}
@@ -55,15 +62,31 @@
 			this.level = new Level1("Map_lvl01.json");
 			this.iAManager = new AIManager(this.level);
 			this.hero = new Hero(458,458);
+
+			this.hero2 = new Hero(439,439);
+			this.levers=new InputHandler();
+			this.addChild(levers);
+
 			this.hero.alignPivot(HAlign.LEFT, VAlign.BOTTOM);
 			
 			this.hero2 = new Hero(435,335);
 			this.hero2.alignPivot(HAlign.LEFT, VAlign.BOTTOM);
 			
+
 			this.addChild(this.level);
 			this.addChild(hero2);
 			this.addChild(hero);
+			this.xxxx=458;
+			this.levers.addEventListener(LeverEvent.ROTATE, onRotate);
+			this.levers.addEventListener(LeverEvent.ACCELERATE, onAcelerate);
 			
+
+			var rectangle:Rectangle = new Rectangle(hero.x, hero.y,126.5,20.1);
+			var rectangle2:Rectangle = new Rectangle(hero2.x, hero2.y,126.5, 20.1);
+			var ff:Quad = new Quad(126.5, 20.1);
+			ff.x = xxxx;
+			ff.y = hero.y;
+
 			this.lever=new InputHandler();
 			
 			var rectangle:Rectangle = new Rectangle(hero.x, hero.y,126.5,20.1);
@@ -73,6 +96,7 @@
 			
 			ff.x = hero.x +15;
 			ff.y = hero.y - 25;
+
 			
 			var ff2:Quad = new Quad(60, 20.1 );
 			ff2.alignPivot(HAlign.LEFT, VAlign.BOTTOM);
@@ -91,6 +115,23 @@
 			}
 		}
 		
+
+		private function onRotate(e:LeverEvent):void
+		{
+			xxxx=e.data.rotationValue;			
+		}
+		
+		private function onAcelerate(e:LeverEvent):void
+		{
+			trace("+-+-+",e.data.rotationValue);
+			
+		}
+		
+		public function cargarLevel():void{
+			
+			
+		}
+
 		private function onEnterFrame(e:Event):void
 		{
 			//hilo principal

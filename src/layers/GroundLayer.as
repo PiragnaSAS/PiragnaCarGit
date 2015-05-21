@@ -1,4 +1,4 @@
-package layers
+﻿package layers
 {
 	import base.levels.map.parts.PiragnaSprite;
 	
@@ -13,6 +13,7 @@ package layers
 		
 		public function GroundLayer(layer:Object){
 			super(layer);			
+
 			_x = 50;
 			_y = 222;
 		}		
@@ -30,7 +31,6 @@ package layers
 					_x += 914.5;
 					_y -= 521.5; 	
 				}
-				
 			}
 			
 		}
@@ -55,6 +55,7 @@ package layers
 					child.y = getChildAt(this.numChildren - 1).y - 521.5; 	
 				}
 				
+
 				removeChildAt(0);
 				addChild(child);					
 			}						

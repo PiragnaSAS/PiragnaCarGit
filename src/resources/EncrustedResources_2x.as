@@ -1,4 +1,4 @@
-package resources
+﻿package resources
 {
 	import starling.errors.AbstractClassError;
 
@@ -110,7 +110,6 @@ package resources
 		[Embed(source="../../assets/Tiledx2/ground.png")]
 		public static const ground:Class;
 		
-		/*[Embed(source="../../recursos/texturas/2x/fondo 1.png")]
 		public static const Fondo1:Class;
 		
 		[Embed(source="../../recursos/texturas/2x/fondo 2.png")]

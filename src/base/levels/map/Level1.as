@@ -1,14 +1,17 @@
-package base.levels.map
+﻿package base.levels.map
 {
 	import base.levels.map.parts.Land;
 	import base.levels.map.parts.PlaneLand;
 	
 	import core.General;
-	
+
 	import layers.CarsLayer;
 	import layers.CollitionLayer;
 	import layers.FrontObjectsLayer;
 	import layers.GroundLayer;
+
+	import layers.OverRaceLayer;
+
 	import layers.RaceLayer;
 	
 	import starling.events.Event;
@@ -74,19 +77,19 @@ package base.levels.map
 				// decide where we're going to put the layer
 												
 				switch(layerName) {
-					case "RaceLayer":
+					case "RoadLayer":
 						raceLayer = new RaceLayer(layer);
 						raceLayer.loadAssetsByLayer();
-						raceLayer.setSpeed(10);
+						raceLayer.setSpeed(4);
 						addChild(raceLayer);
 						break;
-					case "FrontObjectsLayer":
+					case "UnderSeparatorLayer":
 						frontObjectsLayer = new FrontObjectsLayer(layer);
 						frontObjectsLayer.loadAssetsByLayer();
-						frontObjectsLayer.setSpeed(10);
+						frontObjectsLayer.setSpeed(4);
 						addChild(frontObjectsLayer);
 						break;
-					case "CollitionLayer":
+					case "CollitionsLayer":
 						collitionLayer= new CollitionLayer(layer, this.getJSON());
 						break;						
 				}						
