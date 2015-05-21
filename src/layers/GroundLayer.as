@@ -13,9 +13,9 @@
 		
 		public function GroundLayer(layer:Object){
 			super(layer);			
-
+			
 			_x = 50;
-			_y = 222;
+			_y = 280;
 		}		
 		
 		
@@ -27,9 +27,9 @@
 				if(Resources.scaleContentFactor == 1){
 					_x += 609.5;
 					_y -= 351; 
-				}else{
-					_x += 914.5;
-					_y -= 521.5; 	
+				}else{	
+					_x += 450.5;
+					_y -= 259.25; 	
 				}
 			}
 			
@@ -39,7 +39,7 @@
 			
 			for(var j:uint=0; j<this.numChildren; j++){ 
 				this.getChildAt(j).x -= this.getSpeed();
-				this.getChildAt(j).y += this.getSpeed()*Math.tan(Math.PI/6 - .0021);										
+				this.getChildAt(j).y += this.getSpeed()*Math.tan(Math.PI/6-0.0015);										
 			}
 			
 			var child:DisplayObject;
@@ -51,10 +51,9 @@
 					child.x = getChildAt(this.numChildren - 1).x + 609.5;
 					child.y = getChildAt(this.numChildren - 1).y - 351;
 				}else{
-					child.x = getChildAt(this.numChildren - 1).x + 914.5;
-					child.y = getChildAt(this.numChildren - 1).y - 521.5; 	
+					child.x = getChildAt(this.numChildren - 1).x + 450.5;
+					child.y = getChildAt(this.numChildren - 1).y - 259.25; 	
 				}
-				
 
 				removeChildAt(0);
 				addChild(child);					

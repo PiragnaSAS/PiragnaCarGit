@@ -3,8 +3,7 @@
 	import starling.errors.AbstractClassError;
 
 	public final class EncrustedResources_1x
-	{
-		
+	{		
 		
 		[Embed(source="../../assets/images/carros/Carro01_RoadToPiragna_Model001.png")]
 		public static const CHero:Class;	
@@ -108,10 +107,17 @@
 		[Embed(source="../../assets/Tiledx1/carretera_21.png")]
 		public static const carretera_21:Class;
 		
-		[Embed(source="../../assets/Tiledx1/ground.png")]
-		public static const ground:Class;
+		[Embed(source="../../assets/images/Control/shadedLight11.png")]
+		public static const shadedLight11:Class;
 		
+		[Embed(source="../../assets/images/Control/shadedLight01.png")]
+		public static const shadedLight01:Class;
 		
+		[Embed(source="../../assets/images/Control/shadedLight00.png")]
+		public static const shadedLight00:Class;	
+		
+		[Embed(source="../../assets/Tiledx2/ground.png")]
+		public static const ground:Class;				
 		
 		/*[Embed(source="../../recursos/texturas/1x/fondo 1.png")]
 		public static const Fondo1:Class;

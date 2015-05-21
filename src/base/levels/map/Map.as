@@ -3,20 +3,27 @@ package base.levels.map
 	import flash.display.Bitmap;
 	import flash.events.Event;
 	import flash.events.IOErrorEvent;
-	import flash.geom.Matrix;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
 	
 	import base.levels.map.parts.Tiles;
-		
-	import starling.display.Quad;
+	
+	import car.hero.Hero;
+	
+	import events.LeverEvent;
+	
+	import inputHandler.InputHandler;
+	
 	import starling.display.Sprite;
 	import starling.errors.AbstractMethodError;
+	
 	
 	public class Map extends Sprite
 	{
 		private var json:Object;
 		
+		private var hero:Hero;
+		private var levers:InputHandler;
 		
 		private var screenBitmap:Bitmap; // for drawing the map
 		private var screenBitmapTopLayer:Bitmap; // data of an image, for drawing the map that the character will move under
@@ -36,17 +43,17 @@ package base.levels.map
 		
 		private var tiles:Tiles;
 		
-		public function Map(scene:String)
+		public function Map(scene:String, hero:Hero, levers:InputHandler)
 		{	
-					
+			this.hero = hero;
+			
+			//Levers settings
+			this.levers = levers;
+			this.levers.addEventListener(LeverEvent.ROTATE, onRotate);
+			
+			
+			this.levers.addEventListener(LeverEvent.ACCELERATE, onAcelerate);
 			this.loadScene(scene);	
-			
-			/*this.addChild(this.backobjectsLayer);
-			this.addChild(this.raceLayer);
-			this.addChild(this.carsLayer);
-			this.addChild(this.frontObjectsLayer);*/
-			
-			
 		}	
 		
 
@@ -77,6 +84,8 @@ package base.levels.map
 					
 			trace("---");
 			createLayers();
+			this.addChild(hero);
+			this.addChild(levers);
 		}	
 		
 			
@@ -144,5 +153,16 @@ package base.levels.map
 			throw new AbstractMethodError();			
 		}
 		
+		
+		private function onRotate(e:LeverEvent):void
+		{
+			//			xxxx=e.data.rotationValue;			
+		}
+		
+		private function onAcelerate(e:LeverEvent):void
+		{
+			trace("+-+-+",e.data.rotationValue);
+			
+		}
 	}
 }

@@ -21,7 +21,7 @@ package inputHandler.lever
 			
 			this.radius = radius;
 			
-			baseImage = new Image(Resources.getTexture("ControlBase"));
+			baseImage = new Image(Resources.getTexture("shadedLight11"));
 			baseImage.width = radius*2;
 			baseImage.height = radius*2;			
 			baseImage.alpha = 0.5;
@@ -56,7 +56,7 @@ package inputHandler.lever
 			if(dist < radius){
 					this.leverImage.x = movementPoint.x;
 					this.leverImage.y = movementPoint.y;
-						dispatchEvent(new LeverEvent(LeverEvent.ROTATE,true,{rotationValue:x}));
+						dispatchEvent(new LeverEvent(LeverEvent.ROTATE,true,{rotationValue:x/radius}));
 			}else{
 					var theta:Number = Math.atan2(movementPoint.y-coordinatePoint.y,movementPoint.x - coordinatePoint.x);
 					this.leverImage.x = coordinatePoint.x + Math.cos(theta)*radius;

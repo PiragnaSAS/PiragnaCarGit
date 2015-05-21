@@ -11,7 +11,7 @@ package car.hero
 		private var score:uint = 0;
 		private var fuel:uint = 100;
 		
-		public function Hero(x:Number, y:Number){
+		public function Hero(x=435, y=335){
 			this.setCarImage( new Image(Resources.getTexture("CHero")));
 			this.x = x;
 			this.y = y;

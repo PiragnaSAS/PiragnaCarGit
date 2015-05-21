@@ -8,8 +8,6 @@
 	
 	import starling.display.DisplayObject;
 	import starling.display.Sprite;
-	import starling.utils.HAlign;
-	import starling.utils.VAlign;
 
 	public class Layer extends Sprite
 	{	protected var data:Array;
@@ -42,8 +40,8 @@
 				type=layer["type"];
 				visible=layer["visible"];
 				width=layer["width"];
-				_x=50;
-		    	_y=200;
+				_x = 50;
+				_y = 280;
 			}
 			trace(name);
 			
@@ -87,13 +85,9 @@
 			
 			if(getChildAt(0).x < -500 && getChildAt(0).y > 500){		
 					child = getChildAt(0);
-<<<<<<< HEAD
+
 					child.x = getChildAt(this.numChildren - 1).x + 101;
 					child.y = getChildAt(this.numChildren - 1).y - 58;
-=======
-					child.x = getChildAt(this.numChildren - 1).x + 202;
-					child.y = getChildAt(this.numChildren - 1).y - 116;
->>>>>>> master
 					removeChildAt(0);
 					addChild(child);					
 				}			

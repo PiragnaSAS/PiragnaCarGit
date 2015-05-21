@@ -3,15 +3,16 @@
 	import base.levels.map.parts.Land;
 	import base.levels.map.parts.PlaneLand;
 	
+	import car.hero.Hero;
+	
 	import core.General;
-
+	
+	import inputHandler.InputHandler;
+	
 	import layers.CarsLayer;
 	import layers.CollitionLayer;
 	import layers.FrontObjectsLayer;
 	import layers.GroundLayer;
-
-	import layers.OverRaceLayer;
-
 	import layers.RaceLayer;
 	
 	import starling.events.Event;
@@ -38,13 +39,9 @@
 		private var iniSepDownX:Number = iniLandX+ 120;
 		private var iniSepDownY:Number = iniLandY + 156;
 		
-		public function Level1(mapAdress:String)
+		public function Level1(mapAdress:String, hero:Hero, levers:InputHandler)
 		{			
-			super(mapAdress);
-			for(var i:uint = 0; i<250; i++){
-				myArray[i] = i%2;//Math.floor(Math.random()*0);
-			}
-			//addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
+			super(mapAdress, hero, levers);
 		}
 		
 		private function onAddedToStage(e:Event):void
@@ -70,20 +67,17 @@
 			
 			for each (var layer:Object in this.getJSON()["layers"]) 
 			{	
-				trace("holaquehace");
-				
 				var layerName:String=layer["name"];
 				
-				// decide where we're going to put the layer
-												
+				// decide where are we going to put the layer
 				switch(layerName) {
-					case "RoadLayer":
+					case "RaceLayer":
 						raceLayer = new RaceLayer(layer);
 						raceLayer.loadAssetsByLayer();
 						raceLayer.setSpeed(4);
 						addChild(raceLayer);
 						break;
-					case "UnderSeparatorLayer":
+					case "FrontObjectsLayer":
 						frontObjectsLayer = new FrontObjectsLayer(layer);
 						frontObjectsLayer.loadAssetsByLayer();
 						frontObjectsLayer.setSpeed(4);

@@ -20,7 +20,6 @@ package inputHandler
 	{
 		private var inputQuad:Quad;
 		private var quadMid:Quad;
-		private var quad1:Quad, quad2:Quad, quad3:Quad, quad4:Quad;
 		private var leverOne:Lever, leverTwo:Lever;
 		
 		public function InputHandler(){
@@ -29,13 +28,13 @@ package inputHandler
 		}
 		
 		private function onAdded():void{
-			inputQuad = new Quad(General.screenWidth, General.screenHeight, 0xffffff);
+			inputQuad = new Quad(General.viewPortGame.width, General.viewPortGame.height, 0xffffff);
 			inputQuad.alpha = 0;
 			inputQuad.addEventListener(TouchEvent.TOUCH, onTouch);
 			trace(General.screenAspectRatio);
 			
-			leverOne=new Lever(Resources.getTexture("ControlLever2"), General.screenWidth/25);
-			leverTwo=new Lever(Resources.getTexture("ControlLever1"), General.screenWidth/25);		
+			leverOne=new Lever(Resources.getTexture("shadedLight01"), General.viewPortGame.width/25);
+			leverTwo=new Lever(Resources.getTexture("shadedLight00"), General.viewPortGame.width/25);		
 			
 			addChild(inputQuad);
 			addChild(leverOne);
@@ -54,10 +53,10 @@ package inputHandler
 				if(touch.phase == TouchPhase.BEGAN){
 					if(coordinate.y < midQuadY){
 						leverOne.visible=true;
-						leverOne.setCoordinatePosition(new Point(100,100));
+						leverOne.setCoordinatePosition(new Point(40,40));
 					}else{
 						leverTwo.visible = true;
-						leverTwo.setCoordinatePosition(new Point(General.screenWidth-100,General.screenHeight-100));
+						leverTwo.setCoordinatePosition(new Point(General.viewPortGame.width-60,General.viewPortGame.height-20));
 					}					
 				}
 				if(touch.phase == TouchPhase.MOVED){
@@ -74,7 +73,7 @@ package inputHandler
 						leverTwo.visible=false;
 					}
 				}
-			}else if(touches.length == 2){
+			}else if(touches.length >= 2){
 				var touchA:Touch;
 				var touchB:Touch;
 				var coordinateB:Point;
@@ -103,14 +102,14 @@ package inputHandler
 				if(touchA.phase == TouchPhase.BEGAN){
 	 					if(coordinateA.y < midQuadA){			
 							leverOne.visible=true;
-							leverOne.setCoordinatePosition(new Point(100,100));						
+							leverOne.setCoordinatePosition(new Point(40,40));						
 						}
 				}
 				
 				if(touchB.phase == TouchPhase.BEGAN){		
 						if(coordinateB.y > midQuadB){
 							leverTwo.visible=true;
-							leverTwo.setCoordinatePosition(new Point(General.screenWidth-100,General.screenHeight-100));	
+							leverTwo.setCoordinatePosition(new Point(General.viewPortGame.width-60,General.viewPortGame.height-20));	
 						}
 				}
 				
