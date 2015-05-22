@@ -4,6 +4,8 @@ package inputHandler
 	
 	import core.General;
 	
+	import events.LeverEvent;
+	
 	import inputHandler.lever.Lever;
 	
 	import resources.Resources;
@@ -31,7 +33,6 @@ package inputHandler
 			inputQuad = new Quad(General.viewPortGame.width, General.viewPortGame.height, 0xffffff);
 			inputQuad.alpha = 0;
 			inputQuad.addEventListener(TouchEvent.TOUCH, onTouch);
-			trace(General.screenAspectRatio);
 			
 			leverOne=new Lever(Resources.getTexture("shadedLight01"), General.viewPortGame.width/25);
 			leverTwo=new Lever(Resources.getTexture("shadedLight00"), General.viewPortGame.width/25);		
@@ -49,7 +50,7 @@ package inputHandler
 			if(touches.length == 1){
 				var touch:Touch = touches[0];
 				var coordinate:Point = touch.getLocation(this);
-				var midQuadY:uint= -coordinate.x * General.screenAspectRatio + inputQuad.height;;
+				var midQuadY:uint= -coordinate.x * General.screenAspectRatio + inputQuad.height;
 				if(touch.phase == TouchPhase.BEGAN){
 					if(coordinate.y < midQuadY){
 						leverOne.visible=true;
@@ -66,13 +67,18 @@ package inputHandler
 						leverTwo.setMovingPointAcelerator(touch.getLocation(this));	
 					}
 				}
+				
 				if(touch.phase == TouchPhase.ENDED){	
 					if(leverOne.visible==true){
 						leverOne.visible=false;
+						leverOne.setMovingPoint(leverOne.getCoordinatePoint());
+						dispatchEvent(new LeverEvent(LeverEvent.BREAK_ROTATION,true));						
 					}else{
 						leverTwo.visible=false;
+						dispatchEvent(new LeverEvent(LeverEvent.BREAK,true));						
 					}
 				}
+				
 			}else if(touches.length >= 2){
 				var touchA:Touch;
 				var touchB:Touch;
@@ -109,7 +115,7 @@ package inputHandler
 				if(touchB.phase == TouchPhase.BEGAN){		
 						if(coordinateB.y > midQuadB){
 							leverTwo.visible=true;
-							leverTwo.setCoordinatePosition(new Point(General.viewPortGame.width-60,General.viewPortGame.height-20));	
+							leverTwo.setCoordinatePosition(new Point(General.viewPortGame.width-60,General.viewPortGame.height-20));
 						}
 				}
 				
@@ -126,15 +132,16 @@ package inputHandler
 				}
 				if(touchA.phase == TouchPhase.ENDED) {
 						leverOne.visible=false;
+						dispatchEvent(new LeverEvent(LeverEvent.BREAK_ROTATION,true));						
 				}
 				
 				if(touchB.phase == TouchPhase.ENDED){
 						leverTwo.visible=false;
+						dispatchEvent(new LeverEvent(LeverEvent.BREAK,true));						
+					}
 				}
 		
 			}
 			
 		}
 	}
-		
-}

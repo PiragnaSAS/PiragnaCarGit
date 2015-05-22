@@ -8,6 +8,7 @@ package base.levels.map
 	
 	import base.levels.map.parts.Tiles;
 	
+	import car.Car;
 	import car.hero.Hero;
 	
 	import events.LeverEvent;
@@ -29,34 +30,43 @@ package base.levels.map
 		private var screenBitmapTopLayer:Bitmap; // data of an image, for drawing the map that the character will move under
 		
 		private var eventLoaders:Array;
-		
+
 		//--->aqui
 		private var mapWidth:uint;
 		private var mapHeight:uint;
 		private var tileWidth:uint;
 		private var tileHeight:uint;
 		private var tileSets:Array;
-		private var totalTileSets:uint;
-			
-		private var polyline:String;
-		//<--aca
+		private var totalTileSets:uint;		
 		
+		private var absoluteMaximumSpeed:Number;
+		private var currentSpeed:Number;
+		private var targetSpeed:Number;
+		
+		private var polyline:String;
+		
+		private var acelerating:Boolean = false;
+			
 		private var tiles:Tiles;
 		
 		public function Map(scene:String, hero:Hero, levers:InputHandler)
 		{	
 			this.hero = hero;
 			
+			this.absoluteMaximumSpeed = 8.5;
+			this.currentSpeed = 0;
+			this.targetSpeed = 0;
+
 			//Levers settings
 			this.levers = levers;
-			this.levers.addEventListener(LeverEvent.ROTATE, onRotate);
-			
-			
+			this.levers.addEventListener(LeverEvent.ROTATE, onRotate);		
 			this.levers.addEventListener(LeverEvent.ACCELERATE, onAcelerate);
+			this.levers.addEventListener(LeverEvent.BREAK, onBreak);	
+			this.levers.addEventListener(LeverEvent.BREAK_ROTATION, onBreakRotation);	
+						
 			this.loadScene(scene);	
 		}	
 		
-
 		private function loadScene(scene:String):void
 		{
 			var loader:URLLoader = new URLLoader();
@@ -88,11 +98,26 @@ package base.levels.map
 			this.addChild(levers);
 		}	
 		
-			
-		public function createLayers():void {
-			throw new AbstractMethodError();			
+		public function onRotate(e:LeverEvent):void{
+			if(this.getCurrentSpeed() != 0)
+					hero.move(e.data.rotationValue*2);
 		}
-	
+		
+		public function onBreakRotation(e:LeverEvent):void{
+			hero.stopHero();
+		}
+		
+		public function onAcelerate(e:LeverEvent):void{	
+			var targetSpeed:Number = e.data.rotationValue*3;
+			
+			this.setTargetSpeed(targetSpeed);
+		}
+				
+		public function onBreak():void
+		{
+			this.setTargetSpeed(0);	
+		}	
+		
 		public function getMapWidth():uint
 		{
 			return mapWidth;
@@ -149,20 +174,41 @@ package base.levels.map
 			return json;
 		}
 						
+		public function getCurrentSpeed():Number{
+			return this.currentSpeed;
+		}
+		
+		public function setCurrentSpeed(currentSpeed:Number):void{
+			this.currentSpeed = currentSpeed;
+		}
+		
+		public function getAbsoluteMaximumSpeed():Number{
+			return this.absoluteMaximumSpeed;
+		}		
+		
+		public function setAbsoluteMaximumSpeed(absoluteMaximumSpeed:Number):void{
+			this.absoluteMaximumSpeed = absoluteMaximumSpeed;	
+		}		
+		
+		public function getTargetSpeed():Number{
+			return this.targetSpeed;
+		}		
+		
+		public function setTargetSpeed(targetSpeed:Number):void{
+			this.targetSpeed = targetSpeed;	
+		}	
+		
+		public function getHero():Car{
+			return hero;
+		}
+		
 		public function update():void{				
 			throw new AbstractMethodError();			
 		}
 		
+		public function createLayers():void {
+			throw new AbstractMethodError();			
+		}	
 		
-		private function onRotate(e:LeverEvent):void
-		{
-			//			xxxx=e.data.rotationValue;			
-		}
-		
-		private function onAcelerate(e:LeverEvent):void
-		{
-			trace("+-+-+",e.data.rotationValue);
-			
-		}
 	}
 }

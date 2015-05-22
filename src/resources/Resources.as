@@ -79,8 +79,7 @@ package resources
 		
 		private static function prepareSound(name:String):void
 		{
-			if (sSounds[name] == undefined)
-			{
+			if (sSounds[name] == undefined){
 				sSounds[name] = new EncrustedResources[name]() as Sound;
 			}   
 		}

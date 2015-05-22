@@ -14,27 +14,33 @@
 	import layers.FrontObjectsLayer;
 	import layers.GroundLayer;
 	import layers.RaceLayer;
+	import layers.RandomObjectsLayerInGround;
 	
 	import starling.events.Event;
 
 	public class Level1 extends Map
 	{
 		private var myArray:Array = new Array();
-		private var iniLandX:int = -200//-490;
+		private var iniLandX:int = -200
 		private var iniLandY:int = General.screenHeight - 550;
 		private var distanceLandX:Number= 36;
 		private var distanceLandY:Number = 16;
 		
+		private var randomObjectsLayer:RandomObjectsLayerInGround;
 		private var groundLayer:GroundLayer;
 		private var raceLayer:RaceLayer;
 		private var frontObjectsLayer:FrontObjectsLayer;
 		private var carsLayer:CarsLayer;
 		private var collitionLayer:CollitionLayer;
 		
+		private var movementX:Number, movementY:Number;
+		
 		private var iniSepUpX:int = iniLandX 
 		private var iniSepUpY:int = iniLandY
 		private var distanceSepUpX:Number= 36;
 		private var distanceSepUpY:Number = 16;
+		
+		private var totalDistance:Number = 5000;
 		
 		private var iniSepDownX:Number = iniLandX+ 120;
 		private var iniSepDownY:Number = iniLandY + 156;
@@ -43,7 +49,7 @@
 		{			
 			super(mapAdress, hero, levers);
 		}
-		
+						
 		private function onAddedToStage(e:Event):void
 		{
 			this.addLand(this.iniLandX,this.iniLandY);			
@@ -59,11 +65,15 @@
 		}
 				
 		override public function createLayers():void{
-			
 			groundLayer = new GroundLayer(layer);	
 			groundLayer.loadAssetsByLayer();
-			groundLayer.setSpeed(4);
+			groundLayer.setSpeed(0);
 			addChild(groundLayer);
+			
+			randomObjectsLayer = new RandomObjectsLayerInGround(layer);
+			randomObjectsLayer.loadAssetsByLayer();
+			randomObjectsLayer.setSpeed(0);
+			addChild(randomObjectsLayer);
 			
 			for each (var layer:Object in this.getJSON()["layers"]) 
 			{	
@@ -74,13 +84,13 @@
 					case "RaceLayer":
 						raceLayer = new RaceLayer(layer);
 						raceLayer.loadAssetsByLayer();
-						raceLayer.setSpeed(4);
+						raceLayer.setSpeed(0);
 						addChild(raceLayer);
 						break;
 					case "FrontObjectsLayer":
 						frontObjectsLayer = new FrontObjectsLayer(layer);
 						frontObjectsLayer.loadAssetsByLayer();
-						frontObjectsLayer.setSpeed(4);
+						frontObjectsLayer.setSpeed(0);
 						addChild(frontObjectsLayer);
 						break;
 					case "CollitionsLayer":
@@ -124,18 +134,47 @@
 
 		override public function update():void{				
 			
-			if(groundLayer != null)
-				groundLayer.update();
+			if(this.getTargetSpeed()>this.getCurrentSpeed()){
+				this.setCurrentSpeed(this.getCurrentSpeed()+0.5);
+				
+				if(this.getCurrentSpeed() > this.getAbsoluteMaximumSpeed())
+					this.setCurrentSpeed(this.getAbsoluteMaximumSpeed());
 			
-			if(raceLayer != null)
-				raceLayer.update();	     		
+			}else if(this.getTargetSpeed()<this.getCurrentSpeed()){
+				
+				var number:Number = this.getCurrentSpeed()*0.98<0.1? 0: this.getCurrentSpeed()*0.98; 
+				this.setCurrentSpeed(number);
+				
+				if(this.getCurrentSpeed() > this.getAbsoluteMaximumSpeed())
+					this.setCurrentSpeed(this.getAbsoluteMaximumSpeed());
+			}			
 			
-			if(frontObjectsLayer != null)
-				frontObjectsLayer.update();
-						
-			if(carsLayer != null)
-				carsLayer.update();
-		}
+			if(randomObjectsLayer != null){
+				randomObjectsLayer.update();
+				randomObjectsLayer.setSpeed(this.getCurrentSpeed());
+			}
 		
+			if(groundLayer != null){
+				groundLayer.update();
+				groundLayer.setSpeed(this.getCurrentSpeed());
+			}
+			
+			if(raceLayer != null){
+				raceLayer.update();	     		
+				raceLayer.setSpeed(this.getCurrentSpeed());
+			}
+				
+			if(frontObjectsLayer != null){
+				frontObjectsLayer.update();
+				frontObjectsLayer.setSpeed(this.getCurrentSpeed());			
+			}
+			
+			if(carsLayer != null){
+				carsLayer.update();
+				carsLayer.setSpeed(this.getCurrentSpeed());
+			}
+			
+			this.getHero().update();
+		}		
 	}
 }

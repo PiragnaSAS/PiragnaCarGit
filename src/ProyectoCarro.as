@@ -44,7 +44,6 @@ package
 			var initialImage:Sprite = createInitialImage(General.viewPort, General.screenWidth > General.viewPortBaseWidth);
 			addChild(initialImage);
 			
-			trace ("utyu",RoadFighter);
 			
 			Starling.multitouchEnabled = true;
 			starling = new Starling(RoadFighter, stage, General.viewPort);

@@ -13,6 +13,7 @@ package car
 		private var position:Point;
 		private var carImage:Image;
 		
+		
 		public static const EST_MOVING:uint = 0;
 		public static const EST_DRIFTING:uint = EST_MOVING + 1 ;
 		public static const EST_UNCONTROLLABLE:uint =EST_DRIFTING + 1 ;
@@ -23,6 +24,7 @@ package car
 		
 		public function Car(...arg)
 		{
+			
 		}
 		
 		public function react(...args):void{
@@ -44,9 +46,13 @@ package car
 		public function getImage():String{
 			return actualImage;
 		}
+		
 		public function setImage(newImage:String):void{
 			actualImage=newImage;
 		}
 
+		public function update(){
+			throw new AbstractMethodError();
+		}
 	}
 }

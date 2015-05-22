@@ -10,7 +10,7 @@
 	{
 		private var _x:Number;
 		private var _y:Number;
-		
+				
 		public function GroundLayer(layer:Object){
 			super(layer);			
 			
@@ -19,8 +19,7 @@
 		}		
 		
 		
-		override public function loadAssetsByLayer():void{
-			
+		override public function loadAssetsByLayer():void{			
 			for (var i:int=0; i<4; i++){
 				addChild(new PiragnaSprite(_x, _y, "ground"));
 				
@@ -31,7 +30,7 @@
 					_x += 450.5;
 					_y -= 259.25; 	
 				}
-			}
+			}		
 			
 		}
 		
@@ -56,10 +55,11 @@
 				}
 
 				removeChildAt(0);
-				addChild(child);					
+				addChild(child);	
 			}						
 		
-		}
+		}		
+		
 		
     }
 }

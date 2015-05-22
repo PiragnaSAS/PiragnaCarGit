@@ -6,6 +6,9 @@ package events
 	{
 		public static const ACCELERATE:String = "ACCELERATE";
 		public static const ROTATE:String = "ROTATE";
+		public static const BREAK:String = "BREAK";
+		public static const BREAK_ROTATION:String = "BREAK_ROTATION";
+			
 		
 		public function LeverEvent(type:String, bubbles:Boolean=false, data:Object=null)
 		{

@@ -5,7 +5,7 @@
 	public final class EncrustedResources_2x
 	{
 				
-		[Embed(source="../../assets/images/carros/Carro01_RoadToPiragna_Model001.png")]
+		[Embed(source="../../assets/Tiledx2/CHero.png")]
 		public static const CHero:Class;	
 		
 		[Embed(source="../../assets/Tiledx2/border_1.png")]
@@ -106,6 +106,15 @@
 		
 		[Embed(source="../../assets/Tiledx2/carretera_21.png")]
 		public static const carretera_21:Class;
+		
+		[Embed(source="../../assets/Tiledx2/arbol1.png")]
+		public static const arbol1:Class;
+		
+		[Embed(source="../../assets/Tiledx2/arbol2.png")]
+		public static const arbol2:Class;
+		
+		[Embed(source="../../assets/Tiledx2/casa1.png")]
+		public static const casa1:Class;		
 		
 		[Embed(source="../../assets/Tiledx2/ground.png")]
 		public static const ground:Class;		

@@ -50,6 +50,10 @@ package inputHandler.lever
 			baseImage.y = position.y;
 		}
 		
+		public function getCoordinatePoint():Point{
+			return this.coordinatePoint;
+		}
+		
 		public function setMovingPoint(movementPoint:Point):void{	
 			var x:int=movementPoint.subtract(coordinatePoint).x*Math.cos(-Math.PI/4)-movementPoint.subtract(coordinatePoint).y*Math.sin(-Math.PI/4);
 			var dist:Number =Math.sqrt(Math.pow((movementPoint.x - this.coordinatePoint.x),2) + Math.pow((movementPoint.y - coordinatePoint.y),2)) 
@@ -72,6 +76,7 @@ package inputHandler.lever
 			
 		}
 		
+		
 		public function setMovingPointAcelerator(movementPoint:Point):void{	
 			
 			var distance:Number = Math.sqrt(Math.pow((movementPoint.x - this.coordinatePoint.x),2) + Math.pow((movementPoint.y - coordinatePoint.y),2));
@@ -84,8 +89,7 @@ package inputHandler.lever
 				}else{
 					this.leverImage.x = coordinatePoint.x + Math.cos(-Math.PI/4)*distance;
 					this.leverImage.y = coordinatePoint.y + Math.sin(-Math.PI/4)*distance;
-					dispatchEvent(new LeverEvent(LeverEvent.ACCELERATE,true,{rotationValue:dist/radius}));
-				}
+					dispatchEvent(new LeverEvent(LeverEvent.ACCELERATE,true,{rotationValue:dist/radius}));				}
 			}else{
 				if((movementPoint.y > coordinatePoint.y) && (movementPoint.x < coordinatePoint.x)){
 					this.leverImage.x = coordinatePoint.x;

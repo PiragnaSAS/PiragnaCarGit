@@ -1,7 +1,5 @@
 ﻿package base.scenes
 {
-	import flash.geom.Rectangle;
-	
 	import base.ia.AIManager;
 	import base.levels.map.GestorMap;
 	import base.levels.map.Level1;
@@ -10,8 +8,6 @@
 	import car.hero.Hero;
 	
 	import core.General;
-	
-	import events.LeverEvent;
 	
 	import inputHandler.InputHandler;
 	
@@ -51,11 +47,10 @@
 			stage.stageWidth  = General.viewPortGame.width;
 			stage.stageHeight = General.viewPortGame.height;
 			
-			trace(Starling.current.contentScaleFactor);
 			Resources.scaleContentFactor = Starling.current.contentScaleFactor;
 						
 			//Hero creations
-			this.hero = new Hero();
+			this.hero = new Hero(50,250);
 			
 			//Levers creation
 			this.levers=new InputHandler();
@@ -97,9 +92,7 @@
 //			}
 		}	
 		
-		public function cargarLevel():void{
-			
-			
+		public function cargarLevel():void{			
 		}
 
 		private function onEnterFrame(e:Event):void
