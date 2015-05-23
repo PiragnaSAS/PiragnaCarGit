@@ -1,5 +1,9 @@
 ﻿package base.scenes
 {
+	import mx.core.mx_internal;
+	
+	import Progress.Progress;
+	
 	import base.ia.AIManager;
 	import base.levels.map.GestorMap;
 	import base.levels.map.Level1;
@@ -28,6 +32,7 @@
 		private var hero:Hero;
 		private var speed:uint;
 		private var hero2:Hero;
+		private var progress:Progress;
 
 		private var levers:InputHandler;
 //		private var xxxx:Number;
@@ -62,6 +67,8 @@
 			this.aiManager = new AIManager(this.level1);
 					
 			this.addChild(this.level1);
+			this.progress=new Progress();
+			addChild(progress);
 
 //			var rectangle:Rectangle = new Rectangle(hero.x, hero.y,126.5,20.1);
 //			var rectangle2:Rectangle = new Rectangle(hero2.x, hero2.y,126.5, 20.1);

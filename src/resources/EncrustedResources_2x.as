@@ -128,6 +128,9 @@
 		[Embed(source="../../assets/images/Control/shadedLight00.png")]
 		public static const shadedLight00:Class;	
 		
+		[Embed(source="../../assets/images/Carros/Car_Progress.png")]
+		public static const carProgress:Class;
+		
 
 		public function EncrustedResources_2x(){ throw new AbstractClassError(); }
 	}
