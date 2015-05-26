@@ -19,7 +19,7 @@ package layers
 		public function RandomObjectsLayerInGround(layer:Object){
 			super(layer);
 			
-			_xCasas1 = 50;
+			_xCasas1 = 10;
 			_yCasas1 = 120;
 			
 			_xCasas2 = 90;
@@ -34,15 +34,18 @@ package layers
 		public function generateRandomObjects():void{
 						
 			var randomNumber:Number;
-			
+			var aux:Number=Math.PI/2;
 			for(var i:uint=0; i<=30; i++){
 				if(Math.floor(Math.random())+1){
 					addChild(new PiragnaSprite(_xCasas1, _yCasas1, arrayObjects[Math.floor(Math.random()*arrayObjects.length)]));
 				}
 				randomNumber= Math.random()*200+100;
+				trace(randomNumber);
+				_xCasas1 += randomNumber+(randomNumber/5*Math.sin(aux));
+				aux+=Math.PI;
 				
-				_xCasas1 += randomNumber;
 				_yCasas1 -= randomNumber*Math.tan(Math.PI/6);
+				
 			}
 			
 //			for(var i:uint=0; i<=30; i++){

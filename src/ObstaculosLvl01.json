@@ -1,0 +1,116 @@
+{ "height":15,
+ "obstacles":[
+        {
+         "data":[0, 0, 0, 0, 6, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "height":15,
+         "name":"Capa de Patrones 1",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":3,
+         "x":0,
+         "y":0
+        }],
+ "nextobjectid":1,
+ "orientation":"isometric",
+ "properties":
+    {
+
+    },
+ "renderorder":"right-down",
+ "tileheight":243,
+ "tilesets":[
+        {
+         "firstgid":1,
+         "image":"ProyectoCarro\/assets\/images\/Carros\/Carro02_RoadToPiragna_Model001.png",
+         "imageheight":243,
+         "imagewidth":243,
+         "margin":0,
+         "name":"Carro02_RoadToPiragna_Model001",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":243,
+         "tilewidth":243
+        }, 
+        {
+         "firstgid":2,
+         "image":"ProyectoCarro\/assets\/images\/Carros\/Carro03_RoadToPiragna_Model001.png",
+         "imageheight":243,
+         "imagewidth":243,
+         "margin":0,
+         "name":"Carro03_RoadToPiragna_Model001",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":243,
+         "tilewidth":243
+        }, 
+        {
+         "firstgid":3,
+         "image":"ProyectoCarro\/assets\/images\/Carros\/Carro04_RoadToPiragna_Model001.png",
+         "imageheight":243,
+         "imagewidth":243,
+         "margin":0,
+         "name":"Carro04_RoadToPiragna_Model001",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":243,
+         "tilewidth":243
+        }, 
+        {
+         "firstgid":4,
+         "image":"ProyectoCarro\/assets\/images\/Carros\/Carros01_RoadToPiragna_Model001.png",
+         "imageheight":243,
+         "imagewidth":243,
+         "margin":0,
+         "name":"Carros01_RoadToPiragna_Model001",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":243,
+         "tilewidth":243
+        }, 
+        {
+         "firstgid":5,
+         "image":"ProyectoCarro\/assets\/images\/Miscelanea\/Aceite01_RoadToPiragna_Model01.png",
+         "imageheight":102,
+         "imagewidth":102,
+         "margin":0,
+         "name":"Aceite01_RoadToPiragna_Model01",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":102,
+         "tilewidth":102
+        }, 
+        {
+         "firstgid":6,
+         "image":"ProyectoCarro\/assets\/images\/Miscelanea\/Hueco01_RoadToPiragna_Model01.png",
+         "imageheight":172,
+         "imagewidth":172,
+         "margin":0,
+         "name":"Hueco01_RoadToPiragna_Model01",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":172,
+         "tilewidth":172
+        }],
+ "tilewidth":243,
+ "version":1,
+ "width":3
+}

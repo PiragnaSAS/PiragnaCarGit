@@ -51,7 +51,7 @@ package car
 			actualImage=newImage;
 		}
 
-		public function update(){
+		public function update():void{
 			throw new AbstractMethodError();
 		}
 	}

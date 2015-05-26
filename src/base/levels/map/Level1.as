@@ -5,6 +5,9 @@
 	
 	import car.hero.Hero;
 	
+	import collitionableObjects.superHeroes.Hulk;
+	import collitionableObjects.superHeroes.SuperHero;
+	
 	import core.General;
 	
 	import inputHandler.InputHandler;
@@ -17,6 +20,7 @@
 	import layers.RandomObjectsLayerInGround;
 	
 	import starling.events.Event;
+	import base.levels.map.parts.Tiles;
 
 	public class Level1 extends Map
 	{
@@ -25,7 +29,8 @@
 		private var iniLandY:int = General.screenHeight - 550;
 		private var distanceLandX:Number= 36;
 		private var distanceLandY:Number = 16;
-		
+		private var superHero:SuperHero;
+		private var hulk:Hulk;
 		private var randomObjectsLayer:RandomObjectsLayerInGround;
 		private var groundLayer:GroundLayer;
 		private var raceLayer:RaceLayer;
@@ -45,9 +50,14 @@
 		private var iniSepDownX:Number = iniLandX+ 120;
 		private var iniSepDownY:Number = iniLandY + 156;
 		
-		public function Level1(mapAdress:String, hero:Hero, levers:InputHandler)
+		private var Layer:Object;
+		
+		public function Level1(mapAdress:String,hero:Hero, levers:InputHandler)
 		{			
 			super(mapAdress, hero, levers);
+			
+			
+			
 		}
 						
 		private function onAddedToStage(e:Event):void
@@ -75,26 +85,41 @@
 			randomObjectsLayer.setSpeed(0);
 			addChild(randomObjectsLayer);
 			
-			for each (var layer:Object in this.getJSON()["layers"]) 
+					
+			for each (var layer:Object in this.getJSONLayer()["layers"]) 
 			{	
 				var layerName:String=layer["name"];
-				
+				trace(layerName);
 				// decide where are we going to put the layer
 				switch(layerName) {
 					case "RaceLayer":
 						raceLayer = new RaceLayer(layer);
 						raceLayer.loadAssetsByLayer();
-						raceLayer.setSpeed(0);
+						raceLayer.setSpeed(0);						
 						addChild(raceLayer);
 						break;
+					case "CarsLayer":
+						carsLayer = new CarsLayer(layer);
+						carsLayer.loadAssetsByLayer();
+						carsLayer.setSpeed(0);
+						addChild(carsLayer);
+						//raceLayer.cargarCarros();*/
+						break;
+					
 					case "FrontObjectsLayer":
 						frontObjectsLayer = new FrontObjectsLayer(layer);
 						frontObjectsLayer.loadAssetsByLayer();
 						frontObjectsLayer.setSpeed(0);
 						addChild(frontObjectsLayer);
+						hulk=new Hulk(400, -80);
+						hulk.setSpeed(0);
+						superHero=new SuperHero("SuperMan", -50,410);
+						addChild(hulk);
+						addChild(superHero);
 						break;
 					case "CollitionsLayer":
-						collitionLayer= new CollitionLayer(layer, this.getJSON());
+						
+						collitionLayer= new CollitionLayer(layer, this.getJSONLayer());
 						break;						
 				}						
 			}			
@@ -172,6 +197,14 @@
 			if(carsLayer != null){
 				carsLayer.update();
 				carsLayer.setSpeed(this.getCurrentSpeed());
+			}
+			if(superHero!=null){
+				superHero.update();
+				
+			}
+			if(hulk!=null){
+				hulk.update();
+				hulk.setSpeed(this.getCurrentSpeed());
 			}
 			
 			this.getHero().update();

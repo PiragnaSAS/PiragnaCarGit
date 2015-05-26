@@ -21,8 +21,8 @@ package base.levels.map
 	
 	public class Map extends Sprite
 	{
-		private var json:Object;
-		
+		private var jsonLayers:Object;
+		private var jsonObstacles:Object;
 		private var hero:Hero;
 		private var levers:InputHandler;
 		
@@ -47,7 +47,8 @@ package base.levels.map
 		
 		private var acelerating:Boolean = false;
 			
-		private var tiles:Tiles;
+		private var tilesLayers:Tiles;
+		private var tilesObstacles:Tiles;
 		
 		public function Map(scene:String, hero:Hero, levers:InputHandler)
 		{	
@@ -64,7 +65,9 @@ package base.levels.map
 			this.levers.addEventListener(LeverEvent.BREAK, onBreak);	
 			this.levers.addEventListener(LeverEvent.BREAK_ROTATION, onBreakRotation);	
 						
-			this.loadScene(scene);	
+			this.loadScene(scene);
+			
+			
 		}	
 		
 		private function loadScene(scene:String):void
@@ -74,29 +77,36 @@ package base.levels.map
 			request.url = scene;
 			trace(request.url);
 			loader.addEventListener(IOErrorEvent.IO_ERROR, onIOError);
-			loader.addEventListener(Event.COMPLETE, onLoaderComplete);
+			loader.addEventListener(Event.COMPLETE, onLoaderCompleteScene);
 			loader.load(request);
 		}
+		
+		
 		
 		private function onIOError(e:IOErrorEvent):void{
 			trace("error: "+e.errorID);
 		}
 		
-		private function onLoaderComplete(e:Event):void 
+		private function onLoaderCompleteScene(e:Event):void 
 		{		
 			trace("here is here");		
-			json = JSON.parse(e.target.data);				
-			mapWidth = json["width"];
-			mapHeight = json["height"];
-			tileWidth = json["tilewidth"];
-			tileHeight = json["tileheight"];
-			tiles = new Tiles(json["tilesets"]);
-					
+			jsonLayers = JSON.parse(e.target.data);	
+			trace("json layer"+jsonLayers);
+			mapWidth = jsonLayers["width"];
+			mapHeight = jsonLayers["height"];
+			tileWidth = jsonLayers["tilewidth"];
+			tileHeight = jsonLayers["tileheight"];
+			tilesLayers = new Tiles(jsonLayers["tilesets"]);
+			
+			
+			
 			trace("---");
 			createLayers();
 			this.addChild(hero);
 			this.addChild(levers);
 		}	
+		
+			
 		
 		public function onRotate(e:LeverEvent):void{
 			if(this.getCurrentSpeed() != 0)
@@ -170,9 +180,11 @@ package base.levels.map
 			this.totalTileSets=newTotalTileSets;
 		}
 				
-		public function getJSON():Object{
-			return json;
+		public function getJSONLayer():Object{
+			return jsonLayers;
 		}
+		
+		
 						
 		public function getCurrentSpeed():Number{
 			return this.currentSpeed;

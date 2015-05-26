@@ -125,11 +125,40 @@
 		[Embed(source="../../assets/images/Control/shadedLight00.png")]
 		public static const shadedLight00:Class;	
 		
-		[Embed(source="../../assets/images/Carros/Car_Progress.png")]
-		public static const carProgress:Class;
-		
 		[Embed(source="../../assets/Tiledx2/ground.png")]
 		public static const ground:Class;				
+		
+		[Embed(source="../../assets/images/SuperHero/Superman01_RoadToPiragna_Model01.png")]
+		public static const SuperMan:Class;	
+		
+		[Embed(source="../../assets/images/Superhero/Hulk01_RoadToPiragna_Model01.png")]
+		public static const Hulk0:Class;
+		
+		[Embed(source="../../assets/images/Superhero/Hulk01_RoadToPiragna_Model02.png")]
+		public static const Hulk1:Class;
+		
+		[Embed(source="../../assets/images/Carros/Carro02_RoadToPiragna_Model001.png")]
+		public static const Carro02_RoadToPiragna_Model001:Class;
+		
+		[Embed(source="../../assets/images/Carros/Carro03_RoadToPiragna_Model001.png")]
+		public static const Carro03_RoadToPiragna_Model001:Class;
+		
+		
+		[Embed(source="../../assets/images/Carros/Carro04_RoadToPiragna_Model001.png")]
+		public static const Carro04_RoadToPiragna_Model001:Class;
+		
+		
+		[Embed(source="../../assets/images/Carros/Carros01_RoadToPiragna_Model001.png")]
+		public static const Carros01_RoadToPiragna_Model001:Class;
+		
+		[Embed(source="../../assets/images/Miscelanea/Aceite01_RoadToPiragna_Model01.png")]
+		public static const Aceite01_RoadToPiragna_Model01:Class;
+		
+		[Embed(source="../../assets/images/Miscelanea/Hueco01_RoadToPiragna_Model01.png")]
+		public static const Hueco01_RoadToPiragna_Model01:Class;
+		
+		[Embed(source="../../assets/images/Miscelanea/transparency.png")]
+		public static const transparency:Class;
 		
 		/*[Embed(source="../../recursos/texturas/1x/fondo 1.png")]
 		public static const Fondo1:Class;

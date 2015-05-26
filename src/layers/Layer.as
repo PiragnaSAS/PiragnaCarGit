@@ -43,7 +43,7 @@
 				_x = 50;
 				_y = 280;
 			}
-			trace(name);
+			
 			
 			initialpointx=_x;
 			initialpointy=_y;
@@ -58,6 +58,7 @@
 						addChild(piragnaSprite);
 						_x += 101;
 						_y -= 58; 
+						
 				}
 				
 		}
@@ -83,12 +84,12 @@
 			
 			var child:DisplayObject;
 			
-			if(getChildAt(0).x < -500 && getChildAt(0).y > 500){		
+			if(getChildAt(0).x < -500 && getChildAt(0).y > 500){
 					child = getChildAt(0);
 
 					child.x = getChildAt(this.numChildren - 1).x + 101;
 					child.y = getChildAt(this.numChildren - 1).y - 58;
-					removeChildAt(0);
+					//removeChildAt(0);
 					addChild(child);					
 				}			
 		}				

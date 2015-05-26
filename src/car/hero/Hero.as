@@ -122,7 +122,7 @@ package car.hero
 			this.fuel -= gasolina;
 		}
 		
-		override public function update(){
+		override public function update():void{
 			
 			if(movementX == 0){
 				if(auxMovementX < .1 && auxMovementX > -.1){
@@ -136,6 +136,8 @@ package car.hero
 			
 			this.x += auxMovementX;
 			this.y += auxMovementY;
+			
+			
 		}
 		
 	}

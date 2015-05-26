@@ -1,9 +1,5 @@
 ﻿package base.scenes
 {
-	import mx.core.mx_internal;
-	
-	import Progress.Progress;
-	
 	import base.ia.AIManager;
 	import base.levels.map.GestorMap;
 	import base.levels.map.Level1;
@@ -32,7 +28,6 @@
 		private var hero:Hero;
 		private var speed:uint;
 		private var hero2:Hero;
-		private var progress:Progress;
 
 		private var levers:InputHandler;
 //		private var xxxx:Number;
@@ -55,20 +50,18 @@
 			Resources.scaleContentFactor = Starling.current.contentScaleFactor;
 						
 			//Hero creations
-			this.hero = new Hero(50,250);
+			this.hero = new Hero(353,106);
 			
 			//Levers creation
 			this.levers=new InputHandler();
 					
 			//Levels
-			this.level1 = new Level1("Map_lvl01.json", hero, levers);
+			this.level1 = new Level1("Map_lvl01-Obstacles.json",hero, levers);
 			this.levels[0] = level1;
 									
 			this.aiManager = new AIManager(this.level1);
 					
 			this.addChild(this.level1);
-			this.progress=new Progress();
-			addChild(progress);
 
 //			var rectangle:Rectangle = new Rectangle(hero.x, hero.y,126.5,20.1);
 //			var rectangle2:Rectangle = new Rectangle(hero2.x, hero2.y,126.5, 20.1);
