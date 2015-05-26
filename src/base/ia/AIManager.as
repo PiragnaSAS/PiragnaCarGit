@@ -67,6 +67,9 @@ package base.ia
 		
 		public function update():Level1
 		{
+			this.raceLayerRectangles = new Array();
+			this.generateRaceLayerRectangles();
+			
 			var mt:Matrix = new Matrix(.7071212775140268,.7071212775140268 ,-1.2247888166255514 ,1.2247888166255514,50,50);
 			var hr:Car = this.context.getHero();
 			var hPoint:Point = new Point(hr.x +102, hr.y +59);
@@ -99,7 +102,7 @@ package base.ia
 				for (var i:int = 0; i < this.context.getRaceLayer().numChildren; i++) 
 				{
 					var tempPiragna:PiragnaSprite = PiragnaSprite(this.context.getRaceLayer().getChildAt(i));
-					if(tempPiragna.getName() ==  "carretera_11" || tempPiragna.getName() ==  "carretera_12" || tempPiragna.getName() ==  "carretera_17" || tempPiragna.getName() ==  "carretera_16" || tempPiragna.getName() ==  "carretera_19")
+					if(tempPiragna.getName() ==  "carretera_11" || tempPiragna.getName() ==  "carretera_12" )
 					{
 						var tPoint:Point = new Point(tempPiragna.x,tempPiragna.y);
 						var tp_1:Point =  mt.transformPoint(tPoint);
