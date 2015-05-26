@@ -107,13 +107,13 @@
 		[Embed(source="../../assets/Tiledx2/carretera_21.png")]
 		public static const carretera_21:Class;
 		
-		[Embed(source="../../assets/Tiledx2/arbol1.png")]
+		[Embed(source="../../assets/images/SuperHero/Superman01_RoadToPiragna_Model01.png")]
 		public static const arbol1:Class;
 		
-		[Embed(source="../../assets/Tiledx2/arbol2.png")]
+		[Embed(source="../../assets/images/SuperHero/Superman01_RoadToPiragna_Model01.png")]
 		public static const arbol2:Class;
 		
-		[Embed(source="../../assets/Tiledx2/casa1.png")]
+		[Embed(source="../../assets/images/SuperHero/Superman01_RoadToPiragna_Model01.png")]
 		public static const casa1:Class;		
 		
 		[Embed(source="../../assets/Tiledx2/ground.png")]
@@ -137,14 +137,14 @@
 		[Embed(source="../../assets/images/Superhero/Hulk01_RoadToPiragna_Model02.png")]
 		public static const Hulk1:Class;
 		
-		[Embed(source="../../assets/images/CarrosTemp/Camarillo.png")]
+		[Embed(source="../../assets/Tiledx2/CHero.png")]
 		public static const Carro02_RoadToPiragna_Model001:Class;
 		
-		[Embed(source="../../assets/images/CarrosTemp/Cazul.png")]
+		[Embed(source="../../assets/Tiledx2/CHero.png")]
 		public static const Carro03_RoadToPiragna_Model001:Class;
 		
 		
-		[Embed(source="../../assets/images/CarrosTemp/Cenfermo.png")]
+		[Embed(source="../../assets/Tiledx2/CHero.png")]
 		public static const Carro04_RoadToPiragna_Model001:Class;
 		
 		
@@ -157,7 +157,7 @@
 		[Embed(source="../../assets/images/Miscelanea/Hueco01_RoadToPiragna_Model01.png")]
 		public static const Hueco01_RoadToPiragna_Model01:Class;
 		
-		[Embed(source="../../assets/images/Miscelanea/transparency.png")]
+		[Embed(source="../../assets/Tiledx2/CHero.png")]
 		public static const transparency:Class;
 		
 		

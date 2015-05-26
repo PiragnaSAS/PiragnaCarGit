@@ -214,7 +214,7 @@ package base.levels.map
 			return hero;
 		}
 		
-		public function update():void{				
+		public function update():Boolean{				
 			throw new AbstractMethodError();			
 		}
 		

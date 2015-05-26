@@ -3,7 +3,6 @@
 	import base.ia.AIManager;
 	import base.levels.map.GestorMap;
 	import base.levels.map.Level1;
-	import base.levels.map.Map;
 	
 	import car.hero.Hero;
 	
@@ -22,7 +21,7 @@
 	{
 		private var aiManager:AIManager;
 		private var gestorMap:GestorMap;
-		private var level1:Map;
+		private var level1:Level1;
 		private var currentLevel:uint;
 		private var levels:Array;
 		private var hero:Hero;
@@ -30,6 +29,7 @@
 		private var hero2:Hero;
 
 		private var levers:InputHandler;
+		private var iALoaded:Boolean = false;
 //		private var xxxx:Number;
 //		private var yyyy:Number;
 
@@ -50,7 +50,7 @@
 			Resources.scaleContentFactor = Starling.current.contentScaleFactor;
 						
 			//Hero creations
-			this.hero = new Hero(353,106);
+			this.hero = new Hero(80,80);
 			
 			//Levers creation
 			this.levers=new InputHandler();
@@ -62,34 +62,6 @@
 			this.aiManager = new AIManager(this.level1);
 					
 			this.addChild(this.level1);
-
-//			var rectangle:Rectangle = new Rectangle(hero.x, hero.y,126.5,20.1);
-//			var rectangle2:Rectangle = new Rectangle(hero2.x, hero2.y,126.5, 20.1);
-//			var ff:Quad = new Quad(126.5, 20.1);
-//			ff.x = xxxx;
-//			ff.y = hero.y;
-//
-//			ff.alignPivot(HAlign.LEFT, VAlign.BOTTOM);
-//			
-//			ff.x = hero.x +15;
-//			ff.y = hero.y - 25;
-//
-//			
-//			var ff2:Quad = new Quad(60, 20.1 );
-//			ff2.alignPivot(HAlign.LEFT, VAlign.BOTTOM);
-//			ff2.x = hero2.x+15;
-//			ff2.y = hero2.y - 25;
-//			
-//			this.addChildAt(ff,0 );
-//			this.addChildAt(ff2, 0);
-//			if(rectangle.intersects(rectangle2))
-//			{
-//				trace("si si colombia, si si caribe");
-//			}
-//			else
-//			{
-//				trace("te hablo desde la prisión");
-//			}
 		}	
 		
 		public function cargarLevel():void{			
@@ -104,7 +76,19 @@
 	
 		private function update():void
 		{
-			this.level1.update();
+			if(this.level1.update() )
+			{
+				if(!this.iALoaded )
+				{
+					this.iALoaded = true;
+					this.aiManager = new AIManager(this.level1);
+				}else
+				{
+					updateIA();
+					
+				}
+				
+			}
 		}
 		
 		private function updateIA():void

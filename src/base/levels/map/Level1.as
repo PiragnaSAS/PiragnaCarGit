@@ -157,7 +157,9 @@
 			this.carsLayer=newCarsLayer;
 		}
 
-		override public function update():void{				
+		override public function update():Boolean{
+			if(raceLayer == null)
+				return false;
 			
 			if(this.getTargetSpeed()>this.getCurrentSpeed()){
 				this.setCurrentSpeed(this.getCurrentSpeed()+0.5);
@@ -208,6 +210,7 @@
 			}
 			
 			this.getHero().update();
+			return true;
 		}		
 	}
 }

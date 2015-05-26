@@ -107,13 +107,13 @@
 		[Embed(source="../../assets/Tiledx1/carretera_21.png")]
 		public static const carretera_21:Class;
 				
-		[Embed(source="../../assets/Tiledx1/arbol1.png")]
+		[Embed(source="../../assets/images/SuperHero/Superman01_RoadToPiragna_Model01.png")]
 		public static const arbol1:Class;
 		
-		[Embed(source="../../assets/Tiledx1/arbol2.png")]
+		[Embed(source="../../assets/images/SuperHero/Superman01_RoadToPiragna_Model01.png")]
 		public static const arbol2:Class;
 		
-		[Embed(source="../../assets/Tiledx1/casa1.png")]
+		[Embed(source="../../assets/images/SuperHero/Superman01_RoadToPiragna_Model01.png")]
 		public static const casa1:Class;
 				
 		[Embed(source="../../assets/images/Control/shadedLight11.png")]
@@ -157,7 +157,7 @@
 		[Embed(source="../../assets/images/Miscelanea/Hueco01_RoadToPiragna_Model01.png")]
 		public static const Hueco01_RoadToPiragna_Model01:Class;
 		
-		[Embed(source="../../assets/images/Miscelanea/transparency.png")]
+		[Embed(source="../../assets/images/SuperHero/Superman01_RoadToPiragna_Model01.png")]
 		public static const transparency:Class;
 		
 		/*[Embed(source="../../recursos/texturas/1x/fondo 1.png")]
