@@ -1,4 +1,4 @@
-package base.levels.map
+﻿package base.levels.map
 {
 	import flash.display.Bitmap;
 	import flash.events.Event;
@@ -55,6 +55,7 @@ package base.levels.map
 		private var progressBar:Progress;
 		
 		public function Map(scene:String, hero:Hero, levers:InputHandler){	
+
 			this.hero = hero;
 			
 			this.absoluteMaximumSpeed = 8.5;
@@ -67,7 +68,9 @@ package base.levels.map
 			this.levers.addEventListener(LeverEvent.ACCELERATE, onAcelerate);
 			this.levers.addEventListener(LeverEvent.BREAK, onBreak);	
 			this.levers.addEventListener(LeverEvent.BREAK_ROTATION, onBreakRotation);	
-			
+						
+			this.loadScene(scene);
+
 			this.progressBar = new Progress();
 			
 			this.loadScene(scene);
@@ -90,7 +93,8 @@ package base.levels.map
 			trace("error: "+e.errorID);
 		}
 		
-		private function onLoaderCompleteScene(e:Event):void{		
+		private function onLoaderCompleteScene(e:Event):void 
+		{		
 			trace("here is here");		
 			jsonLayers = JSON.parse(e.target.data);	
 			trace("json layer"+jsonLayers);
@@ -184,6 +188,7 @@ package base.levels.map
 		public function getJSONLayer():Object{
 			return jsonLayers;
 		}	
+
 						
 		public function getCurrentSpeed():Number{
 			return this.currentSpeed;
@@ -226,4 +231,5 @@ package base.levels.map
 		}
 		
 	}		
+
 }

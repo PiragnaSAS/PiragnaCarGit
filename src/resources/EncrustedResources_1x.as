@@ -114,6 +114,7 @@
 		public static const arbol2:Class;
 		
 		[Embed(source="../../assets/Tiledx1/casa1.png")]
+
 		public static const casa1:Class;
 				
 		[Embed(source="../../assets/images/Control/shadedLight11.png")]
@@ -162,6 +163,7 @@
 		
 		[Embed(source="../../assets/Tiledx1/Car_Progress.png")]
 		public static const carProgress:Class;
+
 		
 		/*[Embed(source="../../recursos/texturas/1x/fondo 1.png")]
 		public static const Fondo1:Class;

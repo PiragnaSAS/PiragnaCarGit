@@ -96,4 +96,4 @@
 			this.level1 = this.aiManager.update();
 		}
 	}
-}
+} 

@@ -20,6 +20,7 @@
 	import layers.RandomObjectsLayerInGround;
 	
 	import starling.events.Event;
+	import base.levels.map.parts.Tiles;
 
 	public class Level1 extends Map
 	{
@@ -46,6 +47,7 @@
 		
 		private var totalDistance:Number = 50000;
 		private var currentDistance:Number;
+
 		
 		private var iniSepDownX:Number = iniLandX+ 120;
 		private var iniSepDownY:Number = iniLandY + 156;
@@ -55,6 +57,7 @@
 		public function Level1(mapAdress:String,hero:Hero, levers:InputHandler){			
 			super(mapAdress, hero, levers);		
 			this.currentDistance = 0; 
+
 		}
 						
 		private function onAddedToStage(e:Event):void
@@ -158,6 +161,7 @@
 			this.currentDistance += this.getCurrentSpeed();
 			this.getProgress().upDateProgress(currentDistance/totalDistance);		
 			
+
 			if(raceLayer == null)
 				return false;
 			
@@ -167,13 +171,14 @@
 				if(this.getCurrentSpeed() > this.getAbsoluteMaximumSpeed())
 					this.setCurrentSpeed(this.getAbsoluteMaximumSpeed());
 			
-			}else if(this.getTargetSpeed()<this.getCurrentSpeed()){				
+			}else if(this.getTargetSpeed()<this.getCurrentSpeed()){
+				
 				var number:Number = this.getCurrentSpeed()*0.98<0.1? 0: this.getCurrentSpeed()*0.98; 
 				this.setCurrentSpeed(number);
 				
 				if(this.getCurrentSpeed() > this.getAbsoluteMaximumSpeed())
 					this.setCurrentSpeed(this.getAbsoluteMaximumSpeed());
-			}		
+			}			
 			
 			if(randomObjectsLayer != null){
 				randomObjectsLayer.update();
@@ -199,11 +204,10 @@
 				carsLayer.update();
 				carsLayer.setSpeed(this.getCurrentSpeed());
 			}
-			
 			if(superHero!=null){
-				superHero.update();				
+				superHero.update();
+				
 			}
-			
 			if(hulk!=null){
 				hulk.update();
 				hulk.setSpeed(this.getCurrentSpeed());

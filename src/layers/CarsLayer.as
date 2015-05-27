@@ -1,6 +1,7 @@
-package layers
+﻿package layers
 {
-	
+
+	import flash.utils.setInterval;	
 	import base.levels.map.parts.PiragnaSprite;
 	import base.levels.map.parts.Tiles;
 	
