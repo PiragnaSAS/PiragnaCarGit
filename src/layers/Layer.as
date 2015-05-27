@@ -1,4 +1,4 @@
-package layers
+﻿package layers
 {
 	
 	import flash.utils.Dictionary;
@@ -40,10 +40,10 @@ package layers
 				type=layer["type"];
 				visible=layer["visible"];
 				width=layer["width"];
-				_x=50;
-		    	_y=200;
+				_x = 50;
+				_y = 280;
 			}
-			trace(name);
+			
 			
 			initialpointx=_x;
 			initialpointy=_y;
@@ -53,9 +53,12 @@ package layers
 		
 		public function loadAssetsByLayer():void{
 				for (var i:int=0; i<this.height; i++){
-						addChild(new PiragnaSprite(_x, _y, Tiles.dict[data[data.length-i - 1]]));
-						_x += 202;
-						_y -= 116; 
+						var piragnaSprite:PiragnaSprite = new PiragnaSprite(_x, _y, Tiles.dict[data[data.length-i - 1]]);
+						
+						addChild(piragnaSprite);
+						_x += 101;
+						_y -= 58; 
+						
 				}
 				
 		}
@@ -81,11 +84,12 @@ package layers
 			
 			var child:DisplayObject;
 			
-			if(getChildAt(0).x < -500 && getChildAt(0).y > 500){		
+			if(getChildAt(0).x < -500 && getChildAt(0).y > 500){
 					child = getChildAt(0);
-					child.x = getChildAt(this.numChildren - 1).x + 202;
-					child.y = getChildAt(this.numChildren - 1).y - 116;
-					removeChildAt(0);
+
+					child.x = getChildAt(this.numChildren - 1).x + 101;
+					child.y = getChildAt(this.numChildren - 1).y - 58;
+					//removeChildAt(0);
 					addChild(child);					
 				}			
 		}				

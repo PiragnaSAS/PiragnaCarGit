@@ -1,18 +1,28 @@
-package base.levels.map.parts
+﻿package base.levels.map.parts
 {
-	import starling.display.Sprite;
-	
+
 	import resources.Resources;
 	
 	import starling.display.Image;
+	import starling.display.Sprite;
 
 	public class PiragnaSprite extends Sprite
 	{
+		private var image:Image; 
+		private var name:String;
 		public function PiragnaSprite(x:Number, y:Number, name:String){
 			this.x = x;
 			this.y = y;
-			trace(name);
-			this.addChild(new Image(Resources.getTexture(name)));
+			image = new Image(Resources.getTexture(name))
+			image.alignPivot();	
+			this.name = name;
+			this.addChild(image);
+
+		}
+		
+		public function getName():String
+		{
+			return this.name;
 		}
 	}
 }

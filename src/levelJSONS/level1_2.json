@@ -1,0 +1,322 @@
+{ "height":8,
+ "layers":[
+        {
+         "data":[3, 9, 12, 12, 12, 7, 9, 6],
+         "height":8,
+         "name":"RaceLayer",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":1,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "data":[16, 15, 19, 19, 19, 15, 15, 16],
+         "height":8,
+         "name":"FrontObjectLayer",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":1,
+         "x":0,
+         "y":0
+        }],
+ "nextobjectid":1,
+ "orientation":"isometric",
+ "properties":
+    {
+
+    },
+ "renderorder":"right-down",
+ "tileheight":236,
+ "tilesets":[
+        {
+         "firstgid":1,
+         "image":"..\/assets\/Carreteras\/Tiledx2\/Tiles\/carretera_ 1.png",
+         "imageheight":236,
+         "imagewidth":408,
+         "margin":0,
+         "name":"carretera_ 1",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":236,
+         "tilewidth":408
+        }, 
+        {
+         "firstgid":2,
+         "image":"..\/assets\/Carreteras\/Tiledx2\/Tiles\/carretera_ 2.png",
+         "imageheight":236,
+         "imagewidth":408,
+         "margin":0,
+         "name":"carretera_ 2",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":236,
+         "tilewidth":408
+        }, 
+        {
+         "firstgid":3,
+         "image":"..\/assets\/Carreteras\/Tiledx2\/Tiles\/carretera_ 3.png",
+         "imageheight":236,
+         "imagewidth":408,
+         "margin":0,
+         "name":"carretera_ 3",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":236,
+         "tilewidth":408
+        }, 
+        {
+         "firstgid":4,
+         "image":"..\/assets\/Carreteras\/Tiledx2\/Tiles\/carretera_ 4.png",
+         "imageheight":236,
+         "imagewidth":408,
+         "margin":0,
+         "name":"carretera_ 4",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":236,
+         "tilewidth":408
+        }, 
+        {
+         "firstgid":5,
+         "image":"..\/assets\/Carreteras\/Tiledx2\/Tiles\/carretera_ 5.png",
+         "imageheight":236,
+         "imagewidth":408,
+         "margin":0,
+         "name":"carretera_ 5",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":236,
+         "tilewidth":408
+        }, 
+        {
+         "firstgid":6,
+         "image":"..\/assets\/Carreteras\/Tiledx2\/Tiles\/carretera_ 6.png",
+         "imageheight":236,
+         "imagewidth":408,
+         "margin":0,
+         "name":"carretera_ 6",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":236,
+         "tilewidth":408
+        }, 
+        {
+         "firstgid":7,
+         "image":"..\/assets\/Carreteras\/Tiledx2\/Tiles\/carretera_ 7.png",
+         "imageheight":236,
+         "imagewidth":408,
+         "margin":0,
+         "name":"carretera_ 7",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":236,
+         "tilewidth":408
+        }, 
+        {
+         "firstgid":8,
+         "image":"..\/assets\/Carreteras\/Tiledx2\/Tiles\/carretera_ 8.png",
+         "imageheight":236,
+         "imagewidth":408,
+         "margin":0,
+         "name":"carretera_ 8",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":236,
+         "tilewidth":408
+        }, 
+        {
+         "firstgid":9,
+         "image":"..\/assets\/Carreteras\/Tiledx2\/Tiles\/carretera_ 9.png",
+         "imageheight":236,
+         "imagewidth":408,
+         "margin":0,
+         "name":"carretera_ 9",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":236,
+         "tilewidth":408
+        }, 
+        {
+         "firstgid":10,
+         "image":"..\/assets\/Carreteras\/Tiledx2\/Tiles\/carretera_ 10.png",
+         "imageheight":236,
+         "imagewidth":408,
+         "margin":0,
+         "name":"carretera_ 10",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":236,
+         "tilewidth":408
+        }, 
+        {
+         "firstgid":11,
+         "image":"..\/assets\/Carreteras\/Tiledx2\/Tiles\/carretera_ 11.png",
+         "imageheight":236,
+         "imagewidth":408,
+         "margin":0,
+         "name":"carretera_ 11",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":236,
+         "tilewidth":408
+        }, 
+        {
+         "firstgid":12,
+         "image":"..\/assets\/Carreteras\/Tiledx2\/Tiles\/carretera_ 12.png",
+         "imageheight":236,
+         "imagewidth":408,
+         "margin":0,
+         "name":"carretera_ 12",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":236,
+         "tilewidth":408
+        }, 
+        {
+         "firstgid":13,
+         "image":"..\/assets\/Carreteras\/Tiledx2\/Tiles\/carretera_ 13.png",
+         "imageheight":236,
+         "imagewidth":408,
+         "margin":0,
+         "name":"carretera_ 13",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":236,
+         "tilewidth":408
+        }, 
+        {
+         "firstgid":14,
+         "image":"..\/assets\/Carreteras\/Tiledx2\/Tiles\/carretera_ 14.png",
+         "imageheight":236,
+         "imagewidth":408,
+         "margin":0,
+         "name":"carretera_ 14",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":236,
+         "tilewidth":408
+        }, 
+        {
+         "firstgid":15,
+         "image":"..\/assets\/Carreteras\/Tiledx2\/Tiles\/border_ 1.png",
+         "imageheight":236,
+         "imagewidth":408,
+         "margin":0,
+         "name":"border_ 1",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":236,
+         "tilewidth":408
+        }, 
+        {
+         "firstgid":16,
+         "image":"..\/assets\/Carreteras\/Tiledx2\/Tiles\/border_ 2.png",
+         "imageheight":236,
+         "imagewidth":408,
+         "margin":0,
+         "name":"border_ 2",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":236,
+         "tilewidth":408
+        }, 
+        {
+         "firstgid":17,
+         "image":"..\/assets\/Carreteras\/Tiledx2\/Tiles\/border_ 3.png",
+         "imageheight":236,
+         "imagewidth":408,
+         "margin":0,
+         "name":"border_ 3",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":236,
+         "tilewidth":408
+        }, 
+        {
+         "firstgid":18,
+         "image":"..\/assets\/Carreteras\/Tiledx2\/Tiles\/border_ 4.png",
+         "imageheight":236,
+         "imagewidth":408,
+         "margin":0,
+         "name":"border_ 4",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":236,
+         "tilewidth":408
+        }, 
+        {
+         "firstgid":19,
+         "image":"..\/assets\/Carreteras\/Tiledx2\/Tiles\/border_ 5.png",
+         "imageheight":236,
+         "imagewidth":408,
+         "margin":0,
+         "name":"border_ 5",
+         "properties":
+            {
+
+            },
+         "spacing":0,
+         "tileheight":236,
+         "tilewidth":408
+        }],
+ "tilewidth":408,
+ "version":1,
+ "width":1
+}

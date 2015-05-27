@@ -1,8 +1,8 @@
 package base.ia
 {
-	import base.niveles.mapa.Map;
-	
 	import flash.display.Sprite;
+	
+	import base.levels.map.Map;
 
 	public class GestorIA
 	{

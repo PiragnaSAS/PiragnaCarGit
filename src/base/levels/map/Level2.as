@@ -1,4 +1,4 @@
-﻿package base.levels.map
+package base.levels.map
 {
 	import base.levels.map.parts.Land;
 	import base.levels.map.parts.PlaneLand;
@@ -20,8 +20,8 @@
 	import layers.RandomObjectsLayerInGround;
 	
 	import starling.events.Event;
-
-	public class Level1 extends Map
+	
+	public class Level2 extends Map
 	{
 		private var myArray:Array = new Array();
 		private var iniLandX:int = -200
@@ -51,17 +51,19 @@
 		private var iniSepDownY:Number = iniLandY + 156;
 		
 		private var Layer:Object;
-				
-		public function Level1(mapAdress:String,hero:Hero, levers:InputHandler){			
+		
+		private var nameOfLevel:String = "level1";
+		
+		public function Level2(mapAdress:String,hero:Hero, levers:InputHandler){			
 			super(mapAdress, hero, levers);		
 			this.currentDistance = 0; 
 		}
-						
+		
 		private function onAddedToStage(e:Event):void
 		{
 			this.addLand(this.iniLandX,this.iniLandY);			
 		}
-				
+		
 		private function addLand(x:Number, y:Number):void
 		{
 			this.getGroundLayer().addChild(new Land(x,y));
@@ -70,7 +72,7 @@
 		private function addPlaneLand(x:Number, y:Number):void{
 			this.getGroundLayer().addChild(new PlaneLand(x,y));
 		}
-				
+		
 		override public function createLayers():void{
 			groundLayer = new GroundLayer(layer);	
 			groundLayer.loadAssetsByLayer();
@@ -82,43 +84,10 @@
 			randomObjectsLayer.setSpeed(0);
 			addChild(randomObjectsLayer);
 			
-					
-			for each (var layer:Object in this.getJSONLayer()["layers"]) 
-			{	
-				var layerName:String=layer["name"];
-				trace(layerName);
-				// decide where are we going to put the layer
-				switch(layerName) {
-					case "RaceLayer":
-						raceLayer = new RaceLayer(layer);
-						raceLayer.loadAssetsByLayer();
-						raceLayer.setSpeed(0);						
-						addChild(raceLayer);
-						break;
-					case "CarsLayer":
-						carsLayer = new CarsLayer(layer);
-						carsLayer.loadAssetsByLayer();
-						carsLayer.setSpeed(0);
-						addChild(carsLayer);
-						//raceLayer.cargarCarros();*/
-						break;
-					
-					case "FrontObjectsLayer":
-						frontObjectsLayer = new FrontObjectsLayer(layer);
-						frontObjectsLayer.loadAssetsByLayer();
-						frontObjectsLayer.setSpeed(0);
-						addChild(frontObjectsLayer);
-						hulk=new Hulk(400, -80);
-						hulk.setSpeed(0);
-						superHero=new SuperHero("SuperMan", -50,410);
-						addChild(hulk);
-						addChild(superHero);
-						break;
-					case "CollitionsLayer":
-						collitionLayer= new CollitionLayer(layer, this.getJSONLayer());
-						break;						
-				}						
+			for each (var layer:Object in this.getJSONLayer()["layers"]) {	
+				
 			}			
+			
 		}
 		
 		public function getGroundLayer():GroundLayer{
@@ -152,7 +121,7 @@
 		public function setCarsLayer(newCarsLayer:CarsLayer):void{
 			this.carsLayer=newCarsLayer;
 		}
-
+		
 		override public function update():Boolean{
 			
 			this.currentDistance += this.getCurrentSpeed();
@@ -166,7 +135,7 @@
 				
 				if(this.getCurrentSpeed() > this.getAbsoluteMaximumSpeed())
 					this.setCurrentSpeed(this.getAbsoluteMaximumSpeed());
-			
+				
 			}else if(this.getTargetSpeed()<this.getCurrentSpeed()){				
 				var number:Number = this.getCurrentSpeed()*0.98<0.1? 0: this.getCurrentSpeed()*0.98; 
 				this.setCurrentSpeed(number);
@@ -179,7 +148,7 @@
 				randomObjectsLayer.update();
 				randomObjectsLayer.setSpeed(this.getCurrentSpeed());
 			}
-		
+			
 			if(groundLayer != null){
 				groundLayer.update();
 				groundLayer.setSpeed(this.getCurrentSpeed());
@@ -189,7 +158,7 @@
 				raceLayer.update();	     		
 				raceLayer.setSpeed(this.getCurrentSpeed());
 			}
-				
+			
 			if(frontObjectsLayer != null){
 				frontObjectsLayer.update();
 				frontObjectsLayer.setSpeed(this.getCurrentSpeed());			
@@ -211,6 +180,7 @@
 			
 			this.getHero().update();
 			return true;
-		}		
+		}			
 	}
 }
+
