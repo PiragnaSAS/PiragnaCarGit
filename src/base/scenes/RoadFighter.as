@@ -58,8 +58,6 @@
 			//Levels
 			this.level1 = new Level1("Map_lvl01-Obstacles.json",hero, levers);
 			this.levels[0] = level1;
-									
-			this.aiManager = new AIManager(this.level1);
 					
 			this.addChild(this.level1);
 		}	
@@ -71,7 +69,6 @@
 		{
 			//hilo principal
 			update();
-			updateIA();
 		}
 	
 		private function update():void
@@ -85,7 +82,6 @@
 				}else
 				{
 					updateIA();
-					
 				}
 				
 			}
