@@ -81,11 +81,11 @@
 			{
 				if(tRectangle.intersects(i))
 				{
-					trace("choca",i.x ,i.y , "carro" ,tPoimt.x, tPoimt.y);
+					//trace("choca",i.x ,i.y , "carro" ,tPoimt.x, tPoimt.y);
 				}		
 				else
 				{
-					trace ("no", i.x ,i.y , "carro" ,tPoimt.x, tPoimt.y);
+					//trace ("no", i.x ,i.y , "carro" ,tPoimt.x, tPoimt.y);
 				}
 			}
 			
@@ -95,25 +95,32 @@
 		private function generateRaceLayerRectangles():void
 		{
 			var mt:Matrix = new Matrix(.7071212775140268,.7071212775140268 ,-1.2247888166255514 ,1.2247888166255514,50,50);
-			if(this.context.getRaceLayer() != null)
+			var numChildRace:Number = this.context.getRaceLayer().numChildren;
+			for (var i:int = 0; i < this.context.getRaceLayer().numChildren; i++) 
 			{
-			
-			
-				var numChildRace:Number = this.context.getRaceLayer().numChildren;
-				for (var i:int = 0; i < this.context.getRaceLayer().numChildren; i++) 
-				{
-					var tempPiragna:PiragnaSprite = PiragnaSprite(this.context.getRaceLayer().getChildAt(i));
-
-					if(tempPiragna.getName() ==  "carretera_11" || tempPiragna.getName() ==  "carretera_12" )
-					{
-						var tPoint:Point = new Point(tempPiragna.x,tempPiragna.y);
-						var tp_1:Point =  mt.transformPoint(tPoint);
-						var tRectangle:Rectangle = new Rectangle((tp_1.x ) -60 ,
-							(tp_1.y) - 105, 140,20);	
-						this.raceLayerRectangles.push(tRectangle);
-					}
+				var tempPiragna:PiragnaSprite = PiragnaSprite(this.context.getRaceLayer().getChildAt(i));
+				var tPoint:Point = new Point(tempPiragna.x,tempPiragna.y);
+				var tp_1:Point =  mt.transformPoint(tPoint);
+				
+				if(tempPiragna.getName() ==  "carretera_11" || tempPiragna.getName() ==  "carretera_12" || tempPiragna.getName() ==  "carretera_17"|| tempPiragna.getName() ==  "carretera_13" || tempPiragna.getName() ==  "carretera_14" || tempPiragna.getName() ==  "carretera_15"|| tempPiragna.getName() ==  "carretera_20"|| tempPiragna.getName() ==  "carretera_2" )
+				{	
+					var tRectangle:Rectangle = new Rectangle((tp_1.x ) -60 ,
+						(tp_1.y) - 105, 140,20);	
+					this.raceLayerRectangles.push(tRectangle);
 				}
-			}
+				if(tempPiragna.getName() ==  "carretera_16" || tempPiragna.getName() ==  "carretera_19"|| tempPiragna.getName() ==  "carretera_18")
+				{
+					var tRectangle1:Rectangle = new Rectangle((tp_1.x ) -60 ,
+						(tp_1.y) - 52, 140,20);	
+					this.raceLayerRectangles.push(tRectangle1);
+				}
+				if(tempPiragna.getName() ==  "carretera_21" )
+				{
+					var tRectangle3:Rectangle = new Rectangle((tp_1.x ) -60 ,
+						(tp_1.y) - 4, 140,20);	
+					this.raceLayerRectangles.push(tRectangle3);
+				}
+			}			
 		}
 		
 		public function getRectangles():Array
