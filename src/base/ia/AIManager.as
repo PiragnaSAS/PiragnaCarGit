@@ -174,6 +174,13 @@
 						(tp_1.y) +53 , 140,20);	
 					this.frontLayerRectangles.push(tRectangle);
 				}
+				if(tempPiragna.getName() ==  "border_1")
+				{
+					var tRectangle:Rectangle = new Rectangle((tp_1.x ) -60 ,
+						(tp_1.y) +7 , 140,20);	
+					this.frontLayerRectangles.push(tRectangle);
+				}
+				
 			}			
 		}
 		
