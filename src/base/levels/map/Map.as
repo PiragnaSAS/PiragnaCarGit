@@ -1,17 +1,19 @@
-﻿package base.levels.map
+package base.levels.map
 {
 	import flash.display.Bitmap;
-	import flash.events.Event;
 	import flash.events.IOErrorEvent;
-	import flash.net.URLLoader;
-	import flash.net.URLRequest;
 	
 	import Progress.Progress;
 	
+	import assets.Assets;
+	
+	import base.levels.map.parts.Administrador;
 	import base.levels.map.parts.Tiles;
 	
 	import car.Car;
 	import car.hero.Hero;
+	
+	import collitionableObjects.superHeroes.SuperHero;
 	
 	import events.LeverEvent;
 	
@@ -19,6 +21,8 @@
 	
 	import starling.display.Sprite;
 	import starling.errors.AbstractMethodError;
+	
+	import trainInformation.Train;
 	
 	
 	public class Map extends Sprite
@@ -40,24 +44,27 @@
 		private var tileHeight:uint;
 		private var tileSets:Array;
 		private var totalTileSets:uint;		
-		
+		private var admin:Administrador;
 		private var absoluteMaximumSpeed:Number;
 		private var currentSpeed:Number;
 		private var targetSpeed:Number;
-		
 		private var polyline:String;
-		
 		private var acelerating:Boolean = false;
 			
 		private var tilesLayers:Tiles;
 		private var tilesObstacles:Tiles;
 		
 		private var progressBar:Progress;
+		private var train:Train;
+		private var superHero:SuperHero;
+		private var superHerosArray:Array;
 		
-		public function Map(scene:String, hero:Hero, levers:InputHandler){	
-
+		private var numberOfModules:uint;
+		
+		public function Map(scene:String, hero:Hero, levers:InputHandler, numberOfModules:uint){	
 			this.hero = hero;
 			
+			this.numberOfModules = numberOfModules;
 			this.absoluteMaximumSpeed = 8.5;
 			this.currentSpeed = 0;
 			this.targetSpeed = 0;
@@ -68,50 +75,64 @@
 			this.levers.addEventListener(LeverEvent.ACCELERATE, onAcelerate);
 			this.levers.addEventListener(LeverEvent.BREAK, onBreak);	
 			this.levers.addEventListener(LeverEvent.BREAK_ROTATION, onBreakRotation);	
-						
-			this.loadScene(scene);
-
-			this.progressBar = new Progress();
 			
+			this.progressBar = new Progress();
+			this.train =new Train();
 			this.loadScene(scene);
 		}	
 		
 		private function loadScene(scene:String):void
 		{
-			var loader:URLLoader = new URLLoader();
-			var request:URLRequest = new URLRequest();
-			request.url = scene;
-			trace(request.url);
-			loader.addEventListener(IOErrorEvent.IO_ERROR, onIOError);
-			loader.addEventListener(Event.COMPLETE, onLoaderCompleteScene);
-			loader.load(request);
-		}
-		
-		
+			admin=new Administrador();
+			
+			for (var i:int = 0; i < 5; i++){
+				var r:uint=Math.floor(Math.random()*numberOfModules);
+				var r1:uint=Math.floor((Math.random()*3));
+				//cargar mapa de esta forma "mapa_"+scene+"_"+r
+				jsonLayers=Assets.getJSON("mapa_"+scene+"_"+r);
+				trace("car_"+scene+"_"+r+"_"+r1);
+				jsonObstacles=Assets.getJSON("car_"+scene+"_"+r+"_"+r1);
+				admin.addJson(jsonLayers,jsonObstacles);
+			}
+			
+			admin.createFinalMap();
+			
+			createLayers();
+			
+			this.addChild(hero);
+			this.addChild(progressBar);
+			this.addChild(train);
+			this.addChild(levers);			
+		}	
 		
 		private function onIOError(e:IOErrorEvent):void{
 			trace("error: "+e.errorID);
 		}
 		
-		private function onLoaderCompleteScene(e:Event):void 
-		{		
-			trace("here is here");		
-			jsonLayers = JSON.parse(e.target.data);	
+/*		private function onLoaderCompleteScene(e:Event):void{
+			
+			trace("here is here");
+			jsonLayers = JSON.parse(e.target.data);
 			trace("json layer"+jsonLayers);
-			mapWidth = jsonLayers["width"];
+	/*		mapWidth = jsonLayers["width"];
 			mapHeight = jsonLayers["height"];
 			tileWidth = jsonLayers["tilewidth"];
 			tileHeight = jsonLayers["tileheight"];
-			tilesLayers = new Tiles(jsonLayers["tilesets"]);
-						
+			//tilesLayers = new Tiles(jsonLayers["tilesets"]);
 			trace("---");
+		//	admin.loadJson();
+			//admin.addJson(jsonLayers);
+			admin.createFinalMap();
 			createLayers();
 			this.addChild(hero);
 			this.addChild(progressBar);
 			this.addChild(levers);
 		}	
-		
+		*/
 			
+		public function getAdmin():Administrador{
+			return this.admin;
+		}
 		
 		public function onRotate(e:LeverEvent):void{
 			if(this.getCurrentSpeed() != 0)
@@ -188,7 +209,6 @@
 		public function getJSONLayer():Object{
 			return jsonLayers;
 		}	
-
 						
 		public function getCurrentSpeed():Number{
 			return this.currentSpeed;
@@ -214,7 +234,7 @@
 			this.targetSpeed = targetSpeed;	
 		}	
 		
-		public function getHero():Car{
+		public function getHero():Hero{
 			return hero;
 		}
 		
@@ -227,9 +247,28 @@
 		}	
 		
 		public function getProgress():Progress{
-			return progressBar;
+			return this.progressBar;
+		}
+		
+		public function gettrain():Train{
+			return this.train;
+		}
+		
+		public function setSuperHero(superHero:SuperHero):void{
+			this.superHero=superHero;
+		}
+		
+		public function getSuperHero():SuperHero{
+			return superHero;
+		}
+		
+		public function setSuperHeroesArray(superHerosArray:Array):void{
+			this.superHerosArray=superHerosArray;
+		}
+		
+		public function getSuperHeroesArray():Array{
+			return this.superHerosArray;
 		}
 		
 	}		
-
 }

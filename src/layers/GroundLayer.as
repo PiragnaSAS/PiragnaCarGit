@@ -1,61 +1,50 @@
 ﻿package layers
 {
+	import assets.Assets;
+	
 	import base.levels.map.parts.PiragnaSprite;
 	
-	import resources.Resources;
-	
 	import starling.display.DisplayObject;
+	import starling.display.Image;
 	
 	public class GroundLayer extends Layer
 	{
 		private var _x:Number;
 		private var _y:Number;
-				
-		public function GroundLayer(layer:Object){
+		private var numberOfGrounds:uint = 4;
+		public function GroundLayer(layer:Array){
 			super(layer);			
-			
-			_x = 50;
-			_y = 280;
 		}		
 		
 		
-		override public function loadAssetsByLayer():void{			
-			for (var i:int=0; i<4; i++){
-				addChild(new PiragnaSprite(_x, _y, "ground"));
-				
-				if(Resources.scaleContentFactor == 1){
-					_x += 609.5;
-					_y -= 351; 
-				}else{	
-					_x += 450.5;
-					_y -= 259.25; 	
-				}
-			}		
-			
+		override public function loadAssetsByLayer(currentDistance:Number):void{			
+			for (var i:int=0; i<numberOfGrounds; i++){
+					_x=x0+2*i*anchoCarretera*factorx-anchoCarretera*factorx;
+					_y=y0+2*i*anchoCarretera*factory+anchoCarretera*factory;
+					addChild(new PiragnaSprite(_x, _y, new Image(Assets.getAtlasTexture("Environment_0","bg_"+Math.floor(Math.random()*4)))));
+					_x=x0+2*i*anchoCarretera*factorx+anchoCarretera*factorx;
+					_y=y0+2*i*anchoCarretera*factory-anchoCarretera*factory;
+					addChild(new PiragnaSprite(_x, _y, new Image(Assets.getAtlasTexture("Environment_0","fr_0"))));
+			}				
 		}
 		
 		override public function update():void{
 			
 			for(var j:uint=0; j<this.numChildren; j++){ 
-				this.getChildAt(j).x -= this.getSpeed();
-				this.getChildAt(j).y += this.getSpeed()*Math.tan(Math.PI/6-0.0015);										
+				this.getChildAt(j).x -= this.getSpeed()*factorx;
+				this.getChildAt(j).y -= this.getSpeed()*factory;									
 			}
 			
 			var child:DisplayObject;
 			
-			if(getChildAt(0).x < -500 && getChildAt(0).y > 500){		
+			if(getChildAt(0).x < -300){		
 				child = getChildAt(0);
 				
-				if(Resources.scaleContentFactor == 1){
-					child.x = getChildAt(this.numChildren - 1).x + 609.5;
-					child.y = getChildAt(this.numChildren - 1).y - 351;
-				}else{
-					child.x = getChildAt(this.numChildren - 1).x + 450.5;
-					child.y = getChildAt(this.numChildren - 1).y - 259.25; 	
-				}
-
-				removeChildAt(0);
-				addChild(child);	
+				child.x += 2*anchoCarretera*factorx*numberOfGrounds;
+				child.y += 2*anchoCarretera*factory*numberOfGrounds; 	
+				
+				this.removeChildAt(0);
+				this.addChild(child);	
 			}						
 		
 		}		

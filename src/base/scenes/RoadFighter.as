@@ -1,5 +1,7 @@
 ﻿package base.scenes
 {
+	import assets.Assets;
+	
 	import base.ia.AIManager;
 	import base.levels.map.GestorMap;
 	import base.levels.map.Level1;
@@ -9,8 +11,6 @@
 	import core.General;
 	
 	import inputHandler.InputHandler;
-	
-	import resources.Resources;
 	
 	import starling.core.Starling;
 	import starling.display.Sprite;
@@ -47,7 +47,7 @@
 			stage.stageWidth  = General.viewPortGame.width;
 			stage.stageHeight = General.viewPortGame.height;
 			
-			Resources.scaleContentFactor = Starling.current.contentScaleFactor;
+			Assets.scaleFactorContent = Starling.current.contentScaleFactor;
 						
 			//Hero creations
 			this.hero = new Hero(80,80);
@@ -56,8 +56,9 @@
 			this.levers=new InputHandler();
 					
 			//Levels
-			this.level1 = new Level1("Map_lvl01-Obstacles.json",hero, levers);
+			this.level1= new Level1("1",hero, levers);
 			this.levels[0] = level1;
+			
 									
 			this.aiManager = new AIManager(this.level1);
 					
@@ -96,4 +97,4 @@
 			this.level1 = this.aiManager.update();
 		}
 	}
-} 
+}

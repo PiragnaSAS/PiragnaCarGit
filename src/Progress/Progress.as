@@ -6,6 +6,7 @@ package Progress
 	{
 		private var car:CarProgress;
 		private var highway:HighwayProgress;
+		
 		public function Progress(){
 			highway=new HighwayProgress();
 			addChild(highway);

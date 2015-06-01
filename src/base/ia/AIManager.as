@@ -1,4 +1,4 @@
-﻿package base.ia
+package base.ia
 {
 	import flash.display.Sprite;
 	import flash.geom.Matrix;
@@ -8,7 +8,7 @@
 	import base.levels.map.Level1;
 	import base.levels.map.parts.PiragnaSprite;
 	import car.Car;
-
+	
 	public class AIManager
 	{
 		private var context:Level1;
@@ -67,10 +67,6 @@
 		
 		public function update():Level1
 		{
-			this.raceLayerRectangles = new Array();
-			this.generateRaceLayerRectangles();
-			
-
 			var mt:Matrix = new Matrix(.7071212775140268,.7071212775140268 ,-1.2247888166255514 ,1.2247888166255514,50,50);
 			var hr:Car = this.context.getHero();
 			var hPoint:Point = new Point(hr.x +102, hr.y +59);
@@ -81,11 +77,12 @@
 			{
 				if(tRectangle.intersects(i))
 				{
-					trace("choca",i.x ,i.y , "carro" ,tPoimt.x, tPoimt.y);
+					//trace("choca",i.x ,i.y , "carro" ,tPoimt.x, tPoimt.y);
 				}		
 				else
 				{
-					trace ("no", i.x ,i.y , "carro" ,tPoimt.x, tPoimt.y);
+				
+					//trace("no", i.x ,i.y , "carro" ,tPoimt.x, tPoimt.y);
 				}
 			}
 			
@@ -103,8 +100,7 @@
 				for (var i:int = 0; i < this.context.getRaceLayer().numChildren; i++) 
 				{
 					var tempPiragna:PiragnaSprite = PiragnaSprite(this.context.getRaceLayer().getChildAt(i));
-
-					if(tempPiragna.getName() ==  "carretera_11" || tempPiragna.getName() ==  "carretera_12" )
+					if(tempPiragna.getName() ==  "carretera_11" || tempPiragna.getName() ==  "carretera_12" || tempPiragna.getName() ==  "carretera_17" || tempPiragna.getName() ==  "carretera_16" || tempPiragna.getName() ==  "carretera_19")
 					{
 						var tPoint:Point = new Point(tempPiragna.x,tempPiragna.y);
 						var tp_1:Point =  mt.transformPoint(tPoint);

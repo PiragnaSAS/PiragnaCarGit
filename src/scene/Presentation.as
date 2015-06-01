@@ -7,7 +7,7 @@ package scene
 	
 	import events.EventScene;
 	
-	import resources.Resources;
+	import assets.Assets;
 	
 	import starling.display.Image;
 	import starling.display.Sprite;
@@ -33,24 +33,24 @@ package scene
 			removeEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 			
 			//inicializar
-			fondo2 = new Image(Resources.obtenerTextura("Fondo2"));
+			fondo2 = new Image(Assets.obtenerTextura("Fondo2"));
 			fondo2.width = General.viewPortJuego.width;
 			fondo2.height = General.viewPortJuego.height;
 			addChild(fondo2);
 			
-			fondo =  new Image(Resources.obtenerTextura("Fondo1"));
+			fondo =  new Image(Assets.obtenerTextura("Fondo1"));
 			fondo.width = General.viewPortJuego.width;
 			fondo.height = General.viewPortJuego.height;
 			addChild(fondo);
 			
-			logos = new Image(Resources.obtenerTexturaDeAtlas("Logos","logos patrocinadores"));
+			logos = new Image(Assets.obtenerTexturaDeAtlas("Logos","logos patrocinadores"));
 			logos.alignPivot();
 			logos.alpha = 0;
 			logos.x = Math.ceil(General.viewPortJuego.width/2);
 			logos.y = Math.ceil(General.viewPortJuego.height/2);
 			addChild(logos);
 			
-			logoP = new Image(Resources.obtenerTexturaDeAtlas("Logos","logos desarrolladores"));
+			logoP = new Image(Assets.obtenerTexturaDeAtlas("Logos","logos desarrolladores"));
 			//logoP.alpha = 0;
 			logoP.alignPivot(HAlign.CENTER, VAlign.BOTTOM);
 			logoP.x = Math.ceil(General.viewPortJuego.width/2);

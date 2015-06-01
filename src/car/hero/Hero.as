@@ -2,7 +2,7 @@ package car.hero
 {
 	import car.Car;
 	
-	import resources.Resources;
+	import assets.Assets;
 	
 	import starling.display.Image;
 
@@ -13,10 +13,11 @@ package car.hero
 		private var speed:Number = 2;
 		private var movementX:Number, movementY:Number;
 		private var auxMovementX:Number, auxMovementY:Number;
+		private var numberDeaths:Number=0;
 		
 		
 		public function Hero(x=435, y=335){
-			this.setCarImage( new Image(Resources.getTexture("CHero")));
+			this.setCarImage( new Image(Assets.getAtlasTexture("Cars","car_red")));
 			this.x = x;
 			this.y = y;
 			this.auxMovementX = this.movementX = 0;
@@ -107,7 +108,11 @@ package car.hero
 		}
 		
 		public function raiseScore():void{
-			score++;
+			score+=50;
+		}
+		
+		public function raiseSpecialScore():void{
+			score+=1000;
 		}
 			
 		public function getFuel():uint{
@@ -118,8 +123,12 @@ package car.hero
 			this.fuel += fuel;
 		}
 		
-		public function decreaseFuel(gasolina:uint):void{
-			this.fuel -= gasolina;
+		public function decreaseFuel():void{
+			this.fuel --;
+		}
+		
+		public function decreaseFuelBom():void{
+			this.fuel -=5;
 		}
 		
 		override public function update():void{
@@ -140,5 +149,13 @@ package car.hero
 			
 		}
 		
+		public  function getDeath():Number
+		{
+			return numberDeaths;
+		}
+		
+		public function raiseDeath():void{
+			this.numberDeaths+=1;
+		}
 	}
 }
