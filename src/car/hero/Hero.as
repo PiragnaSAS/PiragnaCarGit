@@ -1,8 +1,8 @@
 package car.hero
 {
-	import car.Car;
-	
 	import assets.Assets;
+	
+	import car.Car;
 	
 	import starling.display.Image;
 
@@ -15,6 +15,18 @@ package car.hero
 		private var auxMovementX:Number, auxMovementY:Number;
 		private var numberDeaths:Number=0;
 		
+		//vars to handle drifts
+		private var driftDirection:Boolean; //0 left 1 right
+		private var driftInitialXPosition:Number;
+		private var driftInitialYPosition:Number;
+		private var driftSpeedX:Number = 8;
+		private var driftSpeedY:Number = 6;
+		private var driftMaxX:Number = 150;
+		private var driftMaxY:Number =  150;
+		
+		private var driftSpeedXRight:Number = 10;
+		private var driftSpeedYRight:Number = 3;
+		
 		
 		public function Hero(x=435, y=335){
 			this.setCarImage( new Image(Assets.getAtlasTexture("Cars","car_red")));
@@ -22,7 +34,7 @@ package car.hero
 			this.y = y;
 			this.auxMovementX = this.movementX = 0;
 			this.auxMovementY = this.movementY = 0;
-			
+			this.setState(Car.EST_DEFAULT);
 			this.addChild(this.getCarImage());
 		}
 		
@@ -65,20 +77,12 @@ package car.hero
 			this.setState(Car.EST_REVIVING);
 		}
 		
-		private function drifting(direction:String):void
+		public function drifting(direction:Boolean):void
 		{
-			switch(direction)
-			{
-				case "left":
-				{
-					this.setImage("hero_left_drifting")
-				}
-				case "rigth":
-				{
-					this.setImage("hero_right_drifting")
-				}
-			}
 			this.setState(Car.EST_DRIFTING);
+			this.driftDirection = direction;
+			this.driftInitialXPosition = this.x;
+			this.driftInitialYPosition = this.y;
 		}
 		
 		private function exploding():void
@@ -133,19 +137,55 @@ package car.hero
 		
 		override public function update():void{
 			
-			if(movementX == 0){
-				if(auxMovementX < .1 && auxMovementX > -.1){
-					auxMovementX = 0;
-					auxMovementY = 0;
-				}else{
-					auxMovementX *= .9;
-					auxMovementY = auxMovementX*Math.tan(Math.PI/6);
+			if(this.getState() == Car.EST_DEFAULT)
+			{
+				if(movementX == 0){
+					if(auxMovementX < .1 && auxMovementX > -.1){
+						auxMovementX = 0;
+						auxMovementY = 0;
+					}else{
+						auxMovementX *= .9;
+						auxMovementY = auxMovementX*Math.tan(Math.PI/6);
+					}
 				}
+				
+				this.x += auxMovementX;
+				this.y += auxMovementY;
+			}
+			if(this.getState() == Car.EST_DRIFTING)
+			{
+				this.handleDrift();
 			}
 			
-			this.x += auxMovementX;
-			this.y += auxMovementY;
 			
+		}
+		
+		private function handleDrift():void
+		{
+			if(!this.driftDirection)
+			{
+				if(this.x <= (this.driftInitialXPosition + this.driftMaxX) && this.y >= (this.driftInitialYPosition - this.driftMaxY))
+				{
+					this.x = this.x + this.driftSpeedX;
+					this.y = this.y - this.driftSpeedY;
+				}
+				else
+				{
+					this.setState(Car.EST_DEFAULT);
+				}	
+			}
+			else
+			{
+				if(this.x < (this.driftInitialXPosition + this.driftMaxX) && this.y < (this.driftInitialYPosition + this.driftMaxY))
+				{
+					this.x = this.x + this.driftSpeedXRight;
+					this.y = this.y - this.driftSpeedYRight;
+				}
+				else
+				{
+					this.setState(Car.EST_DEFAULT);
+				}
+			}
 			
 		}
 		
