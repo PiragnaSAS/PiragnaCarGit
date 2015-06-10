@@ -63,7 +63,7 @@
 				
 				if(data[i]!="transparency"){
 					lastIndex = i;
-					var piragnaSprite:PiragnaSprite = new PiragnaSprite(_x, _y,new Image(Assets.getAtlasTexture(atlasName,data[data.length-i-1])));
+					var piragnaSprite:PiragnaSprite = new PiragnaSprite(_x, _y,new Image(Assets.getAtlasTexture(atlasName,data[data.length-i-1])),data[data.length-i-1]);
 					addChild(piragnaSprite);						
 				}			
 			}
@@ -81,7 +81,7 @@
 //					trace("z<<<<",lastIndex)
 						_x = factorx*lastIndex*anchoCarretera + x0 - factorx*currentDistance;
 						_y = factory*lastIndex*anchoCarretera + y0 - factory*currentDistance;
-						var piragnaSprite:PiragnaSprite = new PiragnaSprite(_x, _y,new Image(Assets.getAtlasTexture(atlasName,data[l2])));
+						var piragnaSprite:PiragnaSprite = new PiragnaSprite(_x, _y,new Image(Assets.getAtlasTexture(atlasName,data[l2])),data[l2]);
 						//piragnaSprite.rotation = 15;
 						addChild(piragnaSprite);		
 				}

@@ -21,10 +21,10 @@
 			for (var i:int=0; i<numberOfGrounds; i++){
 					_x=x0+2*i*anchoCarretera*factorx-anchoCarretera*factorx;
 					_y=y0+2*i*anchoCarretera*factory+anchoCarretera*factory;
-					addChild(new PiragnaSprite(_x, _y, new Image(Assets.getAtlasTexture("Environment_0","bg_"+Math.floor(Math.random()*2)))));
+					addChild(new PiragnaSprite(_x, _y, new Image(Assets.getAtlasTexture("Environment_0","bg_"+Math.floor(Math.random()*2))),"ground"));
 					_x=x0+2*i*anchoCarretera*factorx+anchoCarretera*factorx;
 					_y=y0+2*i*anchoCarretera*factory-anchoCarretera*factory;
-					addChild(new PiragnaSprite(_x, _y, new Image(Assets.getAtlasTexture("Environment_0","fr_0"))));
+					addChild(new PiragnaSprite(_x, _y, new Image(Assets.getAtlasTexture("Environment_0","fr_0")),"ground"));
 			}				
 		}
 		
