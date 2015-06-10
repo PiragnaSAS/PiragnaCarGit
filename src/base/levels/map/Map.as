@@ -135,7 +135,7 @@ package base.levels.map
 		
 		public function onRotate(e:LeverEvent):void{
 			if(this.getCurrentSpeed() != 0)
-					hero.move(e.data.rotationValue*2);
+					hero.move(e.data.rotationValue*this.getCurrentSpeed());
 		}
 		
 		public function onBreakRotation(e:LeverEvent):void{

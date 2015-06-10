@@ -16,8 +16,7 @@ package layers
 	import starling.display.Image;
 	import starling.events.Event;
 	
-	public class CarsLayer extends Layer
-	{
+	public class CarsLayer extends Layer{
 		private var _x:Number, _y:Number;
 		private var x1:Number, y1:Number; 
 		private var carsArray:Array;
@@ -100,13 +99,6 @@ package layers
 		
 		override public function loadAssetsByLayer(currentDistance:Number):void{
 						
-//			var l:uint =((Math.floor(currentDistance/anchoCarretera*3)+15));
-//			var totalNum:uint = numChildren;
-			
-			/*var i:uint;
-			var j:uint;
-			*/
-			
 			var dx:Number=anchoCarretera*factorx;
 			var dy:Number=-anchoCarretera*factory;
 			var dx1:Number=dx/3;
@@ -114,26 +106,18 @@ package layers
 			var dx2:Number=dx/6;
 			var dy2:Number=dy/6;
 			
+			trace(currentDistance);
+		
 			if(actualDistance==0){
-				actualDistance=6;
+					actualDistance=6;
 			}
-//			trace(actualDistance,currentDistance);
-			
 			
 			if(actualDistance==currentDistance){
 //				trace("dibujando nuevos carros");
 				
 				for(var z:uint=t;z<t+6;z++){
-//					trace(z,t+3);
 					for(var j:uint=0;j<6;j++){						
 						if(k<data.length && data[k]!="transparency"){
-							
-//							trace(data[k],k);
-							//AQUI FALTA CALCULAR BIEN LOS PUNTOS 
-							//_x=(x1+dx1*z+dx2*j)-currentDistance*factorx;
-							//_y=(y1+dy1*z+dy2*j)-currentDistance*factory;								
-							//INTENTE INVIRTIENDO LA MATRIZ DATA[DATA.LENGTH-K-1]
-							
 							_x=x1+dx1*z+dx2*j;
 							_y=y1+dy1*z+dy2*j;	
 							
@@ -147,51 +131,46 @@ package layers
 					}
 					
 				}
+				
 				t=t+6;
 				if(actualDistance<8){
 					actualDistance+=2;
 				}
-				
-			}
+			}			
+			
+//			if(lastIndex < l){
+//			lastIndex = l;
+//			var l2:int=data.length-lastIndex-4;
+//			if(l2>=0 && data[l2]!="transparency" && data.length-lastIndex-4>=0)
+//			{
+//			trace("z<<<<",lastIndex)
+//			i=Math.floor(lastIndex/6);
+//			j =lastIndex%6;
+//			_x=-(x1+dx1*i+dx2*j)+ factorx*currentDistance;
+//			_y=-(y1+dy1*i+dy2*j)+ factory*currentDistance;	
+//			trace("puntos",_x,_y);
+//			//_x = factorx*lastIndex*anchoCarretera + x0 - factorx*currentDistance;
+//			//_y = factory*lastIndex*anchoCarretera + y0 - factory*currentDistance;
+//			createcars(data[l2],_x,_y);
+//			addChildAt(objectCarsArray[ap],0);
+//			ap++;
+//			//var piragnaSprite:PiragnaSprite = new PiragnaSprite(_x, _y,new Image(Assets.getAtlasTexture(atlasName,data[l2])));
+//			//piragnaSprite.rotation = 15;
+//			//addChild(piragnaSprite);		
+//			}
+//			
+//			}
+		
 			
 			
-			
-			
-			
-			
-			/*	if(lastIndex < l){
-			lastIndex = l;
-			var l2:int=data.length-lastIndex-4;
-			if(l2>=0 && data[l2]!="transparency" && data.length-lastIndex-4>=0)
-			{
-			trace("z<<<<",lastIndex)
-			i=Math.floor(lastIndex/6);
-			j =lastIndex%6;
-			_x=-(x1+dx1*i+dx2*j)+ factorx*currentDistance;
-			_y=-(y1+dy1*i+dy2*j)+ factory*currentDistance;	
-			trace("puntos",_x,_y);
-			//_x = factorx*lastIndex*anchoCarretera + x0 - factorx*currentDistance;
-			//_y = factory*lastIndex*anchoCarretera + y0 - factory*currentDistance;
-			createcars(data[l2],_x,_y);
-			addChildAt(objectCarsArray[ap],0);
-			ap++;
-			//var piragnaSprite:PiragnaSprite = new PiragnaSprite(_x, _y,new Image(Assets.getAtlasTexture(atlasName,data[l2])));
-			//piragnaSprite.rotation = 15;
-			//addChild(piragnaSprite);		
-			}
-			
-			}
-			*/
-			
-			
-			var totalNum:uint = numChildren;
-			for(var i:uint=0; i<totalNum; i++){
-				//trace(getChildAt(i).x);
-				//AQUI FALTA PONER EL LIMITE SUPERIOR
+			for(var i:uint=0; i<numChildren; i++){
+//				trace(getChildAt(i).x);
+				trace(numChildren);
+//				AQUI FALTA PONER EL LIMITE SUPERIOR
 				if(getChildAt(i).x < -100){
 //					trace("borrando",getChildAt(i).x);
 					removeChildAt(i);
-					totalNum--;
+					i--;
 				}
 			}
 			
