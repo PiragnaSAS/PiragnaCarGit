@@ -16,7 +16,7 @@ package layers
 		
 		private var arrayObjects:Array = ["casa1", "arbol1"];
 				
-		public function RandomObjectsLayerInGround(layer:Object){
+		public function RandomObjectsLayerInGround(layer:Array){
 			super(layer);
 			
 			_xCasas1 = 10;
@@ -37,10 +37,9 @@ package layers
 			var aux:Number=Math.PI/2;
 			for(var i:uint=0; i<=30; i++){
 				if(Math.floor(Math.random())+1){
-					addChild(new PiragnaSprite(_xCasas1, _yCasas1, arrayObjects[Math.floor(Math.random()*arrayObjects.length)]));
+					addChild(new PiragnaSprite(_xCasas1, _yCasas1, arrayObjects[Math.floor(Math.random()*arrayObjects.length)],"randomObject"));
 				}
 				randomNumber= Math.random()*200+100;
-				trace(randomNumber);
 				_xCasas1 += randomNumber+(randomNumber/5*Math.sin(aux));
 				aux+=Math.PI;
 				
@@ -68,8 +67,8 @@ package layers
 		override public function update():void{
 			
 			for(var j:uint=0; j<this.numChildren; j++){ 
-				this.getChildAt(j).x -= this.getSpeed();
-				this.getChildAt(j).y += this.getSpeed()*Math.tan(Math.PI/6);										
+				this.getChildAt(j).x -= this.getSpeed()*factorx;
+				this.getChildAt(j).y -= this.getSpeed()*factory;										
 			}
 			
 			var child:DisplayObject;
@@ -80,8 +79,8 @@ package layers
 				
 				child.x = getChildAt(this.numChildren - 1).x + randomNumber;
 				child.y = getChildAt(this.numChildren - 1).y - randomNumber*Math.tan(Math.PI/6);
-				removeChildAt(0);
-				addChild(child);					
+				this.removeChildAt(0);
+				this.addChild(child);					
 			}			
 		}				
 			

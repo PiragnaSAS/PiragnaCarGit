@@ -1,12 +1,16 @@
 package car.enemyCar
 {
+	import assets.Assets;
+	
 	import car.Car;
+	
+	import starling.display.Image;
 
 	public class Truck extends Car
 	{
-		public function Truck()
-		{
-			this.react(Car.EST_MOVING);
+		public function Truck(posx:Number,posy:Number){
+			super(posx,posy, new Image(Assets.getAtlasTexture("Cars","truck")));
+			this.react(Car.EST_MOVING);	
 		}
 		
 		override public function react(...args):void{

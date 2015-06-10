@@ -1,4 +1,5 @@
-package resources
+
+package assets
 {
 	import flash.display.Bitmap;
 	import flash.media.Sound;
@@ -12,16 +13,17 @@ package resources
 	import starling.textures.TextureAtlas;
 	
 
-	public class Resources
+	public class Assets
 	{
-		private static var _scaleContentFactor:int = 1;
+		private static var _scaleFactorContent:int = 1;
 		private static var sTextures:Dictionary = new Dictionary();
 		private static var sSounds:Dictionary = new Dictionary();
 		private static var sTextureAtlas:Dictionary = new Dictionary();
 		private static var sXML:Dictionary = new Dictionary();
+		private static var sJSON:Dictionary = new Dictionary();
 		private static var sBitmapFontsLoaded:Boolean;
 		
-		public function Resources(){}
+		public function Assets(){}
 		
 		
 		public static function getTexture(name:String):Texture
@@ -31,9 +33,10 @@ package resources
 				var data:Object = createObject(name);
 				
 				if (data is Bitmap)
-					sTextures[name] = Texture.fromBitmap(data as Bitmap, true, true, _scaleContentFactor);
+					sTextures[name] = Texture.fromBitmap(data as Bitmap, true, true, _scaleFactorContent);
 				else if (data is ByteArray)
-					sTextures[name] = Texture.fromAtfData(data as ByteArray, _scaleContentFactor);
+					sTextures[name] = Texture.fromAtfData(data as ByteArray, _scaleFactorContent);
+				
 			}
 			
 			return sTextures[name];
@@ -59,12 +62,20 @@ package resources
 			else throw new ArgumentError("Sound not found: " + name);
 		}
 		
-		public static function getXml(name:String):XML
+		public static function getXML(name:String):XML
 		{
-			prepareXML(name)
+			prepareXML(name);
 			var xml:XML = sXML[name];
 			if (xml) return xml;
 			else throw new ArgumentError("XML not found: " + name);
+		}
+		
+		public static function getJSON(name:String):Object
+		{
+			prepareJSON(name);
+			var json:Object = sJSON[name];
+			if (json) return json;
+			else throw new ArgumentError("JSON not found: " + name);
 		}
 		
 		private static function prepareAtlas(name:String):void
@@ -79,8 +90,9 @@ package resources
 		
 		private static function prepareSound(name:String):void
 		{
-			if (sSounds[name] == undefined){
-				sSounds[name] = new EncrustedResources[name]() as Sound;
+			if (sSounds[name] == undefined)
+			{
+				sSounds[name] = new AssetsEmbedded[name]() as Sound;
 			}   
 		}
 		
@@ -88,7 +100,15 @@ package resources
 		{
 			if (sXML[name] == undefined)
 			{
-				sXML[name] = XML(new EncrustedResources[name + "_Xml"]());
+				sXML[name] = XML(new AssetsEmbedded[name + "_Xml"]());
+			}   
+		}
+		
+		private static function prepareJSON(name:String):void
+		{
+			if (sJSON[name] == undefined)
+			{
+				sJSON[name] = JSON.parse(new AssetsEmbedded[name + "_JSON"]());
 			}   
 		}
 		
@@ -101,13 +121,12 @@ package resources
 		
 		public static function prepareFonts(name:String):void
 		{
-			Font.registerFont(EncrustedResources[name]);
+			Font.registerFont(AssetsEmbedded[name]);
 		}
 		
 		private static function createObject(name:String):Object
 		{
-			trace("Verificacion" ,name);
-			var textureClass:Class = _scaleContentFactor == 1 ? EncrustedResources_1x : EncrustedResources_2x;
+			var textureClass:Class = _scaleFactorContent == 1 ? AssetsEmbedded_1x : AssetsEmbedded_2x;
 			return new textureClass[name];
 		}
 		
@@ -126,10 +145,10 @@ package resources
 			//private static var sXML:Dictionary = new Dictionary();
 		}
 		
-		public static function get scaleContentFactor():Number { return _scaleContentFactor; }
-		public static function set scaleContentFactor(value:Number):void{
-			trace("asa<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-			_scaleContentFactor = value < 1.5 ? 1 : 2;
+		public static function get scaleFactorContent():Number { return _scaleFactorContent; }
+		public static function set scaleFactorContent(value:Number):void 
+		{
+			_scaleFactorContent = value < 1.5 ? 1 : 2;
 		}
 	}
 }

@@ -6,6 +6,7 @@ package Progress
 	{
 		private var car:CarProgress;
 		private var highway:HighwayProgress;
+		
 		public function Progress(){
 			highway=new HighwayProgress();
 			addChild(highway);
@@ -14,8 +15,8 @@ package Progress
 		}
 		
 		public function upDateProgress(advance:Number):void{
-			car.x=229*Math.cos((Math.PI)/6)*advance;
-			car.y=-229*Math.sin((Math.PI)/6)*advance;			
+			car.x=50*Math.cos((Math.PI)/6)*advance;
+			car.y=-50*Math.sin((Math.PI)/6)*advance;			
 		}
 	}
 }
