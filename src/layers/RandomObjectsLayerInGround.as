@@ -37,7 +37,7 @@ package layers
 			var aux:Number=Math.PI/2;
 			for(var i:uint=0; i<=30; i++){
 				if(Math.floor(Math.random())+1){
-					addChild(new PiragnaSprite(_xCasas1, _yCasas1, arrayObjects[Math.floor(Math.random()*arrayObjects.length)]));
+					addChild(new PiragnaSprite(_xCasas1, _yCasas1, arrayObjects[Math.floor(Math.random()*arrayObjects.length)],"randomObject"));
 				}
 				randomNumber= Math.random()*200+100;
 				_xCasas1 += randomNumber+(randomNumber/5*Math.sin(aux));
