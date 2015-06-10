@@ -2,7 +2,9 @@ package car
 {
 	import flash.geom.Point;
 	
-	import starling.display.Image;
+	import base.levels.map.parts.PiragnaSprite;
+	
+	import starling.display.DisplayObject;
 	import starling.display.Sprite;
 	import starling.errors.AbstractMethodError;
 
@@ -11,8 +13,7 @@ package car
 		private var actualImage:String;
 		private var actualState:uint;
 		private var position:Point;
-		private var carImage:Image;
-		
+		private var carImage:DisplayObject;
 		
 		public static const EST_MOVING:uint = 0;
 		public static const EST_DRIFTING:uint = EST_MOVING + 1 ;
@@ -22,9 +23,12 @@ package car
 		public static const EST_DEFAULT:uint= EST_REVIVING +1;
 		
 		
-		public function Car(...arg)
-		{
-			
+		public function Car(posx:Number, posy:Number, image:DisplayObject){
+			this.setCarImage(image);
+			this.x=posx;
+			this.y=posy;
+			carImage.alignPivot();
+			addChildAt(this.getCarImage(),0);
 		}
 		
 		public function react(...args):void{
@@ -36,10 +40,10 @@ package car
 		public function setState(newState:uint):void{
 			actualState=newState;
 		}
-		public function getCarImage():Image{
+		public function getCarImage():DisplayObject{
 			return carImage;
 		}
-		public function setCarImage(newImage:Image):void{
+		public function setCarImage(newImage:DisplayObject):void{
 			this.carImage=newImage;
 		}
 		

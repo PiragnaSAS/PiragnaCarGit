@@ -1,8 +1,12 @@
 package car.hero
 {
-	import car.Car;
+	import flash.events.Event;
+	import flash.events.TimerEvent;
+	import flash.utils.Timer;
 	
-	import resources.Resources;
+	import assets.Assets;
+	
+	import car.Car;
 	
 	import starling.display.Image;
 
@@ -12,17 +16,17 @@ package car.hero
 		private var fuel:uint = 100;
 		private var speed:Number = 2;
 		private var movementX:Number, movementY:Number;
-		private var auxMovementX:Number, auxMovementY:Number;
+		private var auxMovementX:Number = 0, auxMovementY:Number  = 0;
+		private var numberDeaths:Number=0;
+		private var timer:Timer;
 		
 		
-		public function Hero(x=435, y=335){
-			this.setCarImage( new Image(Resources.getTexture("CHero")));
-			this.x = x;
-			this.y = y;
-			this.auxMovementX = this.movementX = 0;
-			this.auxMovementY = this.movementY = 0;
-			
-			this.addChild(this.getCarImage());
+		public function Hero(posx:Number = 435,posy:Number = 335){
+			super(posx,posy, new Image(Assets.getAtlasTexture("Cars","car_red")));
+			this.react(Car.EST_MOVING);	
+			this.timer=new Timer(500,0);
+		
+			timer.start();
 		}
 		
 		override public function react(...args):void{
@@ -107,7 +111,11 @@ package car.hero
 		}
 		
 		public function raiseScore():void{
-			score++;
+			score+=50;
+		}
+		
+		public function raiseSpecialScore():void{
+			score+=1000;
 		}
 			
 		public function getFuel():uint{
@@ -118,11 +126,16 @@ package car.hero
 			this.fuel += fuel;
 		}
 		
-		public function decreaseFuel(gasolina:uint):void{
-			this.fuel -= gasolina;
+		public function decreaseFuel(event:TimerEvent):void{
+			this.fuel --;
+		}
+		
+		public function decreaseFuelBom():void{
+			this.fuel -=5;
 		}
 		
 		override public function update():void{
+			timer.addEventListener(TimerEvent.TIMER,decreaseFuel);
 			
 			if(movementX == 0){
 				if(auxMovementX < .1 && auxMovementX > -.1){
@@ -136,9 +149,15 @@ package car.hero
 			
 			this.x += auxMovementX;
 			this.y += auxMovementY;
-			
-			
 		}
 		
+		public  function getDeath():Number
+		{
+			return numberDeaths;
+		}
+		
+		public function raiseDeath():void{
+			this.numberDeaths+=1;
+		}
 	}
 }

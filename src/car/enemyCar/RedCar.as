@@ -6,13 +6,13 @@ package car.enemyCar
 	
 	import starling.display.Image;
 
-	public class Taxi extends Car
+	public class RedCar extends Car
+		
 	{
-		
-		
-	  	public function Taxi(posx:Number,posy:Number)
+		public function RedCar(posx:Number,posy:Number)
 		{
-			super(posx,posy, new Image(Assets.getAtlasTexture("Cars","car_yellow")));
+			
+			super(posx,posy, new Image(Assets.getAtlasTexture("Cars","car_red")));
 			this.react(Car.EST_MOVING);	
 		}
 		
@@ -41,12 +41,12 @@ package car.enemyCar
 		}
 		
 		private function moving():void{
-			this.setImage("moving_taxi_image");
+			this.setImage("moving_red_image");
 			this.setState(Car.EST_MOVING);
 		}
 		
 		private function exploding():void{
-			this.setImage("exploding_taxi_image");
+			this.setImage("exploding_red_image");
 			this.setState(Car.EST_EXPLODING);
 		}
 		
@@ -56,11 +56,11 @@ package car.enemyCar
 			{
 				case "left":
 				{
-					this.setImage("drafting_left_taxi_image")
+					this.setImage("drifting_left_red_image")
 				}
 				case "rigth":
 				{
-					this.setImage("drafting_rigth_taxi_image")
+					this.setImage("drifting_rigth_red_image")
 				}
 			}
 			this.setState(Car.EST_DRIFTING);
