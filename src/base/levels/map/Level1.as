@@ -73,7 +73,7 @@
 			raceLayer.loadFirstAssetsByLayer();
 			addChild(raceLayer);
 
-			carsLayer = new CarsLayer(this.getAdmin().getFinalCarsLayer());
+			carsLayer = new CarsLayer(this.getAdmin().getFinalCarsLayer(),this.getHero());
 			carsLayer.setSpeed(0);
 			carsLayer.loadFirstAssetsByLayer();
 			addChild(carsLayer);
