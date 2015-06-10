@@ -10,6 +10,7 @@ package layers
 	import car.enemyCar.RedCar;
 	import car.enemyCar.Taxi;
 	import car.enemyCar.Truck;
+	import car.hero.Hero;
 	
 	import collitionableObjects.groundCollitionableObjects.Obstacle;
 	
@@ -18,6 +19,7 @@ package layers
 	
 	public class CarsLayer extends Layer
 	{
+		private var hero:Hero;
 		private var _x:Number, _y:Number;
 		private var x1:Number, y1:Number; 
 		private var carsArray:Array;
@@ -30,8 +32,9 @@ package layers
 		private var t=15;
 		private var ap;
 		
-		public function CarsLayer(layer:Array){
+		public function CarsLayer(layer:Array,hero:Hero){
 			super(layer);
+			this.hero=hero;
 			this.atlasName = "Cars";
 			ap=0;
 			x1=x0-(anchoCarretera*(5/12)*factorx)-(anchoCarretera*(2/6)*factorx);
@@ -266,16 +269,15 @@ package layers
 			
 		}
 		
-		
-		
 		override public function update():void{
 			
 			if(numChildren>0){
-				
-//				trace(numChildren);
 				for(var j:uint=0; j<this.numChildren; j++){ 
 					this.getChildAt(j).x -= this.getSpeed()*factorx;
 					this.getChildAt(j).y -= this.getSpeed()*factory;
+					if(getChildAt(j).x<hero.x && getChildAt(j).x>hero.x-this.getSpeed()){
+						hero.raiseScore();
+					}
 					}				
 				}
 			}
