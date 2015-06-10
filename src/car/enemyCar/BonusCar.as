@@ -1,5 +1,7 @@
 package car.enemyCar
 {
+	import assets.Assets;
+	
 	import car.Car;
 	
 	import starling.display.Image;
@@ -9,10 +11,15 @@ package car.enemyCar
 
 		private var bonusFuel:uint=25;
 		
-		public function BonusCar() 
+		public function BonusCar(pox:Number,poy:Number) 
 		{
+			super(pox,poy);
+			/*this.setCarImage(new Image(Assets.getAtlasTexture("Cars","car_bonus")));
+			this.x=pox;
+			this.y=poy;
+			addChildAt(this.getCarImage(),0);
 			this.react(Car.EST_MOVING);
-			
+			*/
 		}
 		
 		override public function react(...args):void{

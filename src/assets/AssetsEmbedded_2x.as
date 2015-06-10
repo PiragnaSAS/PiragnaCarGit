@@ -43,6 +43,12 @@ package assets
 		public static const Tack_Texture:Class;
 		[Embed(source="../../assets/textures/2x/tack.xml", mimeType="application/octet-stream")]
 		public static const Tack_Xml:Class;		
+		
+		[Embed(source="../../assets/fonts/2x/RedCarGameFont.png")]
+		public static const Font_Texture:Class;
+		[Embed(source="../../assets/fonts/2x/RedCarGameFont.fnt", mimeType="application/octet-stream")]
+		public static const Font_Xml:Class;
+		
 		public function AssetsEmbedded_2x(){ throw new AbstractClassError(); }
 	}
 }

@@ -8,7 +8,7 @@ package inputHandler
 	
 	import inputHandler.lever.Lever;
 	
-	import resources.Resources;
+	import assets.Assets;
 	
 	import starling.display.Quad;
 	import starling.display.Sprite;
@@ -34,8 +34,8 @@ package inputHandler
 			inputQuad.alpha = 0;
 			inputQuad.addEventListener(TouchEvent.TOUCH, onTouch);
 			
-			leverOne=new Lever(Resources.getTexture("shadedLight01"), General.viewPortGame.width/25);
-			leverTwo=new Lever(Resources.getTexture("shadedLight00"), General.viewPortGame.width/25);		
+			leverOne=new Lever(Assets.getAtlasTexture("Gui", "handler_1_1"), Assets.getAtlasTexture("Gui", "handler_1_0"), General.viewPortGame.width/25);
+			leverTwo=new Lever(Assets.getAtlasTexture("Gui", "handler_0_1"), Assets.getAtlasTexture("Gui", "handler_0_0"), General.viewPortGame.width/25);		
 			
 			addChild(inputQuad);
 			addChild(leverOne);

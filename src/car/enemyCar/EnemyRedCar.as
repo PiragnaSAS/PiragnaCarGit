@@ -1,13 +1,24 @@
 package car.enemyCar
 {
+	
 	import car.Car;
+	
 
-	public class EnemyRedCar extends Car
+	public class EnemyRedCar extends RedCar
 		
 	{
-		public function EnemyRedCar()
+		public function EnemyRedCar(posx:Number,posy:Number)
+		
 		{
+			trace("azereje ja de je");
+			super(posx,posy);
+			//trace(super.getCarImage());
+			/*this.setCarImage(new Image(Assets.getAtlasTexture("Cars","car_red")));
+			this.x=pox;
+			this.y=poy;
+			addChildAt(this.getCarImage(),0);
 			this.react(Car.EST_MOVING);
+		*/
 		}
 		
 		override public function react(...args):void{

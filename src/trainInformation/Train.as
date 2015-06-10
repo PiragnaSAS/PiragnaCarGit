@@ -2,9 +2,9 @@ package trainInformation
 {
 	import flash.geom.Matrix;
 	
-	import core.General;
+	import assets.Assets;
 	
-	import resources.Resources;
+	import core.General;
 	
 	import starling.display.Image;
 	import starling.display.Sprite;
@@ -20,16 +20,16 @@ package trainInformation
 		
 		public function Train()
 		{
-//			trainImage=new Image(Resources.getTexture("trainInformation"));
+//			trainImage=new Image(Assets.getTexture("trainInformation"));
 //			trainImage.alignPivot("center","center");
 //			trainImage.width=General.viewPortGame.width/25;
 //			trainImage.height=General.viewPortGame.width/25;
 //			trainImage.x=100;
 //			trainImage.y=300;
 //			addChild(trainImage);
-			this.fuel= new TextField(100,20, "0","font",10,0xffffff);
-			this.score =new TextField(100,20,"0","font",10,0xffffff);
-			this.speed=new TextField(100,20,"0 Km/h","font",10,0xffffff);
+			this.fuel= new TextField(100,20, "fuel: 0","RedCarGameFont",10,0xFFBD4A);
+			this.score =new TextField(100,20,"score: 0","RedCarGameFont",10,0xFFBD4A);
+			this.speed=new TextField(100,20,"speed: 0 Km/h","RedCarGameFont",10,0xFFBD4A);
 			var mt:Matrix  = new Matrix(.86602783203125,-.5 ,0 ,1);
 			this.fuel.transformationMatrix=mt;
 			this.score.transformationMatrix=mt;
@@ -49,7 +49,7 @@ package trainInformation
 		{
 			this.fuel.text=fuel.toString();
 			this.score.text=score.toString();
-			this.speed.text=speed+" Km/h";
+			this.speed.text=Math.round(speed*35)+" Km/h";
 		}
 	}
 }

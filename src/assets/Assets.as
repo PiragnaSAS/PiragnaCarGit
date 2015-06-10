@@ -1,3 +1,4 @@
+
 package assets
 {
 	import flash.display.Bitmap;
@@ -35,6 +36,7 @@ package assets
 					sTextures[name] = Texture.fromBitmap(data as Bitmap, true, true, _scaleFactorContent);
 				else if (data is ByteArray)
 					sTextures[name] = Texture.fromAtfData(data as ByteArray, _scaleFactorContent);
+				
 			}
 			
 			return sTextures[name];

@@ -1,11 +1,11 @@
-﻿package collitionableObjects.superHeroes
+package collitionableObjects.superHeroes
 {
 	import base.levels.map.parts.PiragnaSprite;
 	import base.levels.map.parts.Tiles;
 	
 	import core.General;
 	
-	import resources.Resources;
+	import assets.Assets;
 	
 	import starling.display.DisplayObject;
 	import starling.display.Image;
@@ -18,13 +18,11 @@
 		private var _y:Number;
 		private var _speed:Number;
 		private var name:String;
-		
 		public function SuperHero(heroImageName:String,newX:Number,newY:Number){ 
 			this.name=heroImageName;
 			_x=newX;
 			_y=newY;
-
-			addChildAt(new PiragnaSprite(_x,_y,new Image(Assets.getAtlasTexture("Cars",heroImageName)),"hero"),0);
+			addChildAt(new PiragnaSprite(_x,_y,new Image(Assets.getAtlasTexture("Cars",heroImageName))),0);
 		}
 
 		public function setSuperHeroImage(newImage:Image):void{

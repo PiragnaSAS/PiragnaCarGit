@@ -143,6 +143,7 @@
 		[Embed(source="../../assets/Tiledx2/CHero.png")]
 		public static const Carro03_RoadToPiragna_Model001:Class;
 		
+		
 		[Embed(source="../../assets/Tiledx2/CHero.png")]
 		public static const Carro04_RoadToPiragna_Model001:Class;		
 		
@@ -155,21 +156,11 @@
 		[Embed(source="../../assets/images/Miscelanea/Hueco01_RoadToPiragna_Model01.png")]
 		public static const Hueco01_RoadToPiragna_Model01:Class;
 		
-		[Embed(source="../../assets/images/SuperHero/Ironman01_RoadToPiragna_Model01.png")]
-		public static const IronMan:Class;	
-		
 		[Embed(source="../../assets/Tiledx2/CHero.png")]
 		public static const transparency:Class;
 		
 		[Embed(source="../../assets/Tiledx2/Car_Progress.png")]
 		public static const carProgress:Class;
-		
-		[Embed(source="../../assets/fonts/2x/font.png")]
-		public static const Font1_Texture:Class;
-		
-		[Embed(source="../../assets/fonts/2x/font.fnt", mimeType="application/octet-stream")]
-		public static const Font1_Xml:Class;
-		
 		
 		public function EncrustedResources_2x(){ throw new AbstractClassError(); }
 	}

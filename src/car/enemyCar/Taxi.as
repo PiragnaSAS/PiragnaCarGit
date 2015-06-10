@@ -1,14 +1,19 @@
 package car.enemyCar
 {
+	import assets.Assets;
+	
 	import car.Car;
+	
+	import starling.display.Image;
 
 	public class Taxi extends Car
 	{
 		
 		
-	  	public function Taxi()
+	  	public function Taxi(posx:Number,posy:Number)
 		{
-			this.react(Car.EST_MOVING);
+			super(posx,posy, new Image(Assets.getAtlasTexture("Cars","car_yellow")));
+			this.react(Car.EST_MOVING);	
 		}
 		
 		override public function react(...args):void{

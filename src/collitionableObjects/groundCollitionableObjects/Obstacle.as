@@ -1,5 +1,7 @@
 package collitionableObjects.groundCollitionableObjects
 {
+	import flash.security.X500DistinguishedName;
+	
 	import base.levels.map.parts.PiragnaSprite;
 	
 	import core.General;
@@ -13,12 +15,21 @@ package collitionableObjects.groundCollitionableObjects
 		private var _speed:Number;
 		private var _x:Number;
 		private var _y:Number;
-		public function Obstacle(imageName:String,newX:Number,newY:Number)
-		{
-			this.name=imageName;
+		private var _type:uint;
+		private var obstacleImage:DisplayObject;
+		public static const TYPE_HOLE:uint = 0;
+		public static const TYPE_OIL:uint = 1;
+		
+		public function Obstacle(imageObject:DisplayObject,newX:Number,newY:Number, type:uint){
+			this._type=type;
+			this.obstacleImage=imageObject;
 			_x=newX;
 			_y=newY;
-			addChildAt(new PiragnaSprite(_x,_y,name),0);
+			this.x=newX;
+			this.y=newY;
+			obstacleImage.alignPivot();
+			trace(obstacleImage,_x,_y);
+			addChildAt(obstacleImage,0);
 		}
 		
 		public function update():void{
@@ -42,11 +53,15 @@ package collitionableObjects.groundCollitionableObjects
 		public function getSpeed():Number
 		{
 			return _speed;
+		}		
+		
+		public function get type():uint{
+			return _type;
 		}
 		
-		public function setSpeed(value:Number):void
-		{
+		public function setSpeed(value:Number):void{
 			_speed = value;
 		}
+		
 	}
 }

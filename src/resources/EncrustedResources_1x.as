@@ -132,9 +132,6 @@
 		[Embed(source="../../assets/images/SuperHero/Superman01_RoadToPiragna_Model01.png")]
 		public static const SuperMan:Class;	
 		
-		[Embed(source="../../assets/images/SuperHero/Ironman01_RoadToPiragna_Model01.png")]
-		public static const IronMan:Class;	
-		
 		[Embed(source="../../assets/images/Superhero/Hulk01_RoadToPiragna_Model01.png")]
 		public static const Hulk0:Class;
 		
@@ -167,11 +164,6 @@
 		[Embed(source="../../assets/Tiledx1/Car_Progress.png")]
 		public static const carProgress:Class;
 
-		[Embed(source="../../assets/fonts/2x/font.png")]
-		public static const Font1_Texture:Class;
-		
-		[Embed(source="../../assets/fonts/2x/font.fnt", mimeType="application/octet-stream")]
-		public static const Font1_Xml:Class;
 		
 		/*[Embed(source="../../recursos/texturas/1x/fondo 1.png")]
 		public static const Fondo1:Class;
