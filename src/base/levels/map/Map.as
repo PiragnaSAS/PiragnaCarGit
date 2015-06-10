@@ -1,4 +1,4 @@
-package base.levels.map
+﻿package base.levels.map
 {
 	import flash.display.Bitmap;
 	import flash.events.IOErrorEvent;
@@ -74,11 +74,26 @@ package base.levels.map
 			this.levers.addEventListener(LeverEvent.ACCELERATE, onAcelerate);
 			this.levers.addEventListener(LeverEvent.BREAK, onBreak);	
 			this.levers.addEventListener(LeverEvent.BREAK_ROTATION, onBreakRotation);	
-			
+			this.hero.addEventListener(HeroEvent.DRIFTING, onDrift);
+			this.hero.addEventListener(HeroEvent.EXPLODING, onBom);
 			this.progressBar = new Progress();
 			this.train =new Train();
 			this.loadScene(scene);
 		}	
+		
+		
+		
+		private function onBom():void
+		{
+			// TODO Auto Generated method stub
+			
+		}
+		
+		private function onDrift():void
+		{
+			
+			
+		}
 		
 		private function loadScene(scene:String):void{
 			admin=new Administrador();

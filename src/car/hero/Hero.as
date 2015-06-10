@@ -1,4 +1,4 @@
-package car.hero
+﻿package car.hero
 {
 	import flash.utils.Timer;
 	
@@ -95,12 +95,14 @@ package car.hero
 			this.driftDirection = direction;
 			this.driftInitialXPosition = this.x;
 			this.driftInitialYPosition = this.y;
+			dispatchEvent(new HeroEvent(HeroEvent.DRIFTING,true,{moveValue:2}));
 		}
 		
 		private function exploding():void
 		{
 			this.setImage("exploding_hero_image");
 			this.setState(Car.EST_EXPLODING);
+			dispatchEvent(new HeroEvent(HeroEvent.EXPLODING,true,{moveValue:0}));
 		}
 		
 		public function move(value:Number):void
