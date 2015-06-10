@@ -17,17 +17,18 @@ package car.hero
 		private var auxMovementX:Number, auxMovementY:Number;
 		private var numberDeaths:Number=0;
 		
+		
 		//vars to handle drifts
 		private var driftDirection:Boolean; //0 left 1 right
 		private var driftInitialXPosition:Number;
 		private var driftInitialYPosition:Number;
-		private var driftSpeedX:Number = 8;
-		private var driftSpeedY:Number = 6;
-		private var driftMaxX:Number = 150;
-		private var driftMaxY:Number =  150;
+		private var driftSpeedX:Number = 3;
+		private var driftSpeedY:Number = 1;
+		private var driftMaxX:Number = 50;
+		private var driftMaxY:Number =  50;
 		
-		private var driftSpeedXRight:Number = 10;
-		private var driftSpeedYRight:Number = 3;
+		private var driftSpeedXRight:Number = 3;
+		private var driftSpeedYRight:Number = 1;
 		private var timer:Timer;
 		
 		
