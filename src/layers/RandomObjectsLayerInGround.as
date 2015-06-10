@@ -1,4 +1,4 @@
-package layers
+﻿package layers
 {
 	import base.levels.map.parts.PiragnaSprite;
 	
@@ -33,21 +33,20 @@ package layers
 		
 		public function generateRandomObjects():void{
 						
-//			var randomNumber:Number;
-//			var aux:Number=Math.PI/2;
-//			for(var i:uint=0; i<=30; i++){
-//				if(Math.floor(Math.random())+1){
-//					addChild(new PiragnaSprite(_xCasas1, _yCasas1, arrayObjects[Math.floor(Math.random()*arrayObjects.length)]));
-//				}
-//				randomNumber= Math.random()*200+100;
-//				trace(randomNumber);
-//				_xCasas1 += randomNumber+(randomNumber/5*Math.sin(aux));
-//				aux+=Math.PI;
-//				
-//				_yCasas1 -= randomNumber*Math.tan(Math.PI/6);
-//				
-//			}
-//			
+	var randomNumber:Number;
+			var aux:Number=Math.PI/2;
+			for(var i:uint=0; i<=30; i++){
+				if(Math.floor(Math.random())+1){
+					addChild(new PiragnaSprite(_xCasas1, _yCasas1, arrayObjects[Math.floor(Math.random()*arrayObjects.length)],"randomobject"));
+				}
+				randomNumber= Math.random()*200+100;
+				_xCasas1 += randomNumber+(randomNumber/5*Math.sin(aux));
+				aux+=Math.PI;
+				
+				_yCasas1 -= randomNumber*Math.tan(Math.PI/6);
+				
+			}
+			
 //			for(var i:uint=0; i<=30; i++){
 //				if(Math.floor(Math.random())+1){
 //					addChild(new PiragnaSprite(_xCasas2, _yCasas2, arrayObjects[Math.floor(Math.random()*arrayObjects.length)]));

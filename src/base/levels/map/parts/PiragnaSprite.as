@@ -17,7 +17,6 @@
 			image.alignPivot();	
 			this.name = name;
 			this.addChild(image);
-
 		}
 		
 		public function getName():String

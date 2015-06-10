@@ -1,4 +1,4 @@
-package car.hero
+﻿package car.hero
 {
 	import flash.events.TimerEvent;
 	import flash.utils.Timer;
@@ -7,7 +7,8 @@ package car.hero
 	
 	import car.Car;
 	
-	import resources.Resources;
+	import assets.Assets;
+	import car.Car;
 	
 	import starling.display.Image;
 
@@ -17,17 +18,23 @@ package car.hero
 		private var fuel:Number;
 		private var movementX:Number, movementY:Number;
 		private var auxMovementX:Number, auxMovementY:Number;
-		private var timerFuel:Timer;
-		private var level:Map;
-		private var numberDeaths:Number;
-		private var outOfGas:Boolean;
+		private var numberDeaths:Number=0;
 		
-		public function Hero(x=435, y=335){			
-			this.level = level;
-			this.fuel = 100;
-			this.score = 0;
-			this.numberDeaths = 0;
-			this.setCarImage( new Image(Resources.getTexture("CHero")));
+		//vars to handle drifts
+		private var driftDirection:Boolean; //0 left 1 right
+		private var driftInitialXPosition:Number;
+		private var driftInitialYPosition:Number;
+		private var driftSpeedX:Number = 8;
+		private var driftSpeedY:Number = 6;
+		private var driftMaxX:Number = 150;
+		private var driftMaxY:Number =  150;
+		
+		private var driftSpeedXRight:Number = 10;
+		private var driftSpeedYRight:Number = 3;
+		
+		
+		public function Hero(x=435, y=335){
+			this.setCarImage( new Image(Assets.getAtlasTexture("Cars","car_red")));
 			this.x = x;
 			this.y = y;
 			this.auxMovementX = this.movementX = 0;
@@ -36,7 +43,7 @@ package car.hero
 			timerFuel.start();
 			timerFuel.addEventListener(TimerEvent.TIMER, decreaseFuel);
 			this.outOfGas = false;
-			
+			this.setState(Car.EST_DEFAULT);
 			this.addChild(this.getCarImage());
 		}
 		
@@ -79,20 +86,12 @@ package car.hero
 			this.setState(Car.EST_REVIVING);
 		}
 		
-		private function drifting(direction:String):void
+		public function drifting(direction:Boolean):void
 		{
-			switch(direction)
-			{
-				case "left":
-				{
-					this.setImage("hero_left_drifting")
-				}
-				case "rigth":
-				{
-					this.setImage("hero_right_drifting")
-				}
-			}
 			this.setState(Car.EST_DRIFTING);
+			this.driftDirection = direction;
+			this.driftInitialXPosition = this.x;
+			this.driftInitialYPosition = this.y;
 		}
 		
 		private function exploding():void
@@ -161,6 +160,7 @@ package car.hero
 			this.outOfGas = outOfGas;
 		}
 			
+<<<<<<< HEAD
 		override public function update():void{
 			if(movementX == 0){
 				if(auxMovementX < .1 && auxMovementX > -.1){
@@ -169,13 +169,65 @@ package car.hero
 				}else{
 					auxMovementX *= .9;
 					auxMovementY = auxMovementX*Math.tan(Math.PI/6);
+=======
+			if(this.getState() == Car.EST_DEFAULT)
+			{
+				if(movementX == 0){
+					if(auxMovementX < .1 && auxMovementX > -.1){
+						auxMovementX = 0;
+						auxMovementY = 0;
+					}else{
+						auxMovementX *= .9;
+						auxMovementY = auxMovementX*Math.tan(Math.PI/6);
+					}
+>>>>>>> f307ff6d02ed29fb1fb00855e86e324fb0b3b641
 				}
+				
+				this.x += auxMovementX;
+				this.y += auxMovementY;
+			}
+			if(this.getState() == Car.EST_DRIFTING)
+			{
+				this.handleDrift();
 			}
 			
+<<<<<<< HEAD
 			
 			this.x += auxMovementX;
 			this.y += auxMovementY;
 			
+=======
+			
+		}
+		
+		private function handleDrift():void
+		{
+			if(!this.driftDirection)
+			{
+				if(this.x <= (this.driftInitialXPosition + this.driftMaxX) && this.y >= (this.driftInitialYPosition - this.driftMaxY))
+				{
+					this.x = this.x + this.driftSpeedX;
+					this.y = this.y - this.driftSpeedY;
+				}
+				else
+				{
+					this.setState(Car.EST_DEFAULT);
+				}	
+			}
+			else
+			{
+				if(this.x < (this.driftInitialXPosition + this.driftMaxX) && this.y < (this.driftInitialYPosition + this.driftMaxY))
+				{
+					this.x = this.x + this.driftSpeedXRight;
+					this.y = this.y - this.driftSpeedYRight;
+				}
+				else
+				{
+					this.setState(Car.EST_DEFAULT);
+				}
+			}
+			
+>>>>>>> f307ff6d02ed29fb1fb00855e86e324fb0b3b641
 		}
 		
 	}

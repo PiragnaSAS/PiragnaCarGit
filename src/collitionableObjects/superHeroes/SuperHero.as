@@ -1,4 +1,4 @@
-package collitionableObjects.superHeroes
+﻿package collitionableObjects.superHeroes
 {
 	import base.levels.map.parts.PiragnaSprite;
 	import base.levels.map.parts.Tiles;
@@ -23,7 +23,8 @@ package collitionableObjects.superHeroes
 			this.name=heroImageName;
 			_x=newX;
 			_y=newY;
-			addChildAt(new PiragnaSprite(_x,_y,heroImageName),0);
+
+			addChildAt(new PiragnaSprite(_x,_y,new Image(Assets.getAtlasTexture("Cars",heroImageName)),"hero"),0);
 		}
 
 		public function setSuperHeroImage(newImage:Image):void{

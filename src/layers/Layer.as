@@ -43,22 +43,28 @@
 				_x = 50;
 				_y = 280;
 			}
-			
-			
 			initialpointx=_x;
 			initialpointy=_y;
 			dict = new Dictionary();
 			tiles= [];
 		}
-		
-		public function loadAssetsByLayer():void{
-				for (var i:int=0; i<this.height; i++){
-						var piragnaSprite:PiragnaSprite = new PiragnaSprite(_x, _y, Tiles.dict[data[data.length-i - 1]]);
-						
-						addChild(piragnaSprite);
-						_x += 101;
-						_y -= 58; 
-						
+				
+		public function loadAssetsByLayer(currentDistance:Number):void{
+			
+			var l:uint =(Math.floor(currentDistance/anchoCarretera)+5);
+			
+			if(lastIndex < l){
+				lastIndex = l;
+				if(data[lastIndex]!="transparency"&&data.length-lastIndex-4>=0)
+				{
+					trace("z<<<<",lastIndex)
+						_x = factorx*lastIndex*anchoCarretera + x0 - factorx*currentDistance;
+						_y = factory*lastIndex*anchoCarretera + y0 - factory*currentDistance;
+						var piragnaSprite:PiragnaSprite = new PiragnaSprite(_x, _y,new Image(Assets.getAtlasTexture(atlasName,data[data.length-lastIndex-4])),data[data.length-lastIndex-4]);
+						//piragnaSprite.rotation = 15;
+						addChild(piragnaSprite);	
+						trace("Agrega ",piragnaSprite.getName()," ",piragnaSprite.x,": ",piragnaSprite.y)
+
 				}
 				
 		}
