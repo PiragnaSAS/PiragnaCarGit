@@ -5,7 +5,7 @@ package core
 	
 	import events.EventScene;
 	
-	import assets.Assets;
+	import resources.Resources;
 	
 	import scene.IPrincipalScene;
 	import scene.IScene;
@@ -36,7 +36,7 @@ package core
 			stage.stageWidth  = General.viewPortGame.width;
 			stage.stageHeight = General.viewPortGame.height;
 			
-			Assets.scaleFactorContent = Starling.current.contentScaleFactor;
+			Resources.scaleContentFactor = Starling.current.contentScaleFactor;
 			
 			//Recursos.prepararBitmapFonts("LuckiestGuy01");
 			//Recursos.prepararBitmapFonts("FranklinGothicHeavy");

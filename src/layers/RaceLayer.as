@@ -8,6 +8,9 @@ package layers
 		public function RaceLayer(layer:Object)
 		{
 			super(layer);
+			
+			
+			
 		}
 		
 		

@@ -1,27 +1,41 @@
 package car.hero
 {
+	import flash.events.TimerEvent;
+	import flash.utils.Timer;
+	
+	import base.levels.map.Map;
+	
 	import car.Car;
 	
-	import assets.Assets;
+	import resources.Resources;
 	
 	import starling.display.Image;
 
 	public class Hero extends Car{
 		
-		private var score:uint = 0;
-		private var fuel:uint = 100;
-		private var speed:Number = 2;
+		private var score:Number;
+		private var fuel:Number;
 		private var movementX:Number, movementY:Number;
 		private var auxMovementX:Number, auxMovementY:Number;
-		private var numberDeaths:Number=0;
+		private var timerFuel:Timer;
+		private var level:Map;
+		private var numberDeaths:Number;
+		private var outOfGas:Boolean;
 		
-		
-		public function Hero(x=435, y=335){
-			this.setCarImage( new Image(Assets.getAtlasTexture("Cars","car_red")));
+		public function Hero(x=435, y=335){			
+			this.level = level;
+			this.fuel = 100;
+			this.score = 0;
+			this.numberDeaths = 0;
+			this.setCarImage( new Image(Resources.getTexture("CHero")));
 			this.x = x;
 			this.y = y;
 			this.auxMovementX = this.movementX = 0;
 			this.auxMovementY = this.movementY = 0;
+			this.timerFuel = new Timer(500);
+			timerFuel.start();
+			timerFuel.addEventListener(TimerEvent.TIMER, decreaseFuel);
+			this.outOfGas = false;
 			
 			this.addChild(this.getCarImage());
 		}
@@ -103,7 +117,7 @@ package car.hero
 			this.movementY = this.movementX = 0;
 		}
 		
-		public function getScore():uint{
+		public function getScore():Number{
 			return score;
 		}
 		
@@ -115,24 +129,39 @@ package car.hero
 			score+=1000;
 		}
 			
-		public function getFuel():uint{
+		public function getFuel():Number{
 			return fuel;
 		}
 		
-		public function raiseFuel(fuel:uint):void{
-			this.fuel += fuel;
+		public function setFuel(value:Number):void{
+			this.fuel=value;
 		}
 		
-		public function decreaseFuel():void{
-			this.fuel --;
+		public function raiseFuel(bonusfuel:Number=10):void{
+			this.fuel += bonusfuel;
 		}
 		
-		public function decreaseFuelBom():void{
-			this.fuel -=5;
+		public function decreaseFuel(type:String):void{
+			this.fuel--;
 		}
 		
-		override public function update():void{
+		public function raiseDeath():void{
+			this.numberDeaths+=1;
+		}
+		
+		public function getDeaths():Number{
+			return this.numberDeaths;
+		}
+		
+		public function isOutOfGas():Boolean{
+			return this.outOfGas;	
+		}
+		
+		public function setOutOfGas(outOfGas:Boolean):void{
+			this.outOfGas = outOfGas;
+		}
 			
+		override public function update():void{
 			if(movementX == 0){
 				if(auxMovementX < .1 && auxMovementX > -.1){
 					auxMovementX = 0;
@@ -143,19 +172,11 @@ package car.hero
 				}
 			}
 			
+			
 			this.x += auxMovementX;
 			this.y += auxMovementY;
 			
-			
 		}
 		
-		public  function getDeath():Number
-		{
-			return numberDeaths;
-		}
-		
-		public function raiseDeath():void{
-			this.numberDeaths+=1;
-		}
 	}
 }

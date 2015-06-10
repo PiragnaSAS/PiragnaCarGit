@@ -17,10 +17,6 @@ package core
 		public static var screenHeight:uint;
 		public static var screenAspectRatio:Number;
 		
-		public static var modulesLvl1:Number = 2;
-		public static var modulesLvl2:Number = 6;
-		public static var modulesLvl3:Number = 10;
-		
 		public static var viewPortBaseWidth:int;
 		public static var viewPortBaseHeight:int;
 		public static var viewPortBaseAspectRatio:Number;

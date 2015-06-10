@@ -5,7 +5,7 @@ package collitionableObjects.superHeroes
 	
 	import core.General;
 	
-	import assets.Assets;
+	import resources.Resources;
 	
 	import starling.display.DisplayObject;
 	import starling.display.Image;
@@ -18,11 +18,12 @@ package collitionableObjects.superHeroes
 		private var _y:Number;
 		private var _speed:Number;
 		private var name:String;
+		
 		public function SuperHero(heroImageName:String,newX:Number,newY:Number){ 
 			this.name=heroImageName;
 			_x=newX;
 			_y=newY;
-			addChildAt(new PiragnaSprite(_x,_y,new Image(Assets.getAtlasTexture("Cars",heroImageName))),0);
+			addChildAt(new PiragnaSprite(_x,_y,heroImageName),0);
 		}
 
 		public function setSuperHeroImage(newImage:Image):void{

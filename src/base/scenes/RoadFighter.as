@@ -1,7 +1,5 @@
 ﻿package base.scenes
 {
-	import assets.Assets;
-	
 	import base.ia.AIManager;
 	import base.levels.map.GestorMap;
 	import base.levels.map.Level1;
@@ -11,6 +9,8 @@
 	import core.General;
 	
 	import inputHandler.InputHandler;
+	
+	import resources.Resources;
 	
 	import starling.core.Starling;
 	import starling.display.Sprite;
@@ -47,7 +47,9 @@
 			stage.stageWidth  = General.viewPortGame.width;
 			stage.stageHeight = General.viewPortGame.height;
 			
-			Assets.scaleFactorContent = Starling.current.contentScaleFactor;
+			Resources.scaleContentFactor = Starling.current.contentScaleFactor;
+			
+			Resources.prepareBitmapFonts("Font1");
 						
 			//Hero creations
 			this.hero = new Hero(80,80);
@@ -56,8 +58,10 @@
 			this.levers=new InputHandler();
 					
 			//Levels
-			this.level1= new Level1("1",hero, levers);
+			this.level1 = new Level1("Map_lvl01-Obstacles.json",hero, levers);
 			this.levels[0] = level1;
+									
+			this.aiManager = new AIManager(this.level1);
 					
 			this.addChild(this.level1);
 		}	
@@ -69,6 +73,7 @@
 		{
 			//hilo principal
 			update();
+			updateIA();
 		}
 	
 		private function update():void
@@ -82,6 +87,7 @@
 				}else
 				{
 					updateIA();
+					
 				}
 				
 			}
@@ -92,4 +98,4 @@
 			this.level1 = this.aiManager.update();
 		}
 	}
-}
+} 

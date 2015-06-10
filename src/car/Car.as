@@ -13,6 +13,7 @@ package car
 		private var position:Point;
 		private var carImage:Image;
 		
+		
 		public static const EST_MOVING:uint = 0;
 		public static const EST_DRIFTING:uint = EST_MOVING + 1 ;
 		public static const EST_UNCONTROLLABLE:uint =EST_DRIFTING + 1 ;

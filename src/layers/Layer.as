@@ -3,13 +3,10 @@
 	
 	import flash.utils.Dictionary;
 	
-	import assets.Assets;
-	
 	import base.levels.map.parts.PiragnaSprite;
+	import base.levels.map.parts.Tiles;
 	
-	import core.General;
-	
-	import starling.display.Image;
+	import starling.display.DisplayObject;
 	import starling.display.Sprite;
 
 	public class Layer extends Sprite
@@ -29,74 +26,42 @@
 		private var speed:Number;
 		private var _x:Number;
 		private var _y:Number;
-		public static var factorx:Number=Math.cos(Math.PI/6);
-		public static var factory:Number=-Math.sin(Math.PI/6);
-		public static var anchoCarretera:Number=96*Math.sqrt(3);
-		public static var x0:Number;
-		public static var y0:Number;
-		public static var progress:Number = 0;
-		public var atlasName:String = "TackCombinate";
-		private var lastIndex:uint;
-		
-		public function Layer(layer:Array){		
-			var c:Number= anchoCarretera;
-			x0=General.viewPortGame.width/2-c*factorx;
-			y0=General.viewPortGame.height/2-c*factory;
-			
-			lastIndex = 0;
-			
-			this.touchable=false;
-			
-			if(layer != null){
-			    data = layer;
-			}
-		
-			dict = new Dictionary();
-			tiles= [];		
-		}
-		
-		public function loadFirstAssetsByLayer():void{
-			
-			for (var i:int=0; i<5; i++){
-				_x =factorx*i*anchoCarretera+x0;
-				_y =factory*i*anchoCarretera+y0;				
 				
-				if(data[i]!="transparency"){
-					lastIndex = i;
-					var piragnaSprite:PiragnaSprite = new PiragnaSprite(_x, _y,new Image(Assets.getAtlasTexture(atlasName,data[data.length-i-1])));
-					addChild(piragnaSprite);						
-				}			
+				
+		public function Layer(layer:Object)
+		{
+			if(layer != null){
+			    this.layer=layer;
+				dataS=layer["data"] as String;
+			    data = layer["data"];			
+			    height=layer["height"];
+				name=layer["name"];
+				opacity=layer["opacity"];
+				type=layer["type"];
+				visible=layer["visible"];
+				width=layer["width"];
+				_x = 50;
+				_y = 280;
 			}
+			
+			
+			initialpointx=_x;
+			initialpointy=_y;
+			dict = new Dictionary();
+			tiles= [];
 		}
 		
-		public function loadAssetsByLayer(currentDistance:Number):void{
-			
-			var l:uint =(Math.floor(currentDistance/anchoCarretera)+5);
-			
-			if(lastIndex < l){
-				lastIndex = l;
-				if(data[lastIndex]!="transparency"&&data.length-lastIndex-4>=0)
-				{
-					trace("z<<<<",lastIndex)
-						_x = factorx*lastIndex*anchoCarretera + x0 - factorx*currentDistance;
-						_y = factory*lastIndex*anchoCarretera + y0 - factory*currentDistance;
-						var piragnaSprite:PiragnaSprite = new PiragnaSprite(_x, _y,new Image(Assets.getAtlasTexture(atlasName,data[data.length-lastIndex-4])));
-						//piragnaSprite.rotation = 15;
-						addChild(piragnaSprite);		
+		public function loadAssetsByLayer():void{
+				for (var i:int=0; i<this.height; i++){
+						var piragnaSprite:PiragnaSprite = new PiragnaSprite(_x, _y, Tiles.dict[data[data.length-i - 1]]);
+						
+						addChild(piragnaSprite);
+						_x += 101;
+						_y -= 58; 
+						
 				}
 				
-			}
-			
-			for(var j:uint=0; j<this.numChildren; j++){				
-				if(this.getChildAt(j).x < -200){
-					this.removeChildAt(j);										
-				}else
-					break;
-			}	
-				
 		}
-		
-		
 		
 		public function getTile(string:String):Object{
 			return dict[string];
@@ -112,25 +77,21 @@
 		
 		public function update():void{
 			
-			if(numChildren>0){
-				for(var j:uint=0; j<this.numChildren; j++){ 
-					this.getChildAt(j).x -= this.getSpeed()*factorx;
-					this.getChildAt(j).y -= this.getSpeed()*factory;				
-				}
-				
-		/*		var child:DisplayObject;
-				
-				
-				if(this.getChildAt(0).x < -500 && this.getChildAt(0).y > 500){
-					child = this.getChildAt(0);
-					
-					child.x = this.getChildAt(this.numChildren - 1).x + 101;
-					child.y = this.getChildAt(this.numChildren - 1).y - 58;
-					this.removeChildAt(0);
-					this.addChild(child);	
-						
-				}	*/
+			for(var j:uint=0; j<this.numChildren; j++){ 
+				this.getChildAt(j).x -= this.getSpeed();
+				this.getChildAt(j).y += this.getSpeed()*Math.tan(Math.PI/6 - .0021);										
 			}
+			
+			var child:DisplayObject;
+			
+			if(getChildAt(0).x < -500 && getChildAt(0).y > 500){
+					child = getChildAt(0);
+
+					child.x = getChildAt(this.numChildren - 1).x + 101;
+					child.y = getChildAt(this.numChildren - 1).y - 58;
+					//removeChildAt(0);
+					addChild(child);					
+				}			
 		}				
 	}
 

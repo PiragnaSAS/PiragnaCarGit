@@ -4,7 +4,7 @@ package inputHandler.lever
 	
 	import events.LeverEvent;
 	
-	import assets.Assets;
+	import resources.Resources;
 	
 	import starling.display.Image;
 	import starling.display.Sprite;
@@ -17,11 +17,11 @@ package inputHandler.lever
 		private var radius:uint;
 		private var baseImage:Image, leverImage:Image;
 		
-		public function Lever(baseTexture:Texture, leverTexture:Texture, radius:uint){			
+		public function Lever(leverTexture:Texture, radius:uint){			
 			
 			this.radius = radius;
 			
-			baseImage = new Image(baseTexture);
+			baseImage = new Image(Resources.getTexture("shadedLight11"));
 			baseImage.width = radius*2;
 			baseImage.height = radius*2;			
 			baseImage.alpha = 0.5;
@@ -30,6 +30,7 @@ package inputHandler.lever
 			leverImage.width = radius*4/3;
 			leverImage.height = radius*4/3;
 			leverImage.alpha = 0.5;
+			leverImage.rotation=Math.PI/4;
 			
 			this.visible = false;
 			
@@ -55,8 +56,7 @@ package inputHandler.lever
 		
 		public function setMovingPoint(movementPoint:Point):void{	
 			var x:int=movementPoint.subtract(coordinatePoint).x*Math.cos(-Math.PI/4)-movementPoint.subtract(coordinatePoint).y*Math.sin(-Math.PI/4);
-			var dist:Number=Math.sqrt(Math.pow((movementPoint.x - this.coordinatePoint.x),2) + Math.pow((movementPoint.y - coordinatePoint.y),2)) 
-			
+			var dist:Number =Math.sqrt(Math.pow((movementPoint.x - this.coordinatePoint.x),2) + Math.pow((movementPoint.y - coordinatePoint.y),2)) 
 			if(dist < radius){
 					this.leverImage.x = movementPoint.x;
 					this.leverImage.y = movementPoint.y;

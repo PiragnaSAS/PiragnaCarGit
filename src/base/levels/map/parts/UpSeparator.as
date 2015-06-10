@@ -2,7 +2,7 @@ package base.levels.map.parts
 {
 
 	
-	import assets.Assets;
+	import resources.Resources;
 	
 	import starling.display.Image;
 	import starling.display.Sprite;
@@ -13,7 +13,7 @@ package base.levels.map.parts
 		
 		public function UpSeparator(x:Number, y:Number)
 		{
-			this.image =  new Image(Assets.getTexture("SepArriba"));
+			this.image =  new Image(Resources.getTexture("SepArriba"));
 			this.x = x;
 			this.y =y;
 			this.addChild(this.image);

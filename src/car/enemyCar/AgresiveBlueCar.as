@@ -2,18 +2,13 @@ package car.enemyCar
 {
 	import flash.geom.Point;
 	
-	import assets.Assets;
-	
 	import car.Car;
-	
-	import starling.display.Image;
+
 	public class AgresiveBlueCar extends BlueCar
 	{
 		
 		public function AgresiveBlueCar()
 		{
-			this.setCarImage(new Image(Assets.getAtlasTexture("Cars","car_blue")));
-			addChildAt(this.getCarImage(),0);
 			this.react(Car.EST_MOVING);
 		}
 		override public function react(...args):void{

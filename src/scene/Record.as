@@ -8,7 +8,7 @@ package scene
 	
 	import memoria.MemoriaYaku;
 	
-	import assets.Assets;
+	import resources.Resources;
 	
 	import starling.display.Image;
 	import starling.display.Sprite;
@@ -61,7 +61,7 @@ package scene
 		
 		private function inicializar():void
 		{
-			fondo = new Image(Assets.obtenerTextura("Fondo2"));
+			fondo = new Image(Resources.obtenerTextura("Fondo2"));
 			fondo.width = General.viewPortJuego.width;
 			fondo.height = General.viewPortJuego.height;
 			addChild(fondo);

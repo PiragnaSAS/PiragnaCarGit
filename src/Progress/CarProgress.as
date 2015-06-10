@@ -2,7 +2,7 @@ package Progress
 {
 	import core.General;
 	
-	import assets.Assets;
+	import resources.Resources;
 	
 	import starling.display.Image;
 	import starling.display.Sprite;
@@ -12,7 +12,7 @@ package Progress
 		private var carImage:Image;
 		public function CarProgress()
 		{
-		carImage = new Image(Assets.getAtlasTexture("Gui", "car_progress"));
+		carImage = new Image(Resources.getTexture("carProgress"));
 		carImage.alignPivot("center","center");
 		carImage.width=General.viewPortGame.width/25;
 		carImage.height=General.viewPortGame.width/25;

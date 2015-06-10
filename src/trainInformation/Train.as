@@ -2,9 +2,9 @@ package trainInformation
 {
 	import flash.geom.Matrix;
 	
-	import assets.Assets;
-	
 	import core.General;
+	
+	import resources.Resources;
 	
 	import starling.display.Image;
 	import starling.display.Sprite;
@@ -20,7 +20,7 @@ package trainInformation
 		
 		public function Train()
 		{
-//			trainImage=new Image(Assets.getTexture("trainInformation"));
+//			trainImage=new Image(Resources.getTexture("trainInformation"));
 //			trainImage.alignPivot("center","center");
 //			trainImage.width=General.viewPortGame.width/25;
 //			trainImage.height=General.viewPortGame.width/25;

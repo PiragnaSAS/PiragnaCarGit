@@ -15,8 +15,8 @@ package Progress
 		}
 		
 		public function upDateProgress(advance:Number):void{
-			car.x=229*Math.cos((Math.PI)/6)*advance;
-			car.y=-229*Math.sin((Math.PI)/6)*advance;			
+			car.x=150*Math.cos((Math.PI)/6)*advance;
+			car.y=-150*Math.sin((Math.PI)/6)*advance;			
 		}
 	}
 }
