@@ -11,6 +11,7 @@ package layers
 	import car.enemyCar.Taxi;
 	import car.enemyCar.Truck;
 	
+	import collitionableObjects.Padrino;
 	import collitionableObjects.groundCollitionableObjects.Obstacle;
 	
 	import core.General;
@@ -32,8 +33,8 @@ package layers
 			super(layer);
 			this.atlasName = "Cars";
 			
-			x1=x0-(anchoCarretera*(5/12)*factorx)-(anchoCarretera*(1/3)*factorx);
-			y1=y0+(anchoCarretera*(5/12)*factory)-(anchoCarretera*(1/3)*factory);
+			x1=x0+(anchoCarretera*(5/12)*factorx)-(anchoCarretera*(1/3)*factorx);
+			y1=y0-(anchoCarretera*(5/12)*factory)-(anchoCarretera*(1/3)*factory);
 			
 //			x1=x0;
 //			y1=y0;
@@ -91,11 +92,14 @@ package layers
 			}	
 			
 			if(currentCar!=null){
+				
 				addChild(currentCar);
 			}
 			
 			if(currentObstacle!=null){
-				addChild(currentObstacle);
+				addChildAt(currentObstacle,0);
+				
+				
 			}
 			
 		}
@@ -106,26 +110,27 @@ package layers
 			var dy:Number=-anchoCarretera*factory;
 			var dx1:Number=dx/3;
 			var dy1:Number=-dy/3;
-			var dx2:Number=dx/6;
-			var dy2:Number=dy/6;
+			var dx2:Number=-dx/6;
+			var dy2:Number=-dy/6;
 					
 			var l:uint =(Math.floor(currentDistance/anchoCarretera)+4);
 			
 			if(lastIndex < l){
 				lastIndex = l;
 				
-				for(var j:uint = 0; j<6;j++){
-					for(var i:uint = 0; i<3; i++){	
+				for(var i:uint = 0; i<3; i++){
+					var i_:uint=2-i;
+					for(var j:uint = 0; j<6;j++){
+					var j_:uint=5-j;
+						var l2:uint=data.length-1-(numberOfCarsPainted+5-2*j);
 						
-						var l2:uint=data.length-1-numberOfCarsPainted;
-						
-//						trace(l2);
+						//trace(l2);
 						numberOfCarsPainted++;
 //						trace(data[l2]);		
 						
 						if(l2>=0 && data[l2]!="transparency"){
-							_x = x1 + dx1*i + dx2*j + lastIndex*anchoCarretera*factorx - currentDistance*factorx;
-							_y = y1 + dy1*i + dy2*j + lastIndex*anchoCarretera*factory - currentDistance*factory;
+							_x = x1 + dx1*i_ + dx2*j_+ lastIndex*anchoCarretera*factorx - currentDistance*factorx;
+							_y = y1 + dy1*i_ + dy2*j_+ lastIndex*anchoCarretera*factory - currentDistance*factory;
 		
 //							trace(_x, _y);
 							createcars(data[l2], _x, _y);		
@@ -135,10 +140,19 @@ package layers
 				}				
 			}
 			
-			for(var j:uint=0; j<this.numChildren; j++){				
-				if(this.getChildAt(j).x < -10){
+			for( j=0; j<this.numChildren; j++){		
+				trace(this.getChildAt(j).x,General.screenWidth,"y",getChildAt(j).y);
+				if(this.getChildAt(j).y>= (-5) && this.getChildAt(j) is Car){
+					
+					(this.getChildAt(j) as Car).setInside(1);
+				}
+				if(this.getChildAt(j).x < -25 ||(((( this.getChildAt(j).y<-10) && (this.getChildAt(j) is Car))&&(this.getChildAt(j) as Car).getInside()==1)&&(this.getChildAt(j).x>General.screenWidth/2)) ){
+					trace("borrando");
+					
 					this.removeChildAt(j);	
 				}
+				
+				
 			}	
 			
 		}
@@ -157,6 +171,9 @@ package layers
 				
 //				trace(numChildren);
 				for(var j:uint=0; j<this.numChildren; j++){ 
+//					this.getChildAt(j).x -= (this.getSpeed())*factorx;
+//					this.getChildAt(j).y -= (this.getSpeed())*factory;
+					
 					this.getChildAt(j).x -= (this.getSpeed()-this.getChildAt(j)["speed"])*factorx;
 					this.getChildAt(j).y -= (this.getSpeed()-this.getChildAt(j)["speed"])*factory;
 					

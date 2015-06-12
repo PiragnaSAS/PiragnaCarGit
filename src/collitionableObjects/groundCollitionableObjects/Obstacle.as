@@ -1,24 +1,24 @@
 package collitionableObjects.groundCollitionableObjects
 {
-	import flash.security.X500DistinguishedName;
-	
-	import base.levels.map.parts.PiragnaSprite;
+	import collitionableObjects.Padrino;
 	
 	import core.General;
 	
 	import starling.display.DisplayObject;
 	import starling.display.Sprite;
 	
-	public class Obstacle extends Sprite
+	public class Obstacle extends Sprite implements Padrino
 	{	
 		private var name:String;
-		private var _speed:Number;
 		private var _x:Number;
 		private var _y:Number;
 		private var _type:uint;
 		private var obstacleImage:DisplayObject;
 		public static const TYPE_HOLE:uint = 0;
 		public static const TYPE_OIL:uint = 1;
+		private var _inside:Number=1;
+		private var _speed:Number = 0;
+		private var _saw:Boolean = false;
 		
 		public function Obstacle(imageObject:DisplayObject,newX:Number,newY:Number, type:uint){
 			this._type=type;
@@ -31,7 +31,35 @@ package collitionableObjects.groundCollitionableObjects
 			trace(obstacleImage,_x,_y);
 			addChildAt(obstacleImage,0);
 		}
+		public function getInside():Number
+		{
+			return _inside;
+		}
 		
+		public function setInside(value:Number):void
+		{
+			_inside = value;
+		}
+		public function get saw():Boolean
+		{
+			return _saw;
+		}
+
+		public function set saw(value:Boolean):void
+		{
+			_saw = value;
+		}
+
+		public function get speed():Number
+		{
+			return _speed;
+		}
+
+		public function set speed(value:Number):void
+		{
+			_speed= value;
+		}
+
 		public function update():void{
 			this.getChildAt(0).x -= this.getSpeed();
 			this.getChildAt(0).y += this.getSpeed()*Math.tan(Math.PI/6);										

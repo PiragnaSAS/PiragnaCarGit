@@ -7,10 +7,7 @@ package car.enemyCar
 	public class EnemyRedCar extends RedCar
 		
 	{
-		public function EnemyRedCar(posx:Number,posy:Number)
-		
-		{
-			trace("azereje ja de je");
+		public function EnemyRedCar(posx:Number,posy:Number){
 			super(posx,posy);
 			//trace(super.getCarImage());
 			/*this.setCarImage(new Image(Assets.getAtlasTexture("Cars","car_red")));

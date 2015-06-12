@@ -13,6 +13,7 @@
 	import inputHandler.InputHandler;
 	
 	import starling.core.Starling;
+	import starling.display.Quad;
 	import starling.display.Sprite;
 	import starling.events.Event;
 
@@ -60,6 +61,14 @@
 			this.levels[0] = level1;
 					
 			this.addChild(this.level1);
+			
+			
+//			var q:Quad = new Quad(General.viewPortGame.width,General.viewPortGame.height);
+//			q.alpha = .5;
+//			scaleX = scaleY = .2;
+//			addChild(q);
+//			x = General.viewPortGame.width/2;
+//			y = General.viewPortGame.height/2;
 		}	
 		
 		public function cargarLevel():void{			

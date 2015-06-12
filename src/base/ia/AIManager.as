@@ -9,34 +9,23 @@
 	import base.levels.map.parts.PiragnaSprite;
 	
 	import car.Car;
-	import car.enemyCar.AgresiveBlueCar;
-	import car.enemyCar.AgresiveRedCar;
-	import car.enemyCar.BlueCar;
-	import car.enemyCar.RedCar;
-	import car.enemyCar.Taxi;
 	
 	public class AIManager
 	{
 		private var context:Level1;
 		private var  raceLayerRectangles:Array;
 		private var  frontLayerRectangles:Array;
-		private var  carsLayerRectangles:Array;
 		
 		private var tamBorderX:Number = 200;
 		private var tamBorderY:Number = 15;
-		
-		private var tamCarX:Number = 36;
-		private var tamCarY:Number = 20;
 		
 		public function AIManager(context:Level1)
 		{
 			this.context = context;
 			this.raceLayerRectangles = new Array();
 			this.frontLayerRectangles = new Array();
-			this.carsLayerRectangles = new Array();
 			this.generateRaceLayerRectangles();
 			this.generateFrontObjectsLayerRectangles();
-			this.generateCarsLayerRectangles();
 		}
 		
 		
@@ -106,15 +95,13 @@
 			this.raceLayerRectangles = new Array();
 			this.generateRaceLayerRectangles();
 			
+			
 			this.frontLayerRectangles = new Array();
 			this.generateFrontObjectsLayerRectangles();
 			
-			this.carsLayerRectangles =  new Array();
-			this.generateCarsLayerRectangles();
-			
 			var mt:Matrix = new Matrix(.7071212775140268,.7071212775140268 ,-1.2247888166255514 ,1.2247888166255514,50,50);
 			var hr:Car = this.context.getHero();
-			//			var hPoint:Point = new Point(hr.x +156, hr.y +95);
+//			var hPoint:Point = new Point(hr.x +156, hr.y +95);
 			var hPoint:Point = new Point(hr.x+156 , hr.y+95);
 			var tPoimt:Point = mt.transformPoint(hPoint);
 			
@@ -144,91 +131,9 @@
 				}
 			}
 			
-			var hPointCarro:Point = new Point(hr.x + 48 , hr.y+25);
-			var tPoimtCarro:Point = mt.transformPoint(hPointCarro);
-			var tRectangleCarro:Rectangle = new Rectangle(tPoimtCarro.x,tPoimtCarro.y, this.tamCarX,this.tamBorderY);	
-			for each (var p:Rectangle in this.carsLayerRectangles) 
-			{
-				if(tRectangleCarro.intersects(p))
-				{
-					if(p.y >= tRectangleCarro.y )
-					{
-						this.context.getHero().drifting(false);
-					}
-					else
-					{
-						this.context.getHero().drifting(true);
-					} 
-					
-				}		
-				else
-				{
-					//					trace ("no", p.x ,p.y , "carro" ,tPoimt.x, tPoimt.y);
-				}
-			}
-			
 			
 			
 			return this.context;
-		}
-		
-		private function generateCarsLayerRectangles():void
-		{
-			var mt:Matrix = new Matrix(.7071212775140268,.7071212775140268 ,-1.2247888166255514 ,1.2247888166255514,50,50);
-			var numChildRace:Number = this.context.getCarsLayer().numChildren;
-			for (var i:int = 0; i < this.context.getCarsLayer().numChildren; i++) 
-			{
-				var tempPiragna:Car = this.context.getCarsLayer().getChildAt(i) as Car;
-				
-				if(tempPiragna is AgresiveBlueCar)
-				{
-					var tCar:AgresiveBlueCar = tempPiragna as AgresiveBlueCar;
-					var tPoint:Point = new Point(tCar.x,tCar.y);
-					var tp_1:Point =  mt.transformPoint(tPoint);
-					var tRectangle:Rectangle = new Rectangle((tp_1.x ),
-						(tp_1.y) , this.tamCarX,this.tamCarY);	
-					this.carsLayerRectangles.push(tRectangle);
-					
-				}
-				if(tempPiragna is BlueCar)
-				{
-					var tCarblue:BlueCar = tempPiragna as BlueCar;
-					var tPoint:Point = new Point(tCarblue.x,tCarblue.y);
-					var tp_1:Point =  mt.transformPoint(tPoint);
-					var tRectangle:Rectangle = new Rectangle((tp_1.x ),
-						(tp_1.y) , this.tamCarX,this.tamCarY);	
-					this.carsLayerRectangles.push(tRectangle);
-					
-				}
-				if(tempPiragna is AgresiveRedCar)
-				{
-					var tCar2:AgresiveRedCar = tempPiragna as AgresiveRedCar;
-					var tPoint:Point = new Point(tCar2.x,tCar2.y);
-					var tp_1:Point =  mt.transformPoint(tPoint);
-					var tRectangle:Rectangle = new Rectangle((tp_1.x ),
-						(tp_1.y) , this.tamCarX,this.tamCarY);	
-					this.carsLayerRectangles.push(tRectangle);
-				}
-				if(tempPiragna is RedCar)
-				{
-					var tCarRed:RedCar = tempPiragna as RedCar;
-					var tPoint:Point = new Point(tCarRed.x,tCarRed.y);
-					var tp_1:Point =  mt.transformPoint(tPoint);
-					var tRectangle:Rectangle = new Rectangle((tp_1.x ),
-						(tp_1.y) , this.tamCarX,this.tamCarY);	
-					this.carsLayerRectangles.push(tRectangle);
-				}
-				
-				if(tempPiragna is Taxi)
-				{
-					var tCar3:Taxi = tempPiragna as Taxi;
-					var tPoint:Point = new Point(tCar3.x,tCar3.y);
-					var tp_1:Point =  mt.transformPoint(tPoint);
-					var tRectangle:Rectangle = new Rectangle((tp_1.x ),
-						(tp_1.y) , this.tamCarX,this.tamCarY);	
-					this.carsLayerRectangles.push(tRectangle);
-				}
-			}			
 		}
 		
 		private function generateRaceLayerRectangles():void

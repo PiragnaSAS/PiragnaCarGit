@@ -45,7 +45,7 @@
 			
 			lastIndex = 0;
 			this.touchable=false;
-			this.alpha = 0.5;
+			//this.alpha = 0.5;
 			
 			if(layer != null){
 			    data = layer;
@@ -76,18 +76,17 @@
 			if(lastIndex < l){
 				
 				lastIndex = l;
-				var l2:int=data.length-lastIndex-1;
+				var l2:int=data.length-lastIndex-1;			
 				
 				if(l2>0 && data[l2]!="transparency")
 				{
-//					trace("z<<<<",lastIndex)
+//				trace("z<<<<",lastIndex)
 						_x = factorx*lastIndex*anchoCarretera + x0 - factorx*currentDistance;
 						_y = factory*lastIndex*anchoCarretera + y0 - factory*currentDistance;
 						var piragnaSprite:PiragnaSprite = new PiragnaSprite(_x, _y,new Image(Assets.getAtlasTexture(atlasName,data[l2])),data[l2]);
 						//piragnaSprite.rotation = 15;
 						addChild(piragnaSprite);		
 				}
-				
 			}
 			
 			for(var j:uint=0; j<this.numChildren; j++){				

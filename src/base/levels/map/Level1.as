@@ -33,7 +33,7 @@
 		private var frontObjectsLayer:FrontObjectsLayer;
 		private var carsLayer:CarsLayer;
 		private var collitionLayer:CollitionLayer;
-		
+		//private var hero:Hero;
 		private var movementX:Number, movementY:Number;
 		
 		private var iniSepUpX:int = iniLandX 
@@ -49,8 +49,10 @@
 		
 		private var Layer:Object;
 				
-		public function Level1(mapAdress:String,hero:Hero, levers:InputHandler){			
-			super(mapAdress, hero, levers,General.modulesLvl1);		
+		public function Level1(mapAdress:String,_hero:Hero, levers:InputHandler){	
+			trace("---"+_hero);
+			super(mapAdress, _hero, levers,General.modulesLvl1);	
+			
 			this.currentDistance = 0; 
 		}
 						
@@ -72,11 +74,14 @@
 			raceLayer.setSpeed(0);						
 			raceLayer.loadFirstAssetsByLayer();
 			addChild(raceLayer);
+		
 
-			carsLayer = new CarsLayer(this.getAdmin().getFinalCarsLayer(),this.getHero());
+			carsLayer = new CarsLayer(this.getAdmin().getFinalCarsLayer());
 			carsLayer.setSpeed(0);
 			carsLayer.loadFirstAssetsByLayer();
 			addChild(carsLayer);
+			trace(hero);
+			addChild(hero);
 			//raceLayer.cargarCarros();*/
 			
 			frontObjectsLayer = new FrontObjectsLayer(this.getAdmin().getFinalFronObjectsLayer());
@@ -173,7 +178,7 @@
 			
 			if(carsLayer != null){
 				carsLayer.update();
-				carsLayer.loadAssetsByLayer(raceLayer.getNumChildren());
+				carsLayer.loadAssetsByLayer(currentDistance);
 				carsLayer.setSpeed(this.getCurrentSpeed());
 			}
 			

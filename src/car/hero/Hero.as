@@ -1,5 +1,6 @@
-﻿package car.hero
+package car.hero
 {
+	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	
 	import assets.Assets;
@@ -21,20 +22,19 @@
 		private var driftDirection:Boolean; //0 left 1 right
 		private var driftInitialXPosition:Number;
 		private var driftInitialYPosition:Number;
-		private var driftSpeedX:Number = 3;
-		private var driftSpeedY:Number = 1;
-		private var driftMaxX:Number = 50;
-		private var driftMaxY:Number =  50;
+		private var driftSpeedX:Number = 8;
+		private var driftSpeedY:Number = 6;
+		private var driftMaxX:Number = 150;
+		private var driftMaxY:Number =  150;
 		
-		private var driftSpeedXRight:Number = 3;
-		private var driftSpeedYRight:Number = 1;
+		private var driftSpeedXRight:Number = 10;
+		private var driftSpeedYRight:Number = 3;
 		private var timer:Timer;
 		
 		
 		public function Hero(x=435, y=335){
 
 			super(x,y, new Image(Assets.getAtlasTexture("Cars","car_red")));
-			
 			this.removeChildAt(0);
 			this.setCarImage( new Image(Assets.getAtlasTexture("Cars","car_red")));
 			this.x = x;
@@ -43,10 +43,8 @@
 			this.auxMovementY = this.movementY = 0;
 			this.setState(Car.EST_DEFAULT);
 			this.addChild(this.getCarImage());
-			
 			this.setState(Car.EST_DEFAULT);
-			this.timer=new Timer(500,0);
-			
+			this.timer=new Timer(350,0);
 			timer.start();
 		}
 		
@@ -95,14 +93,12 @@
 			this.driftDirection = direction;
 			this.driftInitialXPosition = this.x;
 			this.driftInitialYPosition = this.y;
-			dispatchEvent(new HeroEvent(HeroEvent.DRIFTING,true,{moveValue:2}));
 		}
 		
 		private function exploding():void
 		{
 			this.setImage("exploding_hero_image");
 			this.setState(Car.EST_EXPLODING);
-			dispatchEvent(new HeroEvent(HeroEvent.EXPLODING,true,{moveValue:0}));
 		}
 		
 		public function move(value:Number):void
@@ -141,15 +137,22 @@
 			this.fuel += fuel;
 		}
 		
-		public function decreaseFuel():void{
+		public function decreaseFuel(event:TimerEvent):void{
+			if (fuel<=0){
+			//aqii va el evento que para el juego cuando se acaba la gasolina	
+			}
 			this.fuel --;
 		}
 		
 		public function decreaseFuelBom():void{
-			this.fuel -=5;
+			if (fuel<=0){
+				//aqii va el evento que para el juego cuando se acaba la gasolina	
+			}
+			this.fuel -=10;
 		}
 		
 		override public function update():void{
+			timer.addEventListener(TimerEvent.TIMER,this.decreaseFuel);
 			
 			if(this.getState() == Car.EST_DEFAULT)
 			{
