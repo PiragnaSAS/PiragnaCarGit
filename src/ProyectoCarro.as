@@ -17,12 +17,12 @@ package
 	[SWF(frameRate="60", backgroundColor="#000000")]
 	public class ProyectoCarro extends Sprite
 	{
-		trace("holi");
+		
 		private var starling:Starling;
 		
 		public function ProyectoCarro()
 		{
-			trace("awui");
+			
 			super();
 			
 			stage.scaleMode = StageScaleMode.NO_SCALE;

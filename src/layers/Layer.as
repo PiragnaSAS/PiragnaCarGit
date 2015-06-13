@@ -45,12 +45,12 @@
 			
 			lastIndex = 0;
 			this.touchable=false;
-			this.alpha = 0.5;
+			//this.alpha = 0.5;
 			
 			if(layer != null){
 			    data = layer;
 			}
-		
+			
 			dict = new Dictionary();
 			tiles= [];		
 		}
@@ -62,30 +62,31 @@
 				_y =factory*i*anchoCarretera+y0;				
 				
 				if(data[i]!="transparency"){
-					lastIndex = i;
 					var piragnaSprite:PiragnaSprite = new PiragnaSprite(_x, _y,new Image(Assets.getAtlasTexture(atlasName,data[data.length-i-1])),data[data.length-i-1]);
 					addChild(piragnaSprite);						
-				}			
+				}
 			}
+			lastIndex = i-1;
 		}
 		
 		public function loadAssetsByLayer(currentDistance:Number):void{
 			
-			var l:uint =(Math.floor(currentDistance/anchoCarretera)+5);
+			var l:uint =(Math.floor(currentDistance/anchoCarretera)+4);
 			
 			if(lastIndex < l){
+				
 				lastIndex = l;
-				var l2:int=data.length-lastIndex-4;
-	 			if(l2>=0 && data[l2]!="transparency" && data.length-lastIndex-4>=0)
+				var l2:int=data.length-lastIndex-1;			
+				
+				if(l2>0 && data[l2]!="transparency")
 				{
-//					trace("z<<<<",lastIndex)
+//				trace("z<<<<",lastIndex)
 						_x = factorx*lastIndex*anchoCarretera + x0 - factorx*currentDistance;
 						_y = factory*lastIndex*anchoCarretera + y0 - factory*currentDistance;
 						var piragnaSprite:PiragnaSprite = new PiragnaSprite(_x, _y,new Image(Assets.getAtlasTexture(atlasName,data[l2])),data[l2]);
 						//piragnaSprite.rotation = 15;
 						addChild(piragnaSprite);		
 				}
-				
 			}
 			
 			for(var j:uint=0; j<this.numChildren; j++){				

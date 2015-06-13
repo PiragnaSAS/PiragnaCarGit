@@ -7,6 +7,7 @@ package layers
 		
 		public function RaceLayer(layer:Object)
 		{
+			trace(layer);
 			super(layer);
 		}
 		

@@ -1,10 +1,6 @@
 package car.enemyCar
 {
-	import assets.Assets;
-	
 	import car.Car;
-	
-	import starling.display.Image;
 
 	public class BonusCar extends Taxi
 	{

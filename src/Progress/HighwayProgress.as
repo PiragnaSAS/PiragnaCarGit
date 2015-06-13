@@ -11,7 +11,7 @@ package Progress
 		
 		public function HighwayProgress()
 		{
-			highwayImage=new Quad(231,12,0x000000);
+			highwayImage=new Quad(232,12,0x000000);
 			var mt:Matrix  = new Matrix(.7071212775140268,.7071212775140268 ,-1.2247888166255514 ,1.2247888166255514,0,0);
 			mt.invert();
 			highwayImage.transformationMatrix = mt;

@@ -42,7 +42,7 @@ package collitionableObjects.superHeroes
 			addChild(child);
 			//trace(getChildAt(0).x,getChildAt(0).y);
 			}
-			}		
+		}		
 
 		public function getSpeed():Number
 		{

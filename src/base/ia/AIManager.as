@@ -149,17 +149,15 @@
 			var tRectangleCarro:Rectangle = new Rectangle(tPoimtCarro.x,tPoimtCarro.y, this.tamCarX,this.tamBorderY);	
 			for each (var p:Rectangle in this.carsLayerRectangles) 
 			{
-				if(tRectangleCarro.intersects(p))
+				if(tRectangleCarro.intersects(p) && this.context.getHero().getState() != Car.EST_DRIFTING)
 				{
-					if(p.y >= tRectangleCarro.y )
-					{
-						this.context.getHero().drifting(false);
-					}
-					else
-					{
-						this.context.getHero().drifting(true);
+					if(p.y >= tRectangleCarro.y ){
+						this.context.getHero().drift(context.getCurrentSpeed(), false);
+						this.context.setCurrentSpeed(0);
+					}else{
+						this.context.getHero().drift(context.getCurrentSpeed(), true);
+						this.context.setCurrentSpeed(0);
 					} 
-					
 				}		
 				else
 				{

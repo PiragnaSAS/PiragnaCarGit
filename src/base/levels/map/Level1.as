@@ -1,5 +1,7 @@
 ﻿package base.levels.map
 {
+	import flash.utils.Timer;
+	
 	import car.hero.Hero;
 	
 	import collitionableObjects.superHeroes.Hulk;
@@ -33,8 +35,10 @@
 		private var frontObjectsLayer:FrontObjectsLayer;
 		private var carsLayer:CarsLayer;
 		private var collitionLayer:CollitionLayer;
-		
+		private var endTimer:Number = 0;
+		//private var hero:Hero;
 		private var movementX:Number, movementY:Number;
+		private var timer:Timer;
 		
 		private var iniSepUpX:int = iniLandX 
 		private var iniSepUpY:int = iniLandY
@@ -48,12 +52,19 @@
 		private var iniSepDownY:Number = iniLandY + 156;
 		
 		private var Layer:Object;
+		
+		private var winer:Winer;
 				
-		public function Level1(mapAdress:String,hero:Hero, levers:InputHandler){			
-			super(mapAdress, hero, levers,General.modulesLvl1);		
-			this.currentDistance = 0; 
+		public function Level1(mapAdress:String,_hero:Hero, levers:InputHandler){	
+			
+			setLength(16);
+			super(mapAdress, _hero, levers,General.modulesLvl1);
+			timer=new Timer(500,1);
+			winer=new Winer();
+			//this.addEventListener(Event.ENTER_FRAME,onEnterFrame); 
+			this.currentDistance = 0;
 		}
-						
+		
 		private function onAddedToStage(e:Event):void{}
 				
 		override public function createLayers():void{
@@ -72,11 +83,13 @@
 			raceLayer.setSpeed(0);						
 			raceLayer.loadFirstAssetsByLayer();
 			addChild(raceLayer);
+		
 
-			carsLayer = new CarsLayer(this.getAdmin().getFinalCarsLayer(),this.getHero());
+			carsLayer = new CarsLayer(this.getAdmin().getFinalCarsLayer(),this.getHero(),this);
 			carsLayer.setSpeed(0);
 			carsLayer.loadFirstAssetsByLayer();
 			addChild(carsLayer);
+			addChild(hero);
 			//raceLayer.cargarCarros();*/
 			
 			frontObjectsLayer = new FrontObjectsLayer(this.getAdmin().getFinalFronObjectsLayer());
@@ -128,75 +141,95 @@
 
 		override public function update():Boolean{
 			
-			this.currentDistance += this.getCurrentSpeed();
-			this.getProgress().upDateProgress(currentDistance/totalDistance);	
-			this.getTrain().updateTrain(getHero().getFuel(),getHero().getScore(),this.getCurrentSpeed());
-			
-			if(raceLayer == null)
-				return false;
-			
-			if(this.getTargetSpeed()>this.getCurrentSpeed()){
-				this.setCurrentSpeed(this.getCurrentSpeed()+0.5);
+			trace("kjaleke");
+			if(currentDistance > 21800){
+				this.setCurrentSpeed(0);
 				
-				if(this.getCurrentSpeed() > this.getAbsoluteMaximumSpeed())
-					this.setCurrentSpeed(this.getAbsoluteMaximumSpeed());
-			
-			}else if(this.getTargetSpeed()<this.getCurrentSpeed()){				
-				var number:Number = this.getCurrentSpeed()*0.98<0.1? 0: this.getCurrentSpeed()*0.98; 
-				this.setCurrentSpeed(number);
+				if(carsLayer != null){
+					carsLayer.update();
+					carsLayer.loadAssetsByLayer(currentDistance);
+					carsLayer.setSpeed(this.getCurrentSpeed());
+				}
 				
-				if(this.getCurrentSpeed() > this.getAbsoluteMaximumSpeed())
-					this.setCurrentSpeed(this.getAbsoluteMaximumSpeed());
-			}		
-			
-			if(randomObjectsLayer != null){
-				randomObjectsLayer.update();
-				randomObjectsLayer.setSpeed(this.getCurrentSpeed());
-			}
-		
-			if(groundLayer != null){
-				groundLayer.update();
-				groundLayer.setSpeed(this.getCurrentSpeed());
-			}
-			
-			if(raceLayer != null){
-				raceLayer.update();	
-				raceLayer.loadAssetsByLayer(currentDistance);
-				raceLayer.setSpeed(this.getCurrentSpeed());
-			}
+				this.getHero().finalMove();
 				
-			if(frontObjectsLayer != null){
-				frontObjectsLayer.update();
-				frontObjectsLayer.loadAssetsByLayer(currentDistance);
-				frontObjectsLayer.setSpeed(this.getCurrentSpeed());			
+				if(this.getHero().x > General.viewPortGame.width+100){
+						addChild(winer);
+				}
+				
+			}else{
+			
+				if(raceLayer == null)
+					return false;
+				
+				if(this.getTargetSpeed()>this.getCurrentSpeed()){
+					this.setCurrentSpeed(this.getCurrentSpeed()+0.1);
+					
+					if(this.getCurrentSpeed() > this.getAbsoluteMaximumSpeed())
+						this.setCurrentSpeed(this.getAbsoluteMaximumSpeed());
+				
+				}else if(this.getTargetSpeed()<this.getCurrentSpeed()){				
+					var number:Number = this.getCurrentSpeed()*0.98<0.1? 0: this.getCurrentSpeed()*0.98; 
+					this.setCurrentSpeed(number);
+					
+					if(this.getCurrentSpeed() > this.getAbsoluteMaximumSpeed())
+						this.setCurrentSpeed(this.getAbsoluteMaximumSpeed());
+				}		
+				
+				if(randomObjectsLayer != null){
+					randomObjectsLayer.update();
+					randomObjectsLayer.setSpeed(this.getCurrentSpeed());
+				}
+			
+				if(groundLayer != null){
+					groundLayer.update();
+					groundLayer.setSpeed(this.getCurrentSpeed());
+				}
+				
+				if(raceLayer != null){
+					raceLayer.update();	
+					raceLayer.loadAssetsByLayer(currentDistance);
+					raceLayer.setSpeed(this.getCurrentSpeed());
+				}
+					
+				if(frontObjectsLayer != null){
+					frontObjectsLayer.update();
+					frontObjectsLayer.loadAssetsByLayer(currentDistance);
+					frontObjectsLayer.setSpeed(this.getCurrentSpeed());			
+				}
+				
+				if(carsLayer != null){
+					carsLayer.update();
+					carsLayer.loadAssetsByLayer(currentDistance);
+					carsLayer.setSpeed(this.getCurrentSpeed());
+				}
+				
+				if(getSuperHero()!=null && getSuperHero().x>= General.viewPortGame.width+200){
+					setSuperHero(null);				
+				}
+				
+				if(getSuperHero()!=null && currentDistance/totalDistance>=0.7 && this.getHero().getDeath()==0){
+					setSuperHero(new SuperHero(getSuperHeroesArray()(Math.floor(Math.random()*2)),-50,410));
+					addChild(getSuperHero());
+					this.getHero().raiseSpecialScore();
+				}
+				
+				if(getSuperHero()!=null){
+					getSuperHero().update();
+				}
+				
+				if(hulk!=null){
+					hulk.update();
+					hulk.setSpeed(this.getCurrentSpeed());
+				}
+				
+				this.getHero().update();
+				this.currentDistance += this.getCurrentSpeed();
+				
+				this.getProgress().upDateProgress(currentDistance/totalDistance);	
+				this.getTrain().updateTrain(getHero().getFuel(),getHero().getScore(),this.getCurrentSpeed());
 			}
 			
-			if(carsLayer != null){
-				carsLayer.update();
-				carsLayer.loadAssetsByLayer(raceLayer.getNumChildren());
-				carsLayer.setSpeed(this.getCurrentSpeed());
-			}
-			
-			if(getSuperHero()!=null && getSuperHero().x>= General.viewPortGame.width+200){
-				setSuperHero(null);				
-			}
-			
-			if(getSuperHero()!=null && currentDistance/totalDistance>=0.7 && this.getHero().getDeath()==0){
-				setSuperHero(new SuperHero(getSuperHeroesArray()(Math.floor(Math.random()*2)),-50,410));
-				addChild(getSuperHero());
-				this.getHero().raiseSpecialScore();
-			}
-			
-			if(getSuperHero()!=null){
-				getSuperHero().update();
-			}
-			
-			if(hulk!=null){
-				hulk.update();
-				hulk.setSpeed(this.getCurrentSpeed());
-			}
-			
-			this.getHero().update();
 			return true;
 		}		
 	}

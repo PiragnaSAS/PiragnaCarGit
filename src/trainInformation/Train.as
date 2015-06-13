@@ -1,11 +1,6 @@
-﻿package trainInformation
+package trainInformation
 {
 	import flash.geom.Matrix;
-	
-
-	import assets.Assets;
-	
-	import core.General;
 	
 	import starling.display.Image;
 	import starling.display.Sprite;
@@ -19,7 +14,6 @@
 		private var score:TextField;
 		private var speed:TextField;
 		
-
 		public function Train()
 		{
 //			trainImage=new Image(Assets.getTexture("trainInformation"));

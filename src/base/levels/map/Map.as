@@ -1,4 +1,4 @@
-﻿package base.levels.map
+package base.levels.map
 {
 	import flash.display.Bitmap;
 	import flash.events.IOErrorEvent;
@@ -28,7 +28,7 @@
 	{
 		private var jsonLayers:Object;
 		private var jsonObstacles:Object;
-		private var hero:Hero;
+		protected var hero:Hero;
 		private var levers:InputHandler;
 		
 		private var screenBitmap:Bitmap; // for drawing the map
@@ -36,6 +36,8 @@
 		
 		private var eventLoaders:Array;
 
+		private var length:uint;
+		
 		//--->aqui
 		private var mapWidth:uint;
 		private var mapHeight:uint;
@@ -61,10 +63,11 @@
 		private var numberOfModules:uint;
 		
 		public function Map(scene:String, hero:Hero, levers:InputHandler, numberOfModules:uint){	
-			this.hero = hero;
 			
+			this.hero = hero;
+			trace(this.hero,hero);
 			this.numberOfModules = numberOfModules;
-			this.absoluteMaximumSpeed = 8.5;
+			this.absoluteMaximumSpeed = 13;
 			this.currentSpeed = 0;
 			this.targetSpeed = 0;
 
@@ -74,36 +77,21 @@
 			this.levers.addEventListener(LeverEvent.ACCELERATE, onAcelerate);
 			this.levers.addEventListener(LeverEvent.BREAK, onBreak);	
 			this.levers.addEventListener(LeverEvent.BREAK_ROTATION, onBreakRotation);	
-			this.hero.addEventListener(HeroEvent.DRIFTING, onDrift);
-			this.hero.addEventListener(HeroEvent.EXPLODING, onBom);
+			
 			this.progressBar = new Progress();
 			this.train =new Train();
 			this.loadScene(scene);
 		}	
 		
-		
-		
-		private function onBom():void
-		{
-			// TODO Auto Generated method stub
-			
-		}
-		
-		private function onDrift():void
-		{
-			
-			
-		}
-		
 		private function loadScene(scene:String):void{
 			admin=new Administrador();
-			for (var i:int = 0; i < 45; i++){
+			for (var i:int = 0; i < length; i++){
 				var r:uint=Math.floor(Math.random()*numberOfModules);
 				var r1:uint=Math.floor((Math.random()*3));
-				//cargar mapa de esta forma "mapa_"+scene+"_"+r
+				//cargar mapa de esta forma "RedCarGame_Lvl_0"+scene+"_"+r
 				
 				jsonLayers=Assets.getJSON("RedCarGame_Lvl_0"+scene+"_0"+r);
-				jsonObstacles=Assets.getJSON("RedCarGame_Lvl_01_00_02");
+				jsonObstacles=Assets.getJSON("RedCarGame_Lvl_0"+scene+"_0"+r+"_0"+r1);
 				admin.addJson(jsonLayers,jsonObstacles);
 			}
 
@@ -111,12 +99,11 @@
 
 			createLayers();
 			
-			this.addChild(hero);
+			//this.addChild(hero);
 
 			this.addChild(progressBar);
 			this.addChild(train);
 			this.addChild(levers);			
-				
 		}	
 		
 		private function onIOError(e:IOErrorEvent):void{
@@ -158,7 +145,7 @@
 		}
 		
 		public function onAcelerate(e:LeverEvent):void{	
-			var targetSpeed:Number = e.data.rotationValue*3;
+			var targetSpeed:Number = e.data.rotationValue*6;
 			
 			this.setTargetSpeed(targetSpeed);
 		}
@@ -167,6 +154,14 @@
 		{
 			this.setTargetSpeed(0);	
 		}	
+		
+		public function getLength():uint{
+			return length;
+		}
+		
+		public function setLength(length:uint):void{
+			this.length = length;	
+		}
 		
 		public function getMapWidth():uint
 		{
@@ -250,6 +245,10 @@
 		
 		public function getHero():Hero{
 			return hero;
+		}
+		
+		public function setHero(hero:Hero):void{
+			this.hero=hero;
 		}
 		
 		public function update():Boolean{				
