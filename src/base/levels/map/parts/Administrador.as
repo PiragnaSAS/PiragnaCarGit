@@ -115,7 +115,7 @@ package base.levels.map.parts
 				finalCarsLayer.push("transparency");
 			}
 			
-			trace(finalCarsLayer);
+//			trace(finalCarsLayer);
 			
 			finalRaceLayer.push(["bgTack_0_0"]);
 			finalRaceLayer.push(["bgTack_7_7"]);
@@ -127,7 +127,7 @@ package base.levels.map.parts
 			finalFrontObjectsLayer.push(["frTack_4"]);
 			finalFrontObjectsLayer.push(["frTack_4"]);	
 			
-			trace(finalRaceLayer.length);
+//			trace(finalRaceLayer.length);
 		}
 		
 		public function getFinalCarsLayer():Array{

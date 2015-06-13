@@ -133,10 +133,6 @@
 
 		override public function update():Boolean{
 			
-			this.currentDistance += this.getCurrentSpeed();
-			this.getProgress().upDateProgress(currentDistance/totalDistance);	
-			this.getTrain().updateTrain(getHero().getFuel(),getHero().getScore(),this.getCurrentSpeed());
-			
 			if(raceLayer == null)
 				return false;
 			
@@ -202,6 +198,12 @@
 			}
 			
 			this.getHero().update();
+
+			this.currentDistance += this.getCurrentSpeed();
+			this.getProgress().upDateProgress(currentDistance/totalDistance);	
+			this.getTrain().updateTrain(getHero().getFuel(),getHero().getScore(),this.getCurrentSpeed());
+			
+			
 			return true;
 		}		
 	}
