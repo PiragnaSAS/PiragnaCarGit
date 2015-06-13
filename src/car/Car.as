@@ -1,5 +1,6 @@
 package car
 {
+	import flash.events.TimerEvent;
 	import flash.geom.Point;
 	
 	import collitionableObjects.Padrino;
@@ -113,7 +114,6 @@ package car
 		}
 
 		public function react(...args):void{
-			throw new AbstractMethodError();	
 		}
 		public function getState():uint{
 			return actualState;
@@ -136,8 +136,10 @@ package car
 			actualImage=newImage;
 		}
 
-		public function update():void{
-			throw new AbstractMethodError();
+		 public function update():void{
+			if(this.getState() == Car.EST_DRIFTING){
+				this.handleDrift();
+			}			
 		}
 		
 		public function setDriftImpulse(driftImpulse:Number):void{
@@ -201,9 +203,8 @@ package car
 		public function drift(driftImpulse:Number,driftDirection:Boolean):void{
 			this.driftDirection = driftDirection;
 			this.driftImpulse = driftImpulse;
-			
-			trace("kajsdlasjdlkasjdljasdlkjsadjasldjaslkjdlksajda");
 			setState(Car.EST_DRIFTING);	
 		}
+		
 	}
 }
