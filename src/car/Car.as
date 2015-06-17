@@ -1,13 +1,9 @@
 package car
 {
-	import flash.events.TimerEvent;
 	import flash.geom.Point;
-	
-	import collitionableObjects.Padrino;
 	
 	import starling.display.DisplayObject;
 	import starling.display.Sprite;
-	import starling.errors.AbstractMethodError;
 
 	public class Car extends Sprite 
 	{
@@ -33,15 +29,12 @@ package car
 
 		private var _speed:Number = 7;
 		private var _saw:Boolean = false;
-		private var _inside:Number=0;
+		private var _inside:Number=0; 
 		
 		
 		private var timeAfterEnd:Number = 0;
 
 		
-		private var _speed:Number = 4;
-		private var _saw:Boolean = false;
-		private var _inside:Number=0;
 		public function Car(posx:Number, posy:Number, image:DisplayObject){
 			this.setCarImage(image);
 			this.x=posx;

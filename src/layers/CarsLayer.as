@@ -1,7 +1,5 @@
 ﻿package layers
 {
-	import flash.media.Camera;
-	
 	import assets.Assets;
 	
 	import base.levels.map.Map;
@@ -14,8 +12,8 @@
 	import car.enemyCar.RedCar;
 	import car.enemyCar.Taxi;
 	import car.enemyCar.Truck;
+	import car.hero.Hero;
 	
-	import collitionableObjects.Padrino;
 	import collitionableObjects.groundCollitionableObjects.Obstacle;
 	
 	import core.General;

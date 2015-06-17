@@ -67,7 +67,7 @@ package base.levels.map
 			this.hero = hero;
 			trace(this.hero,hero);
 			this.numberOfModules = numberOfModules;
-			this.absoluteMaximumSpeed = 13;
+			this.absoluteMaximumSpeed = 10;
 			this.currentSpeed = 0;
 			this.targetSpeed = 0;
 
@@ -85,8 +85,7 @@ package base.levels.map
 		
 		private function loadScene(scene:String):void{
 			admin=new Administrador();
-
-			for (var i:int = 0; i < 46; i++){
+			for (var i:int = 0; i < length; i++){
 				var r:uint=Math.floor(Math.random()*numberOfModules);
 				var r1:uint=Math.floor((Math.random()*3));
 				//cargar mapa de esta forma "RedCarGame_Lvl_0"+scene+"_"+r

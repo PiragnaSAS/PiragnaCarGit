@@ -142,17 +142,9 @@
 
 		override public function update():Boolean{
 			
-
-			trace("kjaleke");
-			if(currentDistance > 21800){
-				this.setCurrentSpeed(0);
-
-			if(raceLayer == null)
-				return false;
 			
-			if(this.getTargetSpeed()>this.getCurrentSpeed()){
-				this.setCurrentSpeed(this.getCurrentSpeed()+0.5);
-
+			if(currentDistance > 21300){
+				this.setCurrentSpeed(0);
 				
 				if(carsLayer != null){
 					carsLayer.update();
@@ -168,7 +160,13 @@
 				}
 				
 			}else{
-
+				
+				if(raceLayer == null)
+					return false;
+				
+				if(this.getTargetSpeed()>this.getCurrentSpeed()){
+					this.setCurrentSpeed(this.getCurrentSpeed()+0.1);
+					
 				if(this.getCurrentSpeed() > this.getAbsoluteMaximumSpeed())
 					this.setCurrentSpeed(this.getAbsoluteMaximumSpeed());
 			}		

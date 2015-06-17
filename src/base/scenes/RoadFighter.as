@@ -4,16 +4,20 @@
 	
 	import assets.Assets;
 	
+	import base.levels.map.Level1;
+	
 	import core.General;
 	
 	import gameStates.GameState;
 	import gameStates.MenuState;
 	import gameStates.PlayState;
 	
+	import inputHandler.InputHandler;
+	
 	import starling.core.Starling;
-	import starling.display.Quad;
 	import starling.display.Sprite;
 	import starling.events.Event;
+	import car.hero.Hero;
 
 
 	public class RoadFighter extends Sprite
@@ -25,6 +29,9 @@
 		private var currentState:GameState;
 		private var playState:GameState;
 		private var menuState:GameState;
+		private var levers:InputHandler;
+		private var level1:Level1;
+		private var levels:Array;
 			
 		public function RoadFighter()
 		{			
@@ -54,14 +61,15 @@
 			
 			addChild(currentState);
 
-			//Levers creation
-			this.levers=new InputHandler();
-					
-			//Levels
-			this.level1= new Level1("1",hero, levers);
-			this.levels[0] = level1;
-					
-			this.addChild(this.level1);
+//			//Levers creation
+//			this.levers=new InputHandler();
+//					
+//			//Levels
+//			var hero:Hero;
+//			this.level1= new Level1("1",hero, levers);
+//			this.levels[0] = level1;
+//					
+//			this.addChild(this.level1);
 			
 			
 //			var q:Quad = new Quad(General.viewPortGame.width,General.viewPortGame.height);
