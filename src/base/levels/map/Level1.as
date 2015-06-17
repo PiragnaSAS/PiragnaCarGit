@@ -41,7 +41,7 @@
 		private var distanceSepUpX:Number= 36;
 		private var distanceSepUpY:Number = 16;
 		
-		private var totalDistance:Number =96*Math.sqrt(3)*5*8;
+		private var totalDistance:Number =94*Math.sqrt(3)*((45*8)+3);
 		private var currentDistance:Number;
 		
 		private var iniSepDownX:Number = iniLandX+ 120;
@@ -160,23 +160,43 @@
 			}
 		
 			if(groundLayer != null){
+				if(currentDistance/totalDistance>=1.01){
+					groundLayer.setSpeed(0);
+				}else{
+					groundLayer.setSpeed(this.getCurrentSpeed());
+				}
 				groundLayer.update();
-				groundLayer.setSpeed(this.getCurrentSpeed());
+				
 			}
 			
 			if(raceLayer != null){
+				if(currentDistance/totalDistance>=1.01){
+					raceLayer.setSpeed(0);
+				}else{
+					raceLayer.setSpeed(this.getCurrentSpeed());
+				}
 				raceLayer.update();	
 				raceLayer.loadAssetsByLayer(currentDistance);
-				raceLayer.setSpeed(this.getCurrentSpeed());
+				
 			}
 				
 			if(frontObjectsLayer != null){
+				if(currentDistance/totalDistance>=1.01){
+					frontObjectsLayer.setSpeed(0);	
+				}else{
+					frontObjectsLayer.setSpeed(this.getCurrentSpeed());	
+				}
 				frontObjectsLayer.update();
 				frontObjectsLayer.loadAssetsByLayer(currentDistance);
-				frontObjectsLayer.setSpeed(this.getCurrentSpeed());			
+						
 			}
 			
 			if(carsLayer != null){
+				if(currentDistance/totalDistance>=1.01){
+					
+				}else{
+					
+				}
 				carsLayer.update();
 				carsLayer.loadAssetsByLayer(currentDistance);
 				carsLayer.setSpeed(this.getCurrentSpeed());

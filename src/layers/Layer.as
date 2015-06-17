@@ -31,7 +31,7 @@
 		private var _y:Number;
 		public static var factorx:Number=Math.cos(Math.PI/6);
 		public static var factory:Number=-Math.sin(Math.PI/6);
-		public static var anchoCarretera:Number=96*Math.sqrt(3);
+		public static var anchoCarretera:Number=94*Math.sqrt(3);
 		public static var x0:Number;
 		public static var y0:Number;
 		public static var progress:Number = 0;

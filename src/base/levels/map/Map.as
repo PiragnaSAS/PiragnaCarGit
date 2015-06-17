@@ -83,7 +83,7 @@ package base.levels.map
 		
 		private function loadScene(scene:String):void{
 			admin=new Administrador();
-			for (var i:int = 0; i < 16; i++){
+			for (var i:int = 0; i < 46; i++){
 				var r:uint=Math.floor(Math.random()*numberOfModules);
 				var r1:uint=Math.floor((Math.random()*3));
 				//cargar mapa de esta forma "RedCarGame_Lvl_0"+scene+"_"+r
