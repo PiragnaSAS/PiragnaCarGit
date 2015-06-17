@@ -1,5 +1,6 @@
 package car
 {
+	import flash.events.TimerEvent;
 	import flash.geom.Point;
 	
 	import collitionableObjects.Padrino;
@@ -28,14 +29,18 @@ package car
 		//vars to handle drifts
 		private var driftDirection:Boolean; //0 left 1 right
 		private var driftImpulse:Number;
-		
+
 		private var _speed:Number = 7;
 		private var _saw:Boolean = false;
 		private var _inside:Number=0;
 		
 		
 		private var timeAfterEnd:Number = 0;
+
 		
+		private var _speed:Number = 4;
+		private var _saw:Boolean = false;
+		private var _inside:Number=0;
 		public function Car(posx:Number, posy:Number, image:DisplayObject){
 			this.setCarImage(image);
 			this.x=posx;
@@ -55,6 +60,7 @@ package car
 			}
 		}	
 		
+
 		public function get auxMovementY():Number
 		{
 			return _auxMovementY;
@@ -126,7 +132,6 @@ package car
 		}
 
 		public function react(...args):void{
-			throw new AbstractMethodError();	
 		}
 		public function getState():uint{
 			return actualState;
@@ -149,8 +154,10 @@ package car
 			actualImage=newImage;
 		}
 
-		public function update():void{
-			throw new AbstractMethodError();
+		 public function update():void{
+			if(this.getState() == Car.EST_DRIFTING){
+				this.handleDrift();
+			}			
 		}
 		
 		public function setDriftImpulse(driftImpulse:Number):void{
@@ -214,9 +221,8 @@ package car
 		public function drift(driftImpulse:Number,driftDirection:Boolean):void{
 			this.driftDirection = driftDirection;
 			this.driftImpulse = driftImpulse;
-			
-			trace("kajsdlasjdlkasjdljasdlkjsadjasldjaslkjdlksajda");
 			setState(Car.EST_DRIFTING);	
 		}
+
 	}
 }

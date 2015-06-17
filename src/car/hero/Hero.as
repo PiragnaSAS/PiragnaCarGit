@@ -13,6 +13,7 @@ package car.hero
 		
 		private var score:uint = 0;
 		private var fuel:uint = 100;
+		private var speed:Number = 2;
 		private var numberDeaths:Number=0;
 		
 		private var timer:Timer;

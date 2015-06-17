@@ -36,6 +36,7 @@
 		private var carsLayer:CarsLayer;
 		private var collitionLayer:CollitionLayer;
 		private var endTimer:Number = 0;
+
 		//private var hero:Hero;
 		private var movementX:Number, movementY:Number;
 		private var timer:Timer;
@@ -45,7 +46,7 @@
 		private var distanceSepUpX:Number= 36;
 		private var distanceSepUpY:Number = 16;
 		
-		private var totalDistance:Number =96*Math.sqrt(3)*5*8;
+		private var totalDistance:Number =94*Math.sqrt(3)*((45*8)+3);
 		private var currentDistance:Number;
 		
 		private var iniSepDownX:Number = iniLandX+ 120;
@@ -141,9 +142,17 @@
 
 		override public function update():Boolean{
 			
+
 			trace("kjaleke");
 			if(currentDistance > 21800){
 				this.setCurrentSpeed(0);
+
+			if(raceLayer == null)
+				return false;
+			
+			if(this.getTargetSpeed()>this.getCurrentSpeed()){
+				this.setCurrentSpeed(this.getCurrentSpeed()+0.5);
+
 				
 				if(carsLayer != null){
 					carsLayer.update();
@@ -151,6 +160,7 @@
 					carsLayer.setSpeed(this.getCurrentSpeed());
 				}
 				
+
 				this.getHero().finalMove();
 				
 				if(this.getHero().x > General.viewPortGame.width+100){
@@ -158,6 +168,68 @@
 				}
 				
 			}else{
+
+				if(this.getCurrentSpeed() > this.getAbsoluteMaximumSpeed())
+					this.setCurrentSpeed(this.getAbsoluteMaximumSpeed());
+			}		
+			
+			if(randomObjectsLayer != null){
+				randomObjectsLayer.update();
+				randomObjectsLayer.setSpeed(this.getCurrentSpeed());
+			}
+		
+			if(groundLayer != null){
+				if(currentDistance/totalDistance>=1.01){
+					groundLayer.setSpeed(0);
+				}else{
+					groundLayer.setSpeed(this.getCurrentSpeed());
+				}
+				groundLayer.update();
+				
+			}
+			
+			if(raceLayer != null){
+				if(currentDistance/totalDistance>=1.01){
+					raceLayer.setSpeed(0);
+				}else{
+					raceLayer.setSpeed(this.getCurrentSpeed());
+				}
+				raceLayer.update();	
+				raceLayer.loadAssetsByLayer(currentDistance);
+				
+			}
+				
+			if(frontObjectsLayer != null){
+				if(currentDistance/totalDistance>=1.01){
+					frontObjectsLayer.setSpeed(0);	
+				}else{
+					frontObjectsLayer.setSpeed(this.getCurrentSpeed());	
+				}
+				frontObjectsLayer.update();
+				frontObjectsLayer.loadAssetsByLayer(currentDistance);
+						
+			}
+			
+			if(carsLayer != null){
+				if(currentDistance/totalDistance>=1.01){
+					
+				}else{
+					
+				}
+				carsLayer.update();
+				carsLayer.loadAssetsByLayer(currentDistance);
+				carsLayer.setSpeed(this.getCurrentSpeed());
+			}
+			
+			if(getSuperHero()!=null && getSuperHero().x>= General.viewPortGame.width+200){
+				setSuperHero(null);				
+			}
+			
+			if(getSuperHero()!=null && currentDistance/totalDistance>=0.7 && this.getHero().getDeath()==0){
+				setSuperHero(new SuperHero(getSuperHeroesArray()(Math.floor(Math.random()*2)),-50,410));
+				addChild(getSuperHero());
+				this.getHero().raiseSpecialScore();
+			}
 			
 				if(raceLayer == null)
 					return false;
@@ -229,7 +301,15 @@
 				this.getProgress().upDateProgress(currentDistance/totalDistance);	
 				this.getTrain().updateTrain(getHero().getFuel(),getHero().getScore(),this.getCurrentSpeed());
 			}
+
+			this.getHero().update();
+
+			this.currentDistance += this.getCurrentSpeed();
+			this.getProgress().upDateProgress(currentDistance/totalDistance);	
+			this.getTrain().updateTrain(getHero().getFuel(),getHero().getScore(),this.getCurrentSpeed());
 			
+			
+
 			return true;
 		}		
 	}

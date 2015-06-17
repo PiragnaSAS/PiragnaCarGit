@@ -11,6 +11,7 @@
 	import gameStates.PlayState;
 	
 	import starling.core.Starling;
+	import starling.display.Quad;
 	import starling.display.Sprite;
 	import starling.events.Event;
 
@@ -52,6 +53,17 @@
 			statesDictionary[menuState.getName()] = menuState;
 			
 			addChild(currentState);
+
+			//Levers creation
+			this.levers=new InputHandler();
+					
+			//Levels
+			this.level1= new Level1("1",hero, levers);
+			this.levels[0] = level1;
+					
+			this.addChild(this.level1);
+			
+			
 //			var q:Quad = new Quad(General.viewPortGame.width,General.viewPortGame.height);
 //			q.alpha = .5;
 //			scaleX = scaleY = .2;

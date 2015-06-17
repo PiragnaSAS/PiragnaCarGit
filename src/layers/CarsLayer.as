@@ -1,4 +1,4 @@
-package layers
+﻿package layers
 {
 	import assets.Assets;
 	
@@ -12,7 +12,6 @@ package layers
 	import car.enemyCar.RedCar;
 	import car.enemyCar.Taxi;
 	import car.enemyCar.Truck;
-	import car.hero.Hero;
 	
 	import collitionableObjects.Padrino;
 	import collitionableObjects.groundCollitionableObjects.Obstacle;
@@ -39,6 +38,7 @@ package layers
 			this.atlasName = "Cars";
 			this.hero=hero;
 			this.map=map;
+
 			x1=x0+(anchoCarretera*(5/12)*factorx)-(anchoCarretera*(1/3)*factorx);
 			y1=y0-(anchoCarretera*(5/12)*factory)-(anchoCarretera*(1/3)*factory);
 			
@@ -147,9 +147,9 @@ package layers
 			}
 			
 			for( j=0; j<this.numChildren; j++){		
-				trace(this.getChildAt(j).x,General.screenWidth,"y",getChildAt(j).y);
+
+//				trace(this.getChildAt(j).x,General.screenWidth,"y",getChildAt(j).y);
 				if(this.getChildAt(j).y>= (-5) && this.getChildAt(j) is Car){
-					
 					(this.getChildAt(j) as Car).setInside(1);
 				}
 				if(this.getChildAt(j).x < -25 ||(((( this.getChildAt(j).y<-10) && (this.getChildAt(j) is Car))&&(this.getChildAt(j) as Car).getInside()==1)&&(this.getChildAt(j).x>General.screenWidth/2)) ){
@@ -182,7 +182,7 @@ package layers
 					
 					this.getChildAt(j).x -= (this.getSpeed()-this.getChildAt(j)["speed"])*factorx;
 					this.getChildAt(j).y -= (this.getSpeed()-this.getChildAt(j)["speed"])*factory;
-					
+
 					if(this.getChildAt(j).x>this.hero.x-this.map.getCurrentSpeed() && this.getChildAt(j).x<this.hero.x){
 						this.hero.raiseScore();
 					}
@@ -191,6 +191,7 @@ package layers
 								this.getChildAt(j)["saw"] = true;					
 							}
 					}
+
 					
 					}				
 				}

@@ -14,9 +14,17 @@ package Progress
 			addChild(car);			
 		}
 		
-		public function upDateProgress(advance:Number):void{
-			car.x=50*Math.cos((Math.PI)/6)*advance;
-			car.y=-50*Math.sin((Math.PI)/6)*advance;			
+		public function getCar():CarProgress{
+			return car;
 		}
+		
+		public function upDateProgress(advance:Number):void{
+			car.x=165*Math.cos((Math.PI)/6)*advance;
+			car.y=-165*Math.sin((Math.PI)/6)*advance;			
+		}
+	
+	
 	}
+	
+	
 }
