@@ -15,6 +15,7 @@ package car
 		private var actualState:uint;
 		private var position:Point;
 		private var carImage:DisplayObject;
+		private var reactioned:Boolean;
 		
 		private var _movementX:Number, _movementY:Number;
 		private var _auxMovementX:Number, _auxMovementY:Number;
@@ -49,6 +50,7 @@ package car
 			this.auxMovementY = this.movementY = 0;
 			carImage.alignPivot();
 			addChildAt(this.getCarImage(),0);
+			this.reactioned = false;
 		}
 		
 		public function finalMove():void{
@@ -153,12 +155,6 @@ package car
 		public function setImage(newImage:String):void{
 			actualImage=newImage;
 		}
-
-		 public function update():void{
-			if(this.getState() == Car.EST_DRIFTING){
-				this.handleDrift();
-			}			
-		}
 		
 		public function setDriftImpulse(driftImpulse:Number):void{
 			this.driftImpulse = driftImpulse;
@@ -182,7 +178,6 @@ package car
 				this.movementX = -driftImpulse;
 				this.movementY = -driftImpulse*Math.tan(Math.PI/6);
 				driftImpulse*=.7;
-				trace("it's coming left", this.movementX, this.movementY );
 				if(driftImpulse<0.1){
 					driftImpulse = 0;		
 				}
@@ -196,7 +191,6 @@ package car
 			}
 			else
 			{
-				trace("it's coming right", this.movementX, this.movementY );
 				this.movementX = driftImpulse;
 				this.movementY = driftImpulse*Math.tan(Math.PI/6);
 				driftImpulse*=.7;
@@ -219,9 +213,42 @@ package car
 		}
 		
 		public function drift(driftImpulse:Number,driftDirection:Boolean):void{
+			trace("a drift")
 			this.driftDirection = driftDirection;
 			this.driftImpulse = driftImpulse;
-			setState(Car.EST_DRIFTING);	
+			this.setState(Car.EST_DRIFTING);	
+		}
+		
+		public function update():void{
+			if(this.getState() == Car.EST_DEFAULT)
+			{
+				if(movementX == 0){
+					
+					if(auxMovementX < .1 && auxMovementX > -.1){
+						auxMovementX = 0;
+						auxMovementY = 0;
+					}else{
+						auxMovementX *= .9;
+						auxMovementY = auxMovementX*Math.tan(Math.PI/6);
+					}
+					
+				}
+				this.x += auxMovementX;
+				this.y += auxMovementY;
+			}
+			if(this.getState() == Car.EST_DRIFTING){
+				this.handleDrift();
+			}
+		}
+		
+		public function getReactioned():Boolean
+		{
+			return this.reactioned;
+		}
+		
+		public function setReactioned(reactioned:Boolean):void
+		{
+			this.reactioned = reactioned;
 		}
 
 	}

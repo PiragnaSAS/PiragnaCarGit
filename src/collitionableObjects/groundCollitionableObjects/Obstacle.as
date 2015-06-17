@@ -19,7 +19,8 @@ package collitionableObjects.groundCollitionableObjects
 		private var _speed:Number = 0;
 		private var _saw:Boolean = false;
 		
-		public function Obstacle(imageObject:DisplayObject,newX:Number,newY:Number, type:uint){
+		public function Obstacle(imageObject:DisplayObject,newX:Number,newY:Number, type:uint, name:String){
+			this.name = name;
 			this._type=type;
 			this.obstacleImage=imageObject;
 			_x=newX;

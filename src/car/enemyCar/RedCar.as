@@ -16,30 +16,6 @@ package car.enemyCar
 			this.react(Car.EST_MOVING);	
 		}
 		
-		override public function react(...args):void{
-			switch(args[0])
-			{
-				case Car.EST_MOVING:
-				{
-					this.moving();
-					break;
-				}
-				case Car.EST_EXPLODING:
-				{
-					this.exploding();
-					break;
-				}case Car.EST_DRIFTING:
-				{
-					this.drifting(args[1]);
-					break;
-				}	
-					/*default:
-					{
-					break;
-					}*/
-			}
-		}
-		
 		private function moving():void{
 			this.setImage("moving_red_image");
 			this.setState(Car.EST_MOVING);
@@ -50,20 +26,28 @@ package car.enemyCar
 			this.setState(Car.EST_EXPLODING);
 		}
 		
-		private function drifting(direction:String):void
-		{
-			switch(direction)
+		override public function update():void{
+			trace( "drift de rojo");
+			if(this.getState() == Car.EST_DEFAULT)
 			{
-				case "left":
-				{
-					this.setImage("drifting_left_red_image")
+				if(movementX == 0){
+					
+					if(auxMovementX < .1 && auxMovementX > -.1){
+						auxMovementX = 0;
+						auxMovementY = 0;
+					}else{
+						auxMovementX *= .9;
+						auxMovementY = auxMovementX*Math.tan(Math.PI/6);
+					}
+					
 				}
-				case "rigth":
-				{
-					this.setImage("drifting_rigth_red_image")
-				}
+				this.x += auxMovementX;
+				this.y += auxMovementY;
 			}
-			this.setState(Car.EST_DRIFTING);
+			if(this.getState() == Car.EST_DRIFTING){
+				super.handleDrift();
+				trace( "drift de rojo");
+			}
 		}
 		
 	}
