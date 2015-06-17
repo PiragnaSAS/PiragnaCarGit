@@ -1,13 +1,12 @@
 package collitionableObjects.groundCollitionableObjects
 {
-	import collitionableObjects.Padrino;
 	
 	import core.General;
 	
 	import starling.display.DisplayObject;
 	import starling.display.Sprite;
 	
-	public class Obstacle extends Sprite implements Padrino
+	public class Obstacle extends Sprite 
 	{	
 		private var name:String;
 		private var _x:Number;

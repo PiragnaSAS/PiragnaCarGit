@@ -141,9 +141,8 @@ package layers
 			}
 			
 			for( j=0; j<this.numChildren; j++){		
-				trace(this.getChildAt(j).x,General.screenWidth,"y",getChildAt(j).y);
+//				trace(this.getChildAt(j).x,General.screenWidth,"y",getChildAt(j).y);
 				if(this.getChildAt(j).y>= (-5) && this.getChildAt(j) is Car){
-					
 					(this.getChildAt(j) as Car).setInside(1);
 				}
 				if(this.getChildAt(j).x < -25 ||(((( this.getChildAt(j).y<-10) && (this.getChildAt(j) is Car))&&(this.getChildAt(j) as Car).getInside()==1)&&(this.getChildAt(j).x>General.screenWidth/2)) ){

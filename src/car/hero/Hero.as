@@ -14,33 +14,18 @@ package car.hero
 		private var score:uint = 0;
 		private var fuel:uint = 100;
 		private var speed:Number = 2;
-		private var movementX:Number, movementY:Number;
-		private var auxMovementX:Number, auxMovementY:Number;
 		private var numberDeaths:Number=0;
 		
-		//vars to handle drifts
-		private var driftDirection:Boolean; //0 left 1 right
-		private var driftInitialXPosition:Number;
-		private var driftInitialYPosition:Number;
-		private var driftSpeedX:Number = 8;
-		private var driftSpeedY:Number = 6;
-		private var driftMaxX:Number = 150;
-		private var driftMaxY:Number =  150;
-		
-		private var driftSpeedXRight:Number = 10;
-		private var driftSpeedYRight:Number = 3;
 		private var timer:Timer;
-		
 		
 		public function Hero(x=435, y=335){
 
 			super(x,y, new Image(Assets.getAtlasTexture("Cars","car_red")));
 			this.removeChildAt(0);
 			this.setCarImage( new Image(Assets.getAtlasTexture("Cars","car_red")));
+			this.getCarImage().alignPivot();
 			this.x = x;
 			this.y = y;
-			this.auxMovementX = this.movementX = 0;
-			this.auxMovementY = this.movementY = 0;
 			this.setState(Car.EST_DEFAULT);
 			this.addChild(this.getCarImage());
 			this.setState(Car.EST_DEFAULT);
@@ -49,29 +34,6 @@ package car.hero
 		}
 		
 		override public function react(...args):void{
-			switch(args[0])
-			{
-				case Car.EST_EXPLODING:
-				{
-					this.exploding();
-					break;
-				}
-				case Car.EST_DRIFTING:
-				{
-					this.drifting(args[1]);
-					break;
-				}	
-				case Car.EST_REVIVING:
-				{
-					this.revive();
-					break;
-				}
-				case Car.EST_UNCONTROLLABLE:
-				{
-					this.uncontrolled();
-					break;
-				}
-			}
 		}
 		
 		private function uncontrolled():void
@@ -87,22 +49,13 @@ package car.hero
 			this.setState(Car.EST_REVIVING);
 		}
 		
-		public function drifting(direction:Boolean):void
-		{
-			this.setState(Car.EST_DRIFTING);
-			this.driftDirection = direction;
-			this.driftInitialXPosition = this.x;
-			this.driftInitialYPosition = this.y;
-		}
-		
 		private function exploding():void
 		{
 			this.setImage("exploding_hero_image");
 			this.setState(Car.EST_EXPLODING);
 		}
 		
-		public function move(value:Number):void
-		{
+		public function move(value:Number):void{
 			this.movementX = value;
 			this.movementY = value*Math.tan(Math.PI/6);
 			
@@ -154,9 +107,11 @@ package car.hero
 		override public function update():void{
 			timer.addEventListener(TimerEvent.TIMER,this.decreaseFuel);
 			
+			trace(getDriftImpulse());
 			if(this.getState() == Car.EST_DEFAULT)
 			{
 				if(movementX == 0){
+					
 					if(auxMovementX < .1 && auxMovementX > -.1){
 						auxMovementX = 0;
 						auxMovementY = 0;
@@ -164,47 +119,19 @@ package car.hero
 						auxMovementX *= .9;
 						auxMovementY = auxMovementX*Math.tan(Math.PI/6);
 					}
+					
 				}
 				
+				trace("weqwkjjklwq",auxMovementX,auxMovementY);
 				this.x += auxMovementX;
 				this.y += auxMovementY;
 			}
-			if(this.getState() == Car.EST_DRIFTING)
-			{
+			if(this.getState() == Car.EST_DRIFTING){
+				trace("what's up bitch");
 				this.handleDrift();
-			}
-			
-			
+			}			
 		}
 		
-		private function handleDrift():void
-		{
-			if(!this.driftDirection)
-			{
-				if(this.x <= (this.driftInitialXPosition + this.driftMaxX) && this.y >= (this.driftInitialYPosition - this.driftMaxY))
-				{
-					this.x = this.x + this.driftSpeedX;
-					this.y = this.y - this.driftSpeedY;
-				}
-				else
-				{
-					this.setState(Car.EST_DEFAULT);
-				}	
-			}
-			else
-			{
-				if(this.x < (this.driftInitialXPosition + this.driftMaxX) && this.y < (this.driftInitialYPosition + this.driftMaxY))
-				{
-					this.x = this.x + this.driftSpeedXRight;
-					this.y = this.y - this.driftSpeedYRight;
-				}
-				else
-				{
-					this.setState(Car.EST_DEFAULT);
-				}
-			}
-			
-		}
 		
 		public  function getDeath():Number
 		{

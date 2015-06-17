@@ -9,21 +9,35 @@
 	import base.levels.map.parts.PiragnaSprite;
 	
 	import car.Car;
+	import car.enemyCar.AgresiveBlueCar;
+	import car.enemyCar.AgresiveRedCar;
+	import car.enemyCar.BlueCar;
+	import car.enemyCar.RedCar;
+	import car.enemyCar.Taxi;
+	import car.enemyCar.Truck;
 	
 	public class AIManager
 	{
 		private var context:Level1;
 		private var  raceLayerRectangles:Array;
 		private var  frontLayerRectangles:Array;
+		private var  carsLayerRectangles:Array;
 		
 		private var tamBorderX:Number = 200;
 		private var tamBorderY:Number = 15;
+		
+		private var tamCarX:Number = 38;
+		private var tamCarY:Number = 20;
+		
+		private var tamTruckX:Number = 65;
+		private var tamTruckY:Number = 23;
 		
 		public function AIManager(context:Level1)
 		{
 			this.context = context;
 			this.raceLayerRectangles = new Array();
 			this.frontLayerRectangles = new Array();
+			this.carsLayerRectangles = new Array();
 			this.generateRaceLayerRectangles();
 			this.generateFrontObjectsLayerRectangles();
 		}
@@ -95,28 +109,23 @@
 			this.raceLayerRectangles = new Array();
 			this.generateRaceLayerRectangles();
 			
-			
 			this.frontLayerRectangles = new Array();
 			this.generateFrontObjectsLayerRectangles();
 			
 			var mt:Matrix = new Matrix(.7071212775140268,.7071212775140268 ,-1.2247888166255514 ,1.2247888166255514,50,50);
 			var hr:Car = this.context.getHero();
-//			var hPoint:Point = new Point(hr.x +156, hr.y +95);
-			var hPoint:Point = new Point(hr.x+156 , hr.y+95);
+			var hPoint:Point = new Point(hr.x+156 - 47, hr.y+95 -26); //la primera suma es una constante de desface, la segunda otro desface de pivote
 			var tPoimt:Point = mt.transformPoint(hPoint);
 			
-			var tRectangle:Rectangle = new Rectangle(tPoimt.x,tPoimt.y, 31,18);	
+			var tRectangle:Rectangle = new Rectangle(tPoimt.x,tPoimt.y, tamCarX,tamCarY);	
 			
 			for each (var i:Rectangle in this.raceLayerRectangles) 
 			{
 				if(tRectangle.intersects(i))
 				{
 					trace("choca");
+//					this.context.setCurrentSpeed(0);
 				}		
-				else
-				{
-					//					trace ("no", i.x ,i.y , "carro" ,tPoimt.x, tPoimt.y);
-				}
 			}
 			
 			for each (var j:Rectangle in this.frontLayerRectangles) 
@@ -124,16 +133,170 @@
 				if(tRectangle.intersects(j))
 				{
 					trace("choca");
+//					this.context.setCurrentSpeed(0);
 				}		
-				else
-				{
-					//trace ("no", j.x ,j.y , "carro" ,tPoimt.x, tPoimt.y);
-				}
 			}
 			
+			var hPointCarro:Point = new Point(hr.x  , hr.y); // acá no hay desfaces por que a todos se les aplica el mismo pivote
+			var tPoimtCarro:Point = mt.transformPoint(hPointCarro);
+			var tRectangleCarro:Rectangle = new Rectangle(tPoimtCarro.x,tPoimtCarro.y, this.tamCarX,this.tamCarY);	
+		
+			//este es el mas importante, acá se mira si se estrelló contra otro carro, hueco o algo
+			checkCarsLayerEvents();
 			
+//			for each (var p:Rectangle in this.carsLayerRectangles) 
+//			{
+//				if(tRectangleCarro.intersects(p) && this.context.getHero().getState() != Car.EST_DRIFTING)
+//				{
+//					if(p.y >= tRectangleCarro.y ){
+//						this.context.getHero().drift(context.getCurrentSpeed(), false);
+//						this.context.setCurrentSpeed(0);
+//					}else{
+//						this.context.getHero().drift(context.getCurrentSpeed(), true);
+//						this.context.setCurrentSpeed(0);
+//					} 
+//				}		
+//			}
 			
 			return this.context;
+		}
+		
+		private function checkCarsLayerEvents():void
+		{
+			var mt:Matrix = new Matrix(.7071212775140268,.7071212775140268 ,-1.2247888166255514 ,1.2247888166255514,50,50);
+			var hr:Car = this.context.getHero();
+			var hPointCarro:Point = new Point(hr.x  , hr.y); // acá no hay desfaces por que a todos se les aplica el mismo pivote
+			var tPoimtCarro:Point = mt.transformPoint(hPointCarro);
+			var tRectangleCarro:Rectangle = new Rectangle(tPoimtCarro.x,tPoimtCarro.y, this.tamCarX,this.tamCarY);	
+			
+			var numChildRace:Number = this.context.getCarsLayer().numChildren;
+			for (var i:int = 0; i < this.context.getCarsLayer().numChildren; i++) 
+			{
+				var tempPiragna:Car = this.context.getCarsLayer().getChildAt(i) as Car;
+				if(tempPiragna is  AgresiveBlueCar)
+				{
+					var tCar:AgresiveBlueCar = tempPiragna as AgresiveBlueCar;
+					var tPoint:Point = new Point(tCar.x,tCar.y);
+					var tp_1:Point =  mt.transformPoint(tPoint);
+					var tRectangle:Rectangle = new Rectangle((tp_1.x ),
+						(tp_1.y) , this.tamCarX,this.tamCarY);	
+//					
+					if(tRectangleCarro.intersects(tRectangle) && this.context.getHero().getState() != Car.EST_DRIFTING)
+					{
+						if(tRectangle.y >= tRectangleCarro.y ){
+							this.context.getHero().drift(context.getCurrentSpeed(), false);
+							tCar.drift(tCar.speed,true);
+							this.context.setCurrentSpeed(0);
+						}else{
+							this.context.getHero().drift(context.getCurrentSpeed(), true);
+							tCar.drift(tCar.speed,false);
+							this.context.setCurrentSpeed(0);}
+					}
+					
+				}
+				if(tempPiragna is BlueCar)
+				{
+					var tCarblue:BlueCar = tempPiragna as BlueCar;
+					var tPointBX:Point = new Point(tCarblue.x,tCarblue.y);
+					var tp_1BC:Point =  mt.transformPoint(tPointBX);
+					var tRectangleBC:Rectangle = new Rectangle((tp_1BC.x ),
+						(tp_1BC.y) , this.tamCarX,this.tamCarY);	
+				
+					if(tRectangleCarro.intersects(tRectangleBC) && this.context.getHero().getState() != Car.EST_DRIFTING)
+					{
+						if(tRectangleBC.y >= tRectangleCarro.y ){
+							this.context.getHero().drift(context.getCurrentSpeed(), false);
+							tCarblue.drift(tCarblue.speed,true);
+							this.context.setCurrentSpeed(0);
+						}else{
+							this.context.getHero().drift(context.getCurrentSpeed(), true);
+							tCarblue.drift(tCarblue.speed,false);
+							this.context.setCurrentSpeed(0);}
+					}
+					
+				}
+				if(tempPiragna is AgresiveRedCar)
+				{
+					var tCar2:AgresiveRedCar = tempPiragna as AgresiveRedCar;
+					var tPointAR:Point = new Point(tCar2.x,tCar2.y);
+					var tp_1AR:Point =  mt.transformPoint(tPointAR);
+					var tRectangleAR:Rectangle = new Rectangle((tp_1AR.x ),
+						(tp_1AR.y) , this.tamCarX,this.tamCarY);	
+					
+					if(tRectangleCarro.intersects(tRectangleAR) && this.context.getHero().getState() != Car.EST_DRIFTING)
+					{
+						if(tRectangleAR.y >= tRectangleCarro.y ){
+							this.context.getHero().drift(context.getCurrentSpeed(), false);
+							tCar2.drift(tCar2.speed,true);
+							this.context.setCurrentSpeed(0);
+						}else{
+							this.context.getHero().drift(context.getCurrentSpeed(), true);
+							tCar2.drift(tCar2.speed,false);
+							this.context.setCurrentSpeed(0);}
+					}
+				}
+				if(tempPiragna is RedCar)
+				{
+					var tCarRed:RedCar = tempPiragna as RedCar;
+					var tPointRC:Point = new Point(tCarRed.x,tCarRed.y);
+					var tp_1RC:Point =  mt.transformPoint(tPointRC);
+					var tRectangleRC:Rectangle = new Rectangle((tp_1RC.x ),
+						(tp_1RC.y) , this.tamCarX,this.tamCarY);	
+					
+					if(tRectangleCarro.intersects(tRectangleRC) && this.context.getHero().getState() != Car.EST_DRIFTING)
+					{
+						if(tRectangleRC.y >= tRectangleCarro.y ){
+							this.context.getHero().drift(context.getCurrentSpeed(), false);
+							tCarRed.drift(tCarRed.speed,true);
+							this.context.setCurrentSpeed(0);
+						}else{
+							this.context.getHero().drift(context.getCurrentSpeed(), true);
+							tCarRed.drift(tCarRed.speed,false);
+							this.context.setCurrentSpeed(0);}
+					}
+				}
+				
+				if(tempPiragna is Taxi)
+				{
+					var tCar3:Taxi = tempPiragna as Taxi;
+					var tPointTa:Point = new Point(tCar3.x,tCar3.y);
+					var tp_1Ta:Point =  mt.transformPoint(tPointTa);
+					var tRectangleTa:Rectangle = new Rectangle((tp_1Ta.x ),
+						(tp_1Ta.y) , this.tamCarX,this.tamCarY);	
+				
+					if(tRectangleCarro.intersects(tRectangleTa) && this.context.getHero().getState() != Car.EST_DRIFTING)
+					{
+						if(tRectangleTa.y >= tRectangleCarro.y ){
+							this.context.getHero().drift(context.getCurrentSpeed(), false);
+							tCar3.drift(tCar3.speed,true);
+							this.context.setCurrentSpeed(0);
+						}else{
+							this.context.getHero().drift(context.getCurrentSpeed(), true);
+							tCar3.drift(tCar3.speed,false);
+							this.context.setCurrentSpeed(0);}
+					}
+				}
+				
+				if(tempPiragna is Truck)
+				{
+					var tCar4:Truck = tempPiragna as Truck;
+					var tPointTr:Point = new Point(tCar4.x,tCar4.y);
+					var tp_1Tr:Point =  mt.transformPoint(tPointTr);
+					var tRectangleTr:Rectangle = new Rectangle((tp_1Tr.x ),
+						(tp_1Tr.y) , this.tamTruckX,this.tamTruckY);	
+					
+					if(tRectangleCarro.intersects(tRectangleTr) && this.context.getHero().getState() != Car.EST_DRIFTING)
+					{
+						if(tRectangleTr.y >= tRectangleCarro.y ){
+							this.context.getHero().drift(context.getCurrentSpeed(), false);
+							this.context.setCurrentSpeed(0);
+						}else{
+							this.context.getHero().drift(context.getCurrentSpeed(), true);
+							this.context.setCurrentSpeed(0);}
+					}
+				}
+				
+			}			
 		}
 		
 		private function generateRaceLayerRectangles():void
