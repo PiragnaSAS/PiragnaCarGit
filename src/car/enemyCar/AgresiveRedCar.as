@@ -1,21 +1,36 @@
 package car.enemyCar
 {
-	import assets.Assets;
+
 	
 	import car.Car;
 	
-	import starling.display.Image;
 
 	public class AgresiveRedCar extends RedCar
 	{
 		public function AgresiveRedCar(pox:Number,poy:Number)
 		{
 			super(pox,poy);
-			/*this.setCarImage(new Image(Assets.getAtlasTexture("Cars","car_red")));
-			this.x=pox;
-			this.y=poy;
-			addChildAt(this.getCarImage(),0);
-			this.react(Car.EST_MOVING);*/
+		}
+		
+		override public function update():void{
+			if(this.getState() == Car.EST_DEFAULT)
+			{
+				if(movementX == 0){
+					
+					if(auxMovementX < .1 && auxMovementX > -.1){
+						auxMovementX = 0;
+						auxMovementY = 0;
+					}else{
+						auxMovementX *= .9;
+						auxMovementY = auxMovementX*Math.tan(Math.PI/6);
+					}	
+				}
+				this.x += auxMovementX;
+				this.y += auxMovementY;
+			}
+			if(this.getState() == Car.EST_DRIFTING){
+				super.handleDrift();
+			}
 		}
 	}
 }

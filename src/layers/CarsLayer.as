@@ -1,5 +1,7 @@
 package layers
 {
+	import flash.media.Camera;
+	
 	import assets.Assets;
 	
 	import car.Car;
@@ -43,6 +45,10 @@ package layers
 			actualDistance=8;
 			carsArray=new Array();
 			objectCarsArray=new Array();
+			var currentCar:Car;
+			currentCar=new BlueCar(205,205);
+			currentCar.speed = 7;
+			this.addChild(currentCar);
 			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 		}
 		
@@ -82,11 +88,11 @@ package layers
 //					trace("creando carro bonus");
 					break;
 				case("hole"):
-					currentObstacle=new Obstacle(new Image(Assets.getAtlasTexture("Cars","hole")),posx,posy,0);
+					currentObstacle=new Obstacle(new Image(Assets.getAtlasTexture("Cars","hole")),posx,posy,0,"hole");
 //					trace("creando hueco");
 					break;
 				case("oil"):
-					currentObstacle=new Obstacle(new Image(Assets.getAtlasTexture("Cars","oil")),posx,posy,1);
+					currentObstacle=new Obstacle(new Image(Assets.getAtlasTexture("Cars","oil")),posx,posy,1, "oil");
 //					trace("creando aceite");
 					break;
 			}	
@@ -175,6 +181,14 @@ package layers
 					
 					this.getChildAt(j).x -= (this.getSpeed()-this.getChildAt(j)["speed"])*factorx;
 					this.getChildAt(j).y -= (this.getSpeed()-this.getChildAt(j)["speed"])*factory;
+					
+					
+					if(this.getChildAt(j) is Car)
+					{
+						var c:Car = this.getChildAt(j) as Car;
+						c.update();					
+					}
+
 					
 					if(this.getChildAt(j).x < General.viewPortGame.width){
 							if(!this.getChildAt(j)["saw"]){

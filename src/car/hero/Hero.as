@@ -106,8 +106,6 @@ package car.hero
 		
 		override public function update():void{
 			timer.addEventListener(TimerEvent.TIMER,this.decreaseFuel);
-			
-			trace(getDriftImpulse());
 			if(this.getState() == Car.EST_DEFAULT)
 			{
 				if(movementX == 0){
@@ -121,13 +119,10 @@ package car.hero
 					}
 					
 				}
-				
-				trace("weqwkjjklwq",auxMovementX,auxMovementY);
 				this.x += auxMovementX;
 				this.y += auxMovementY;
 			}
 			if(this.getState() == Car.EST_DRIFTING){
-				trace("what's up bitch");
 				this.handleDrift();
 			}			
 		}
