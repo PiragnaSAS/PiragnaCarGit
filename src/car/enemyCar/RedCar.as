@@ -25,30 +25,5 @@ package car.enemyCar
 			this.setImage("exploding_red_image");
 			this.setState(Car.EST_EXPLODING);
 		}
-		
-		override public function update():void{
-			trace( "drift de rojo");
-			if(this.getState() == Car.EST_DEFAULT)
-			{
-				if(movementX == 0){
-					
-					if(auxMovementX < .1 && auxMovementX > -.1){
-						auxMovementX = 0;
-						auxMovementY = 0;
-					}else{
-						auxMovementX *= .9;
-						auxMovementY = auxMovementX*Math.tan(Math.PI/6);
-					}
-					
-				}
-				this.x += auxMovementX;
-				this.y += auxMovementY;
-			}
-			if(this.getState() == Car.EST_DRIFTING){
-				super.handleDrift();
-				trace( "drift de rojo");
-			}
-		}
-		
 	}
 }

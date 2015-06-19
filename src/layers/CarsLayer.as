@@ -51,8 +51,8 @@
 			objectCarsArray=new Array();
 			var currentCar:Car;
 			currentCar=new BlueCar(205,205);
-			currentCar.speed = 7;
-			this.addChild(currentCar);
+			currentCar.speed = 1;
+//			this.addChild(currentCar);
 			addEventListener(Event.ADDED_TO_STAGE, onAddedToStage);
 		}
 		
@@ -107,9 +107,7 @@
 			}
 			
 			if(currentObstacle!=null){
-				addChildAt(currentObstacle,0);
-				
-				
+				addChildAt(currentObstacle,0);				
 			}
 			
 		}

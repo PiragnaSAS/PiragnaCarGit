@@ -1,15 +1,20 @@
 package car.enemyCar
 {
+	import assets.Assets;
+	
 	import car.Car;
+	
+	import starling.display.Image;
 
-	public class BonusCar extends Taxi
+	public class BonusCar extends Car
 	{
 
-		private var bonusFuel:uint=25;
+		private var bonusFuel:uint=35;
+		private var isBonusTaken:Boolean = false;
 		
 		public function BonusCar(pox:Number,poy:Number) 
 		{
-			super(pox,poy);
+			super(pox,poy, new Image(Assets.getAtlasTexture("Cars","car_bonus"))); 
 			/*this.setCarImage(new Image(Assets.getAtlasTexture("Cars","car_bonus")));
 			this.x=pox;
 			this.y=poy;
@@ -45,5 +50,14 @@ package car.enemyCar
 			this.bonusFuel=newFuelvalue;
 		}
 	
+		public function bonusTaken():Boolean
+		{
+			return this.isBonusTaken;
+		}
+		
+		public function takeBonus():void
+		{
+			this.isBonusTaken = true;
+		}
 	}
 }

@@ -10,8 +10,7 @@
 	
 	import gameStates.GameState;
 	import gameStates.MenuState;
-	import gameStates.PlayState;
-	
+	import gameStates.PlayState;	
 	import inputHandler.InputHandler;
 	
 	import starling.core.Starling;

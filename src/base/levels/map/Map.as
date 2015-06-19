@@ -67,7 +67,7 @@ package base.levels.map
 			this.hero = hero;
 			trace(this.hero,hero);
 			this.numberOfModules = numberOfModules;
-			this.absoluteMaximumSpeed = 10;
+			this.absoluteMaximumSpeed = 5;
 			this.currentSpeed = 0;
 			this.targetSpeed = 0;
 

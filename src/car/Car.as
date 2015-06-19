@@ -2,8 +2,13 @@ package car
 {
 	import flash.geom.Point;
 	
+	import assets.Assets;
+	
+	import starling.core.Starling;
 	import starling.display.DisplayObject;
+	import starling.display.MovieClip;
 	import starling.display.Sprite;
+	import starling.events.Event;
 
 	public class Car extends Sprite 
 	{
@@ -12,6 +17,7 @@ package car
 		private var position:Point;
 		private var carImage:DisplayObject;
 		private var reactioned:Boolean;
+		private var isActive:Boolean = true;
 		
 		private var _movementX:Number, _movementY:Number;
 		private var _auxMovementX:Number, _auxMovementY:Number;
@@ -22,12 +28,13 @@ package car
 		public static const EST_EXPLODING:uint = EST_UNCONTROLLABLE + 1;
 		public static const EST_REVIVING:uint = EST_EXPLODING + 1;
 		public static const EST_DEFAULT:uint= EST_REVIVING +1;
+		public static const EST_EXPLODED:uint= EST_DEFAULT +1;
 		
 		//vars to handle drifts
 		private var driftDirection:Boolean; //0 left 1 right
 		private var driftImpulse:Number;
 
-		private var _speed:Number = 7;
+		private var _speed:Number = 2;
 		private var _saw:Boolean = false;
 		private var _inside:Number=0; 
 		
@@ -170,7 +177,7 @@ package car
 			{
 				this.movementX = -driftImpulse;
 				this.movementY = -driftImpulse*Math.tan(Math.PI/6);
-				driftImpulse*=.7;
+				driftImpulse*=.3;
 				if(driftImpulse<0.1){
 					driftImpulse = 0;		
 				}
@@ -186,7 +193,7 @@ package car
 			{
 				this.movementX = driftImpulse;
 				this.movementY = driftImpulse*Math.tan(Math.PI/6);
-				driftImpulse*=.7;
+				driftImpulse*=.3;
 				
 				if(driftImpulse<0.1){
 					driftImpulse = 0;		
@@ -232,8 +239,25 @@ package car
 			if(this.getState() == Car.EST_DRIFTING){
 				this.handleDrift();
 			}
+
+			if(this.getState() == Car.EST_EXPLODING){
+				this.handleExplode();
+			}
 		}
-		
+
+		private function handleExplode():void
+		{
+			this.setState(Car.EST_EXPLODED);
+			this.removeChildAt(0);
+			var crashImage:MovieClip = new MovieClip(Assets.getAtlasTextures("Cars","boom"),24);
+			crashImage.alignPivot();
+			crashImage.loop = false;
+			Starling.juggler.add(crashImage);
+			crashImage.play();
+			crashImage.addEventListener(Event.COMPLETE, function(){trace("some")});
+			this.addChild(crashImage);
+		}
+
 		public function getReactioned():Boolean
 		{
 			return this.reactioned;
@@ -242,6 +266,21 @@ package car
 		public function setReactioned(reactioned:Boolean):void
 		{
 			this.reactioned = reactioned;
+		}
+		
+		public  function explode():void
+		{
+			this.setState(Car.EST_EXPLODING);	
+		}
+		
+		public function getIsActive():Boolean
+		{
+			return this.isActive;
+		}
+		
+		public function setIsActive(active:Boolean):void
+		{
+			 this.isActive = active;
 		}
 
 	}

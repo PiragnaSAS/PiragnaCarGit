@@ -7,7 +7,10 @@ package car.hero
 	
 	import car.Car;
 	
+	import starling.core.Starling;
 	import starling.display.Image;
+	import starling.display.MovieClip;
+	import starling.events.Event;
 	
 	public class Hero extends Car{
 		
@@ -92,9 +95,16 @@ package car.hero
 		
 		public function decreaseFuel(event:TimerEvent):void{
 			if (fuel<=0){
-			//aqii va el evento que para el juego cuando se acaba la gasolina	
+				//aqii va el evento que para el juego cuando se acaba la gasolina	
 			}
 			this.fuel --;
+		}
+		
+		public function decreaseFuelByOne():void{
+			if (fuel<=0){
+				//aqii va el evento que para el juego cuando se acaba la gasolina	
+			}
+			this.fuel -=1;
 		}
 		
 		public function decreaseFuelBom():void{
@@ -124,9 +134,24 @@ package car.hero
 			}
 			if(this.getState() == Car.EST_DRIFTING){
 				this.handleDrift();
-			}			
+			}
+			if(this.getState() == Car.EST_EXPLODING){
+				this.handleExplode();
+			}
 		}
 		
+		private function handleExplode():void
+		{
+			this.setState(Car.EST_EXPLODED);
+			this.removeChildAt(0);
+			var crashImage:MovieClip = new MovieClip(Assets.getAtlasTextures("Cars","boom"),12);
+			crashImage.alignPivot();
+			crashImage.loop = false;
+			Starling.juggler.add(crashImage);
+			crashImage.play();
+			crashImage.addEventListener(Event.COMPLETE, function(){trace("some")});
+			this.addChild(crashImage);
+		}		
 		
 		public  function getDeath():Number
 		{
@@ -136,5 +161,6 @@ package car.hero
 		public function raiseDeath():void{
 			this.numberDeaths+=1;
 		}
+		
 	}
 }

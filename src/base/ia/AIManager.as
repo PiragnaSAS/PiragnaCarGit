@@ -12,6 +12,7 @@
 	import car.enemyCar.AgresiveBlueCar;
 	import car.enemyCar.AgresiveRedCar;
 	import car.enemyCar.BlueCar;
+	import car.enemyCar.BonusCar;
 	import car.enemyCar.RedCar;
 	import car.enemyCar.Taxi;
 	import car.enemyCar.Truck;
@@ -67,6 +68,7 @@
 			this.frontLayerRectangles = new Array();
 			this.generateFrontObjectsLayerRectangles();
 			
+			
 			var mt:Matrix = new Matrix(.7071212775140268,.7071212775140268 ,-1.2247888166255514 ,1.2247888166255514,50,50);
 			var hr:Car = this.context.getHero();
 			var hPoint:Point = new Point(hr.x+156 - 47, hr.y+95 -26); //la primera suma es una constante de desface, la segunda otro desface de pivote
@@ -74,36 +76,96 @@
 			
 			var tRectangle:Rectangle = new Rectangle(tPoimt.x,tPoimt.y, tamCarXForWall,tamCarYForWall);	
 			
-			for each (var i:Rectangle in this.raceLayerRectangles) 
-			{
-				if(tRectangle.intersects(i))
-				{
-					this.context.getHero().alpha = 0.5;
-				}		
-			}
 			
-			for each (var j:Rectangle in this.frontLayerRectangles) 
+			if(this.context.getHero().getState() != Car.EST_EXPLODED )
 			{
-				if(tRectangle.intersects(j))
+				for each (var i:Rectangle in this.raceLayerRectangles) 
 				{
-					trace("choca");
-					this.context.getHero().alpha = 0.5;
-//					this.context.setCurrentSpeed(0);
-				}		
+					if(tRectangle.intersects(i) )
+					{
+						this.context.getHero().explode();
+					}
+				}
+				
+				for each (var j:Rectangle in this.frontLayerRectangles) 
+				{
+					if(tRectangle.intersects(j))
+					{
+						trace("choca");
+						this.context.getHero().explode();
+					}		
+				}
+				
+				//este es el mas importante, acá se mira si se estrelló contra otro carro, hueco o algo
+				checkCarsLayerEvents();
+				checkCarsAndWallEvents();
+				checkCarsAndCarsEvents();
+				checkReactCarEvents();
 			}
-			
-			//este es el mas importante, acá se mira si se estrelló contra otro carro, hueco o algo
-			checkCarsLayerEvents();
-			checkCarsAndWallEvents();
-			checkCarsAndCarsEvents();
-			checkReactCarEvents();
-			checkHolesAndOilEvents();
+			if(this.context.getHero().getFuel() == 60 || this.context.getHero().getFuel() == 30)
+			{
+				putGasCar();
+				this.context.getHero().decreaseFuelByOne(); //para que en un mismo segundo no se generen mas bunos
+			}
 			return this.context;
 		}
 		
-		private function checkHolesAndOilEvents():void
+		private function putGasCar():void
 		{
-			// TODO Auto Generated method stub
+			var mt:Matrix = new Matrix(.7071212775140268,.7071212775140268 ,-1.2247888166255514 ,1.2247888166255514,50,50);
+			var hr:Car = this.context.getHero();
+			var hPointCarro:Point = new Point(hr.x  , hr.y); // acá no hay desfaces por que a todos se les aplica el mismo pivote
+			var tPoimtCarro:Point = mt.transformPoint(hPointCarro);
+			var tRectangleCarro:Rectangle = new Rectangle(tPoimtCarro.x,tPoimtCarro.y, this.tamCarX,this.tamCarY);	
+			
+			var founded:Boolean = false;
+			
+			var numChildRace:Number = this.context.getCarsLayer().numChildren;
+			for (var i:int = 0; i < this.context.getCarsLayer().numChildren; i++) 
+			{
+				if(this.context.getCarsLayer().getChildAt(i) is Car)
+				{
+					var tempPiragna:Car =  this.context.getCarsLayer().getChildAt(i) as Car; 
+					var hTempPiragna:Point = new Point(tempPiragna.x  , tempPiragna.y); // acá no hay desfaces por que a todos se les aplica el mismo pivote
+					var tTempPiragna:Point = mt.transformPoint(hTempPiragna);
+					var tRectangleTempPiragna:Rectangle = new Rectangle(tTempPiragna.x,tTempPiragna.y, this.tamCarX,this.tamCarY);	
+					if( tempPiragna is Taxi && !founded)
+					{
+						if(tRectangleTempPiragna.x > (tRectangleCarro.x + 50) )
+						{
+							var bonusCar:BonusCar = new BonusCar(tempPiragna.x,tempPiragna.y);
+							this.context.getCarsLayer().removeChildAt(i);	
+							this.context.getCarsLayer().addChildAt(bonusCar,i);	
+							founded = true;
+						}
+					}
+				}
+			}
+			
+			if(!founded)
+			{
+				for (var i:int = 0; i < this.context.getCarsLayer().numChildren; i++) 
+				{
+					if(this.context.getCarsLayer().getChildAt(i) is Car)
+					{
+						var tempPiragna2:Car =  this.context.getCarsLayer().getChildAt(i) as Car; 
+						var hTempPiragna2:Point = new Point(tempPiragna2.x  , tempPiragna2.y); // acá no hay desfaces por que a todos se les aplica el mismo pivote
+						var tTempPiragna2:Point = mt.transformPoint(hTempPiragna2);
+						var tRectangleTempPiragna2:Rectangle = new Rectangle(tTempPiragna2.x,tTempPiragna2.y, this.tamCarX,this.tamCarY);	
+						if( tempPiragna2 is RedCar || tempPiragna2 is BlueCar )
+						{
+							if(tRectangleTempPiragna2.x > (tRectangleCarro.x + 30) && !founded)
+							{
+								var bonusCar2:BonusCar = new BonusCar(tempPiragna2.x,tempPiragna2.y);
+								this.context.getCarsLayer().removeChildAt(i);	
+								this.context.getCarsLayer().addChildAt(bonusCar2,i);	
+								founded = true;
+							}
+							
+						}
+					}
+				}
+			}
 			
 		}
 		
@@ -131,11 +193,11 @@
 							tempPiragna.setReactioned(true)
 							if(tRectangle.y + 50 > tRectangleCarro.y)
 							{
-								tempPiragna.drift(tempPiragna.speed, false);
+								tempPiragna.drift(tempPiragna.speed+10, false);
 							}
 							else
 							{
-								tempPiragna.drift(tempPiragna.speed, true);
+								tempPiragna.drift(tempPiragna.speed+5, true);
 							}
 						}
 						
@@ -181,10 +243,15 @@
 										var hPointCarroj:Point = new Point(tempPiragnaj.x  , tempPiragnaj.y); // acá no hay desfaces por que a todos se les aplica el mismo pivote
 										var tPoimtCarroj:Point = mt.transformPoint(hPointCarroj);
 										var tRectangleCarroj:Rectangle = new Rectangle(tPoimtCarroj.x,tPoimtCarroj.y, this.tamCarX,this.tamCarY);	
-										if(tRectangleCarro.intersects(tRectangleCarroj))
+										if(tRectangleCarro.intersects(tRectangleCarroj) && tempPiragna.getIsActive() && tempPiragnaj.getIsActive())
 										{
 											tempPiragna.speed = 0;
+											tempPiragna.explode();	
+											tempPiragna.setIsActive(false);
+											
 											tempPiragnaj.speed = 0;
+											tempPiragnaj.explode();
+											tempPiragnaj.setIsActive(false);
 										}
 										
 									}
@@ -223,8 +290,8 @@
 						{
 							if(tRectangle_up.intersects(m)  && (m.y > (tRectangle_up.y) +1 ))
 							{
-								trace("choca enemigo con pared");
-								tempPiragna.speed = 0;
+								tempPiragna.explode();
+								tempPiragna.setIsActive(false);
 							}		
 						}
 						
@@ -232,8 +299,8 @@
 						{
 							if(tRectangle_down.intersects(j) && (j.y < (tRectangle_up.y +1 )))
 							{
-								trace("choca enemigo con pared");
-								tempPiragna.speed = 0;
+								tempPiragna.explode();
+								tempPiragna.setIsActive(false);
 							}		
 						}
 					}	
@@ -266,25 +333,27 @@
 						var tRectangle:Rectangle = new Rectangle((tp_1.x ),
 							(tp_1.y) , this.tamCarX,this.tamCarY);	
 						//					
-						if(tRectangleCarro.intersects(tRectangle))
+						if(tRectangleCarro.intersects(tRectangle) && tempPiragna.getIsActive())
 						{
 							if(this.context.getHero().getState() != Car.EST_DRIFTING)
 							{
 								if(tRectangle.y >= tRectangleCarro.y ){
 									this.context.getHero().drift(context.getCurrentSpeed(), false);
-									tempPiragna.drift(10,true);
-									tempPiragna.alpha = 0.5;
+									tempPiragna.drift(tempPiragna.speed + 10,true);
+									tempPiragna.explode();
+									tempPiragna.setIsActive(false);
 									this.context.setCurrentSpeed(0);
 								}else
 								{
 									this.context.getHero().drift(context.getCurrentSpeed(), true);
-									tempPiragna.drift(10,false);
-									tempPiragna.alpha = 0.5;
+									tempPiragna.drift(tempPiragna.speed + 10 ,false);
+									tempPiragna.setIsActive(false);
+									tempPiragna.explode();
 									this.context.setCurrentSpeed(0);
 								}
 							}else if(this.context.getHero().getState() == Car.EST_DRIFTING)
 							{
-								this.context.getHero().alpha = 0.5;
+								this.context.getHero().explode();
 							}
 						}
 					}
@@ -300,11 +369,25 @@
 						if(tRectangleCarro.intersects(tRectangleTr) && this.context.getHero().getState() != Car.EST_DRIFTING)
 						{
 							if(tRectangleTr.y >= tRectangleCarro.y ){
-								this.context.getHero().drift(context.getCurrentSpeed(), false);
+								this.context.getHero().explode();
 								this.context.setCurrentSpeed(0);
 							}else{
-								this.context.getHero().drift(context.getCurrentSpeed(), true);
+								this.context.getHero().explode();
 								this.context.setCurrentSpeed(0);}
+						}
+					}
+					if(tempPiragna is BonusCar)
+					{
+						var tCarB:BonusCar = tempPiragna as BonusCar;
+						var tPointB:Point = new Point(tCarB.x,tCarB.y);
+						var tp_1B:Point =  mt.transformPoint(tPointB);
+						var tRectangleB:Rectangle = new Rectangle((tp_1B.x ),
+							(tp_1B.y) , this.tamCarX,this.tamCarX);	
+						
+						if(tRectangleCarro.intersects(tRectangleB) && !tCarB.bonusTaken())
+						{
+							this.context.getHero().raiseFuel(tCarB.getBonusFuel());
+							tCarB.takeBonus();
 						}
 					}
 				}else
@@ -344,7 +427,7 @@
 							if(tRectangleH.intersects(tRectangleCarro))
 							{
 								trace("hace intersec con hole");
-								this.context.getHero().alpha = 0.5;
+								this.context.getHero().explode();
 							}
 						}
 					}

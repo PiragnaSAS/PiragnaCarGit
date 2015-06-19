@@ -55,6 +55,8 @@
 		private var Layer:Object;
 		
 		private var winer:Winer;
+		
+		private var ended:Boolean = false;
 				
 		public function Level1(mapAdress:String,_hero:Hero, levers:InputHandler){	
 			
@@ -158,6 +160,7 @@
 				if(this.getHero().x > General.viewPortGame.width+100){
 						addChild(winer);
 				}
+				this.ended = true;
 				
 			}else{
 				
@@ -309,6 +312,11 @@
 			
 
 			return true;
-		}		
+		}
+		
+		public function isEnded():Boolean
+		{
+			return this.ended;
+		}
 	}
 }

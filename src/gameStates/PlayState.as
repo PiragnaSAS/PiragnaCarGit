@@ -27,28 +27,41 @@ package gameStates
 		public function PlayState(name:String){
 			super(name);
 			this.levels = [];//Hero creations
-			this.hero = new Hero(100,100);
+			this.hero = new Hero(180,180);
 			
 			//Levers creation
 			this.levers=new InputHandler();
 			
 			//Levels
 			this.level1= new Level1("1",hero, levers);
-			this.levels[0] = level1;
+			this.levels[currentLevel] = level1;
 			
 			addChild(levels[currentLevel]);
 		}
 		
 		override public function update():void{
 			
-			if(levels[currentLevel].update()){
-				if(!this.iALoaded ){
-					this.iALoaded = true;
-					this.aiManager = new AIManager(this.levels[currentLevel]);
-				}else{
-					updateIA();
-				}				
-			}			
+			if(!this.levels[currentLevel].isEnded())
+			{
+				if(levels[currentLevel].update()){
+					if(!this.iALoaded ){
+						this.iALoaded = true;
+						this.aiManager = new AIManager(this.levels[currentLevel]);
+					}
+					else
+					{
+						updateIA();
+					}				
+				}
+			}else
+			{
+				currentLevel = currentLevel + 1;
+				var level2:Level1 = new Level1("1",hero, this.levers);
+				this.levels[currentLevel] = level2;
+//				this.removeChildAt(0);
+				this.addChild(levels[currentLevel]);
+			}
+			
 		}
 		
 		private function updateIA():void
