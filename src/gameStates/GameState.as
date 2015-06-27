@@ -21,7 +21,6 @@ package gameStates
 		
 		public function update():void{
 			throw new AbstractMethodError();
-		}
-		
+		}		
 	}
 }

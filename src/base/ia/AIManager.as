@@ -6,6 +6,7 @@
 	import flash.geom.Rectangle;
 	
 	import base.levels.map.Level1;
+	import base.levels.map.Loser;
 	import base.levels.map.parts.PiragnaSprite;
 	
 	import car.Car;
@@ -16,6 +17,7 @@
 	import car.enemyCar.RedCar;
 	import car.enemyCar.Taxi;
 	import car.enemyCar.Truck;
+	import car.hero.Hero;
 	
 	import collitionableObjects.groundCollitionableObjects.Obstacle;
 	
@@ -81,18 +83,19 @@
 			{
 				for each (var i:Rectangle in this.raceLayerRectangles) 
 				{
-					if(tRectangle.intersects(i) )
+					if(tRectangle.intersects(i) && !this.context.getHero().isCrashed())
 					{
 						this.context.getHero().explode();
+						this.context.getHero().setCrashed(true);
 					}
 				}
 				
 				for each (var j:Rectangle in this.frontLayerRectangles) 
 				{
-					if(tRectangle.intersects(j))
+					if(tRectangle.intersects(j) && !this.context.getHero().isCrashed())
 					{
-						trace("choca");
 						this.context.getHero().explode();
+						this.context.getHero().setCrashed(true);
 					}		
 				}
 				
@@ -107,7 +110,47 @@
 				putGasCar();
 				this.context.getHero().decreaseFuelByOne(); //para que en un mismo segundo no se generen mas bunos
 			}
+			checkHeroOver();
 			return this.context;
+		}
+		
+		private function checkHeroOver():void
+		{
+			if(this.context.getHero().getState() == Car.EST_EXPLODED)
+			{
+				trace("isExploded");
+				this.reduceLifes();
+				this.reCreateHero();
+			}
+			if(this.context.getHero().isBlockFuel() && this.context.getHero().speed == 0)
+			{
+				trace("isover");
+				this.reduceLifes();
+				this.reCreateHero();
+			}
+		}
+		
+		private function reCreateHero():void
+		{
+			if(this.context.getLifes()> 0)
+			{
+				this.context.getHero().setState(Car.EST_REVIVING);
+			}else
+			{
+				this.context.addChild(new Loser());
+			}
+		}
+		
+		private function reduceLifes():void
+		{
+			if(this.context.getLifes() > 0)
+			{
+				this.context.reduceLife();			
+			}
+			else
+			{
+				this.context.setOutOfGas(true);
+			}	
 		}
 		
 		private function putGasCar():void
@@ -247,10 +290,12 @@
 										{
 											tempPiragna.speed = 0;
 											tempPiragna.explode();	
+											tempPiragna.alpha = 0;
 											tempPiragna.setIsActive(false);
 											
 											tempPiragnaj.speed = 0;
 											tempPiragnaj.explode();
+											tempPiragna.alpha = 0;
 											tempPiragnaj.setIsActive(false);
 										}
 										
@@ -292,6 +337,7 @@
 							{
 								tempPiragna.explode();
 								tempPiragna.setIsActive(false);
+								tempPiragna.alpha = 0;
 							}		
 						}
 						
@@ -301,6 +347,7 @@
 							{
 								tempPiragna.explode();
 								tempPiragna.setIsActive(false);
+								tempPiragna.alpha = 0;
 							}		
 						}
 					}	
@@ -340,20 +387,15 @@
 								if(tRectangle.y >= tRectangleCarro.y ){
 									this.context.getHero().drift(context.getCurrentSpeed(), false);
 									tempPiragna.drift(tempPiragna.speed + 10,true);
-									tempPiragna.explode();
-									tempPiragna.setIsActive(false);
-									this.context.setCurrentSpeed(0);
 								}else
 								{
 									this.context.getHero().drift(context.getCurrentSpeed(), true);
 									tempPiragna.drift(tempPiragna.speed + 10 ,false);
-									tempPiragna.setIsActive(false);
-									tempPiragna.explode();
-									this.context.setCurrentSpeed(0);
 								}
-							}else if(this.context.getHero().getState() == Car.EST_DRIFTING)
+							}else if(this.context.getHero().getState() == Car.EST_DRIFTING && !this.context.getHero().isCrashed())
 							{
 								this.context.getHero().explode();
+								this.context.getHero().setCrashed(true);
 							}
 						}
 					}
@@ -368,12 +410,18 @@
 						
 						if(tRectangleCarro.intersects(tRectangleTr) && this.context.getHero().getState() != Car.EST_DRIFTING)
 						{
-							if(tRectangleTr.y >= tRectangleCarro.y ){
+							if(tRectangleTr.y >= tRectangleCarro.y && !this.context.getHero().isCrashed()){
 								this.context.getHero().explode();
+								this.context.getHero().setCrashed(true);
 								this.context.setCurrentSpeed(0);
 							}else{
-								this.context.getHero().explode();
-								this.context.setCurrentSpeed(0);}
+								if (!this.context.getHero().isCrashed())
+								{
+									this.context.getHero().explode();
+									this.context.getHero().setCrashed(true);
+									this.context.setCurrentSpeed(0);
+								}
+							}
 						}
 					}
 					if(tempPiragna is BonusCar)
@@ -388,6 +436,7 @@
 						{
 							this.context.getHero().raiseFuel(tCarB.getBonusFuel());
 							tCarB.takeBonus();
+							tCarB.alpha=0;
 						}
 					}
 				}else
@@ -424,10 +473,10 @@
 							var tRectangleH:Rectangle = new Rectangle((tp_1H.x ),
 								(tp_1H.y) , this.tamHoleX,this.tamHoleY);
 							
-							if(tRectangleH.intersects(tRectangleCarro))
+							if(tRectangleH.intersects(tRectangleCarro) && !this.context.getHero().isCrashed())
 							{
-								trace("hace intersec con hole");
 								this.context.getHero().explode();
+								this.context.getHero().setCrashed(true);
 							}
 						}
 					}

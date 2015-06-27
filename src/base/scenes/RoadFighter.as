@@ -10,13 +10,13 @@
 	
 	import gameStates.GameState;
 	import gameStates.MenuState;
-	import gameStates.PlayState;	
+	import gameStates.PlayState;
+	
 	import inputHandler.InputHandler;
 	
 	import starling.core.Starling;
 	import starling.display.Sprite;
 	import starling.events.Event;
-	import car.hero.Hero;
 
 
 	public class RoadFighter extends Sprite
@@ -27,10 +27,12 @@
 		
 		private var currentState:GameState;
 		private var playState:GameState;
+		private var playState2:GameState;
 		private var menuState:GameState;
 		private var levers:InputHandler;
 		private var level1:Level1;
 		private var levels:Array;
+		private var currentLevel:uint = 1;
 			
 		public function RoadFighter()
 		{			
@@ -50,33 +52,17 @@
 			Assets.scaleFactorContent = Starling.current.contentScaleFactor;
 			Assets.prepareBitmapFonts("Font");			
 			
-			playState = new PlayState("PlayState");
+			playState = new PlayState(currentLevel.toString());
+			playState2 = new PlayState(currentLevel.toString());
 			menuState = new MenuState("MenuState");
 			
 			currentState = playState;
 			
 			statesDictionary[playState.getName()] = playState;
 			statesDictionary[menuState.getName()] = menuState;
+			statesDictionary["2"] = playState2;
 			
 			addChild(currentState);
-
-//			//Levers creation
-//			this.levers=new InputHandler();
-//					
-//			//Levels
-//			var hero:Hero;
-//			this.level1= new Level1("1",hero, levers);
-//			this.levels[0] = level1;
-//					
-//			this.addChild(this.level1);
-			
-			
-//			var q:Quad = new Quad(General.viewPortGame.width,General.viewPortGame.height);
-//			q.alpha = .5;
-//			scaleX = scaleY = .2;
-//			addChild(q);
-//			x = General.viewPortGame.width/2;
-//			y = General.viewPortGame.height/2;
 		}	
 		
 		public function cargarLevel():void{			
@@ -86,6 +72,15 @@
 		{
 			//hilo principal
 			update();
+			if(currentState is PlayState)
+			{
+				var pState:PlayState = currentState as PlayState;
+				if(pState.isEnded())
+				{
+					currentLevel++;
+					this.setCurrentState(currentLevel.toString());
+				}
+			}
 		}
 	
 		private function update():void
@@ -94,8 +89,9 @@
 		}
 		
 		private function setCurrentState(state:String):void{
-			currentState.dispose();
+			this.removeChildAt(0);
 			currentState = statesDictionary[state];
+			this.addChild(currentState);
 		}
 	}
 }

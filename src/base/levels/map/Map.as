@@ -10,6 +10,7 @@ package base.levels.map
 	import base.levels.map.parts.Administrador;
 	import base.levels.map.parts.Tiles;
 	
+	import car.Car;
 	import car.hero.Hero;
 	
 	import collitionableObjects.superHeroes.SuperHero;
@@ -65,7 +66,6 @@ package base.levels.map
 		public function Map(scene:String, hero:Hero, levers:InputHandler, numberOfModules:uint){	
 			
 			this.hero = hero;
-			trace(this.hero,hero);
 			this.numberOfModules = numberOfModules;
 			this.absoluteMaximumSpeed = 5;
 			this.currentSpeed = 0;
@@ -146,7 +146,10 @@ package base.levels.map
 		
 		public function onAcelerate(e:LeverEvent):void{	
 			var targetSpeed:Number = e.data.rotationValue*6;
-			
+			if(this.getHero().isBlockFuel() || this.getHero().isCrashed()|| this.getHero().getState() == Car.EST_EXPLODED )
+			{
+				targetSpeed = 0;
+			}
 			this.setTargetSpeed(targetSpeed);
 		}
 				

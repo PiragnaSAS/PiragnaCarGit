@@ -18,8 +18,11 @@ package car.hero
 		private var fuel:uint = 100;
 		private var speed:Number = 2;
 		private var numberDeaths:Number=0;
+		private var lockFuel:Boolean=false;
 		
 		private var timer:Timer;
+		private var crashed:Boolean = false;
+		private var timerReviving:Timer;
 		
 		public function Hero(x=435, y=335){
 
@@ -33,6 +36,7 @@ package car.hero
 			this.addChild(this.getCarImage());
 			this.setState(Car.EST_DEFAULT);
 			this.timer=new Timer(350,0);
+			this.crashed = false;
 			timer.start();
 		}
 		
@@ -97,14 +101,20 @@ package car.hero
 			if (fuel<=0){
 				//aqii va el evento que para el juego cuando se acaba la gasolina	
 			}
-			this.fuel --;
+			if(!this.lockFuel)
+			{
+				this.fuel --;
+			}
 		}
 		
 		public function decreaseFuelByOne():void{
 			if (fuel<=0){
 				//aqii va el evento que para el juego cuando se acaba la gasolina	
 			}
-			this.fuel -=1;
+			if(!this.lockFuel)
+			{
+				this.fuel -=1;
+			}
 		}
 		
 		public function decreaseFuelBom():void{
@@ -138,6 +148,34 @@ package car.hero
 			if(this.getState() == Car.EST_EXPLODING){
 				this.handleExplode();
 			}
+			if(this.getState() == Car.EST_REVIVING){
+				this.handleReviving();
+			}
+			if(this.getFuel() == 0)
+			{
+				this.blockFuel();
+			}
+		}
+		
+		private function handleReviving():void
+		{
+			this.timerReviving =new Timer(2000,1);
+			this.timerReviving.start();
+			this.timerReviving.addEventListener(TimerEvent.TIMER, this.reviveHero);
+
+		}
+		
+		private function reviveHero(e:TimerEvent):void
+		{
+			this.removeChildAt(0);
+			this.setCarImage( new Image(Assets.getAtlasTexture("Cars","car_red")));
+			this.getCarImage().alignPivot();
+			this.x = 150;
+			this.y = 150;
+			this.setState(Car.EST_DEFAULT);
+			this.addChild(this.getCarImage());
+			this.setState(Car.EST_DEFAULT);
+			this.crashed = false;
 		}
 		
 		private function handleExplode():void
@@ -160,6 +198,26 @@ package car.hero
 		
 		public function raiseDeath():void{
 			this.numberDeaths+=1;
+		}
+		
+		public function isBlockFuel():Boolean
+		{
+			return this.lockFuel;
+		}
+		
+		public function blockFuel():Boolean
+		{
+			return this.lockFuel = true;
+		}
+		
+		public function isCrashed():Boolean
+		{
+			return this.crashed;
+		}
+		
+		public function setCrashed(crash:Boolean):void
+		{
+			this.crashed = crash;
 		}
 		
 	}

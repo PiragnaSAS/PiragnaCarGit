@@ -1,5 +1,6 @@
 ﻿package base.levels.map
 {
+	import flash.events.TimerEvent;
 	import flash.utils.Timer;
 	
 	import car.hero.Hero;
@@ -57,6 +58,12 @@
 		private var winer:Winer;
 		
 		private var ended:Boolean = false;
+		private var over:Boolean = false;
+		private var outOfGas:Boolean = false;
+		
+		private var timerSetEnd:Timer;
+	
+		private var lifes:Number  = 3; 
 				
 		public function Level1(mapAdress:String,_hero:Hero, levers:InputHandler){	
 			
@@ -160,7 +167,9 @@
 				if(this.getHero().x > General.viewPortGame.width+100){
 						addChild(winer);
 				}
-				this.ended = true;
+				this.timerSetEnd =new Timer(5000,1);
+				this.timerSetEnd.start();
+				this.timerSetEnd.addEventListener(TimerEvent.TIMER, function(){this.ended = true;});
 				
 			}else{
 				
@@ -308,15 +317,32 @@
 			this.currentDistance += this.getCurrentSpeed();
 			this.getProgress().upDateProgress(currentDistance/totalDistance);	
 			this.getTrain().updateTrain(getHero().getFuel(),getHero().getScore(),this.getCurrentSpeed());
-			
-			
-
 			return true;
 		}
 		
 		public function isEnded():Boolean
 		{
 			return this.ended;
+		}
+		
+		public function reduceLife():void
+		{
+			this.lifes = this.lifes -1;
+		}
+		
+		public function getLifes():Number
+		{
+			return this.lifes;
+		}
+		
+		public function isOutOfGas():Boolean
+		{
+			return this.outOfGas;
+		}
+		
+		public function setOutOfGas(outGas:Boolean):void
+		{
+			this.outOfGas = outGas;
 		}
 	}
 }

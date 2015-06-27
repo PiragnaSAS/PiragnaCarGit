@@ -18,8 +18,11 @@ package gameStates
 		private var hero2:Hero;
 		private var aiManager:AIManager;
 		private var gestorMap:GestorMap;
+		private var level2:Level1 ;
+		private var ended:Boolean = false
 		
 		private var levers:InputHandler;
+		private var levers2:InputHandler;
 		private var iALoaded:Boolean = false;
 		//		private var xxxx:Number;
 		//		private var yyyy:Number;
@@ -27,13 +30,14 @@ package gameStates
 		public function PlayState(name:String){
 			super(name);
 			this.levels = [];//Hero creations
-			this.hero = new Hero(180,180);
+			this.hero = new Hero(150,150);
+			this.hero2 = new Hero(180,180);
 			
 			//Levers creation
 			this.levers=new InputHandler();
-			
+			this.levers2=new InputHandler();
 			//Levels
-			this.level1= new Level1("1",hero, levers);
+			this.level1= new Level1(name,hero, this.levers);
 			this.levels[currentLevel] = level1;
 			
 			addChild(levels[currentLevel]);
@@ -55,11 +59,7 @@ package gameStates
 				}
 			}else
 			{
-				currentLevel = currentLevel + 1;
-				var level2:Level1 = new Level1("1",hero, this.levers);
-				this.levels[currentLevel] = level2;
-//				this.removeChildAt(0);
-				this.addChild(levels[currentLevel]);
+				this.ended = true;
 			}
 			
 		}
@@ -67,6 +67,11 @@ package gameStates
 		private function updateIA():void
 		{
 			this.levels[currentLevel] = this.aiManager.update();
+		}
+		
+		public function isEnded():Boolean
+		{
+			return this.ended;
 		}
 	}
 }

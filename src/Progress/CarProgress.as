@@ -12,7 +12,7 @@ package Progress
 		private var carImage:Image;
 		public function CarProgress()
 		{
-		carImage = new Image(Assets.getAtlasTexture("Gui", "car_progress"));
+		carImage = new Image(Assets.getAtlasTexture("Cars","car_red"));
 		carImage.alignPivot("center","center");
 		carImage.width=General.viewPortGame.width/25;
 		carImage.height=General.viewPortGame.width/25;
